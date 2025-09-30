@@ -1,0 +1,60 @@
+- What is the Internet?
+- What is the Web?
+- What is a web server?
+- What is a URL?
+- What is HTTP?
+- What is HTTPS?
+- What is an IP address?
+- What is a domain?
+- What is hosting?
+- What is SSL?
+- What is a web browser?
+- How does a web browser work?
+- How do browsers render HTML?
+- What is a web page?
+- What is a website?
+- What is static content?
+- What is dynamic content?
+- What is client-server communication?
+- What is SEO?
+- What is Responsive Web Design (RWD)?
+- What is text?
+- What is a hyperlink?
+- What is hypertext?
+- What is a language?
+- What is programming?
+- What is markup?
+- What is a programming language?
+- What is a markup language?
+- What is a preprocessor language?
+- What is a compiler?
+- What is a transpiler?
+- What is the difference between static and dynamic programming languages?
+- What is a library?
+- What is a framework?
+- What is HTML?
+- What does HTML do?
+- What does HTML contain?
+- How do HTML elements tell the browser how to display content?
+- What is an element?
+- What is a tag?
+- What is an attribute?
+- What is a self-closing tag?
+- What is CSS?
+- What is JavaScript?
+- What is “front-end”?
+- What is a client?
+- What is a server?
+- What is “back-end”?
+- What is a database?
+- What is a text editor?
+- What is a code editor?
+- What is an IDE?
+- What is VSCode?
+- What is DevTools?
+- What is a project?
+- What is a portfolio?
+- What is UI/UX?
+- What is Figma?
+- What is continuous learning?
+- Why is learning English important for programming?
