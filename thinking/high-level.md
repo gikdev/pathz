@@ -1,0 +1,8 @@
+- What is a website?
+- What is front-end development?
+- What is HTML?
+- What is CSS?
+- What is JavaScript?
+- What is back-end development?
+- What is VSCode?
+- What is Chrome + DevTools?

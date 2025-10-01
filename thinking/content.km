@@ -1,0 +1,108 @@
+{
+    "root": {
+        "data": {
+            "id": "dd6ufvqba200",
+            "created": 1759307447241,
+            "text": "PathZ",
+            "progress": null,
+            "priority": null,
+            "expandState": "expand"
+        },
+        "children": [
+            {
+                "data": {
+                    "id": "dd6vb48g4h40",
+                    "created": 1759309895041,
+                    "text": "Basics",
+                    "expandState": "expand"
+                },
+                "children": [
+                    {
+                        "data": {
+                            "id": "dd6vby6sd4o0",
+                            "created": 1759309960244,
+                            "text": "Internet",
+                            "expandState": "expand"
+                        },
+                        "children": []
+                    },
+                    {
+                        "data": {
+                            "id": "dd6vfbfkf0w0",
+                            "created": 1759310224165,
+                            "text": "Web",
+                            "expandState": "expand"
+                        },
+                        "children": []
+                    },
+                    {
+                        "data": {
+                            "id": "dd6vb7442uw0",
+                            "created": 1759309901309,
+                            "text": "Website",
+                            "expandState": "expand"
+                        },
+                        "children": []
+                    },
+                    {
+                        "data": {
+                            "id": "dd6vbb309tk0",
+                            "created": 1759309909949,
+                            "text": "web page",
+                            "expandState": "expand"
+                        },
+                        "children": []
+                    },
+                    {
+                        "data": {
+                            "id": "dd6vg59piqw0",
+                            "created": 1759310289115,
+                            "text": "Client & Server",
+                            "expandState": "expand"
+                        },
+                        "children": []
+                    },
+                    {
+                        "data": {
+                            "id": "dd6vg7don0w0",
+                            "created": 1759310293708,
+                            "text": "Front-end & Back-end",
+                            "expandState": "expand"
+                        },
+                        "children": []
+                    },
+                    {
+                        "data": {
+                            "id": "dd6vgdtvt2o0",
+                            "created": 1759310307749,
+                            "text": "Browser & Web Server",
+                            "expandState": "expand"
+                        },
+                        "children": []
+                    },
+                    {
+                        "data": {
+                            "id": "dd6vwbsw6w80",
+                            "created": 1759311557162,
+                            "text": "Domain",
+                            "expandState": "expand"
+                        },
+                        "children": []
+                    },
+                    {
+                        "data": {
+                            "id": "dd6vyc41up40",
+                            "created": 1759311714565,
+                            "text": "IP",
+                            "expandState": "expand"
+                        },
+                        "children": []
+                    }
+                ]
+            }
+        ]
+    },
+    "template": "default",
+    "theme": "snow",
+    "version": "1.4.43"
+}

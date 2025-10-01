@@ -1,0 +1,113 @@
+{
+  "$schema": "https://raw.githubusercontent.com/dineug/erd-editor/main/json-schema/schema.json",
+  "version": "3.0.0",
+  "settings": {
+    "width": 2000,
+    "height": 2000,
+    "scrollTop": -20,
+    "scrollLeft": 0,
+    "zoomLevel": 1,
+    "show": 511,
+    "database": 32,
+    "databaseName": "",
+    "canvasType": "ERD",
+    "language": 1,
+    "tableNameCase": 4,
+    "columnNameCase": 2,
+    "bracketType": 1,
+    "relationshipDataTypeSync": true,
+    "relationshipOptimization": false,
+    "columnOrder": [
+      1,
+      2,
+      4,
+      8,
+      16,
+      32,
+      64
+    ],
+    "maxWidthComment": -1,
+    "ignoreSaveSettings": 0
+  },
+  "doc": {
+    "tableIds": [],
+    "relationshipIds": [],
+    "indexIds": [],
+    "memoIds": []
+  },
+  "collections": {
+    "tableEntities": {
+      "vKgUc6BUi1APuFVPy46w5": {
+        "id": "vKgUc6BUi1APuFVPy46w5",
+        "name": "User",
+        "comment": "",
+        "columnIds": [
+          "cjqnF3Ca4xmhPicW1rZtg",
+          "dd2oHKun-Q9GZQouxLUS0"
+        ],
+        "seqColumnIds": [
+          "cjqnF3Ca4xmhPicW1rZtg",
+          "dd2oHKun-Q9GZQouxLUS0"
+        ],
+        "ui": {
+          "x": 200,
+          "y": 100,
+          "zIndex": 2,
+          "widthName": 60,
+          "widthComment": 60,
+          "color": ""
+        },
+        "meta": {
+          "updateAt": 1759324109202,
+          "createAt": 1759324052891
+        }
+      }
+    },
+    "tableColumnEntities": {
+      "cjqnF3Ca4xmhPicW1rZtg": {
+        "id": "cjqnF3Ca4xmhPicW1rZtg",
+        "tableId": "vKgUc6BUi1APuFVPy46w5",
+        "name": "",
+        "comment": "",
+        "dataType": "",
+        "default": "",
+        "options": 13,
+        "ui": {
+          "keys": 0,
+          "widthName": 60,
+          "widthComment": 60,
+          "widthDataType": 60,
+          "widthDefault": 60
+        },
+        "meta": {
+          "updateAt": 1759324102120,
+          "createAt": 1759324064023
+        }
+      },
+      "dd2oHKun-Q9GZQouxLUS0": {
+        "id": "dd2oHKun-Q9GZQouxLUS0",
+        "tableId": "vKgUc6BUi1APuFVPy46w5",
+        "name": "",
+        "comment": "",
+        "dataType": "",
+        "default": "",
+        "options": 0,
+        "ui": {
+          "keys": 0,
+          "widthName": 60,
+          "widthComment": 60,
+          "widthDataType": 60,
+          "widthDefault": 60
+        },
+        "meta": {
+          "updateAt": 1759324109202,
+          "createAt": 1759324109202
+        }
+      }
+    },
+    "relationshipEntities": {},
+    "indexEntities": {},
+    "indexColumnEntities": {},
+    "memoEntities": {}
+  }
+}
