@@ -26,13 +26,13 @@ export class Folder {
   @Column({ type: "simple-enum", enum: FolderType, nullable: true })
   type: FolderType | null
 
-  @OneToMany(() => Piece, p => p.folder, { onDelete: "CASCADE" })
+  @OneToMany(() => Piece, p => p.folder, { onDelete: "CASCADE", cascade: true })
   pieces: Piece[]
 
   @ManyToMany(() => Folder, f => f.subFolders)
   @JoinTable()
   parentFolders: Folder[]
 
-  @ManyToMany(() => Folder, f => f.parentFolders)
+  @ManyToMany(() => Folder, f => f.parentFolders, { onDelete: "CASCADE" })
   subFolders: Folder[]
 }

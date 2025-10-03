@@ -6,6 +6,7 @@ import {
   IsString,
   Min,
   MinLength,
+  IsArray,
 } from "class-validator"
 import { FolderType } from "../folder-type.enum"
 
@@ -27,4 +28,9 @@ export class BaseFolderDto {
   @IsOptional()
   @Min(0)
   position?: number
+
+  @IsOptional()
+  @IsArray()
+  @IsNumber({}, { each: true })
+  parentFolderIds?: number[]
 }

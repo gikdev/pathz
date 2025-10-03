@@ -8,5 +8,6 @@ import { FoldersService } from "./folders.service"
   imports: [TypeOrmModule.forFeature([Folder])],
   controllers: [FoldersController],
   providers: [FoldersService],
+  exports: [FoldersService],
 })
 export class FoldersModule {}

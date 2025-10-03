@@ -6,6 +6,7 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
+    "seed": "bun ./scripts/seed.ts",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\"",
     "start": "node dist/main",
