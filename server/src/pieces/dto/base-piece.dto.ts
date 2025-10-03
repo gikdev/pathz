@@ -20,4 +20,7 @@ export class BasePieceDto {
 
   @IsObject()
   payload: Record<string, any>
+
+  @IsNumber()
+  folderId: number
 }

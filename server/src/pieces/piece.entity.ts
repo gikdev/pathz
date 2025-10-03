@@ -1,5 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm"
+import { Column, Entity, PrimaryGeneratedColumn, ManyToOne } from "typeorm"
 import { PieceType } from "./piece-type.enum"
+import { Folder } from "src/folders/folder.entity"
 
 @Entity()
 export class Piece {
@@ -14,4 +15,7 @@ export class Piece {
 
   @Column({ type: "simple-json" })
   payload: Record<string, any>
+
+  @ManyToOne(() => Folder, f => f.pieces)
+  folder: Folder
 }

@@ -13,4 +13,7 @@ export class PieceResponseDto {
 
   @Expose()
   payload: Record<string, any>
+
+  @Expose()
+  folderId: number
 }

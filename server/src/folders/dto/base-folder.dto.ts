@@ -24,6 +24,7 @@ export class BaseFolderDto {
   type?: FolderType
 
   @IsNumber()
+  @IsOptional()
   @Min(0)
   position?: number
 }
