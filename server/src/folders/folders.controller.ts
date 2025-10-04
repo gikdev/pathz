@@ -8,12 +8,14 @@ import {
   Param,
   ParseIntPipe,
   Post,
+  Query,
 } from "@nestjs/common"
 import { ApiOperation } from "@nestjs/swagger"
 import { FoldersService } from "./folders.service"
 import { plainToInstance } from "class-transformer"
-import { FolderWithRelationsResponseDto } from "./dto/folder-with-relations-response.dto"
+import { FolderFullResponseDto } from "./dto/folder-full-response.dto"
 import { CreateFolderDto } from "./dto/create-folder.dto"
+import { FindFoldersQueryDto } from "./dto/find-folders-query.dto"
 
 @Controller("folders")
 export class FoldersController {
@@ -21,10 +23,12 @@ export class FoldersController {
 
   @ApiOperation({ summary: "Get all folders" })
   @Get()
-  async getAll() {
+  async getAll(@Query() query: FindFoldersQueryDto) {
     const folders = await this.foldersService.getAll()
 
-    return plainToInstance(FolderWithRelationsResponseDto, folders, {
+    console.log(query)
+
+    return plainToInstance(FolderFullResponseDto, folders, {
       excludeExtraneousValues: true,
     })
   }
@@ -34,7 +38,7 @@ export class FoldersController {
   async create(@Body() createFolderDto: CreateFolderDto) {
     const folder = await this.foldersService.create(createFolderDto)
 
-    return plainToInstance(FolderWithRelationsResponseDto, folder, {
+    return plainToInstance(FolderFullResponseDto, folder, {
       excludeExtraneousValues: true,
     })
   }

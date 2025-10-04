@@ -8,7 +8,7 @@ import {
   MinLength,
   IsArray,
 } from "class-validator"
-import { FolderType } from "../folder-type.enum"
+import { FolderType } from "../enum/folder-type.enum"
 
 export class BaseFolderDto {
   @IsString()

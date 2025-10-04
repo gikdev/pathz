@@ -13,6 +13,16 @@ export class FoldersService {
     private readonly dataSource: DataSource,
   ) {}
 
+  async getAllRootFolders() {
+    const rootFolders = await this.foldersRepo
+      .createQueryBuilder("folder")
+      .leftJoin("folder.parentFolders", "parent")
+      .where("parent.id IS NULL")
+      .getMany()
+
+    return rootFolders
+  }
+
   async findOneById(id: number) {
     const folder = await this.foldersRepo.findOne({
       where: { id },

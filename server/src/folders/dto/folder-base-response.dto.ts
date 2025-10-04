@@ -1,7 +1,7 @@
 import { Expose } from "class-transformer"
-import { FolderType } from "../folder-type.enum"
+import { FolderType } from "../enum/folder-type.enum"
 
-export class FolderOnlyResponseDto {
+export class FolderBaseResponseDto {
   @Expose()
   id: number
 
