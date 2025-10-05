@@ -12,7 +12,7 @@ import {
 import { ApiOperation } from "@nestjs/swagger"
 import { FoldersService } from "./folders.service"
 import { plainToInstance } from "class-transformer"
-import { FolderWithRelationsResponseDto } from "./dto/folder-with-relations-response.dto"
+import { FolderFullResponseDto } from "./dto/folder-full-response.dto"
 import { CreateFolderDto } from "./dto/create-folder.dto"
 
 @Controller("folders")
@@ -24,7 +24,7 @@ export class FoldersController {
   async getAll() {
     const folders = await this.foldersService.getAllParents()
 
-    return plainToInstance(FolderWithRelationsResponseDto, folders, {
+    return plainToInstance(FolderFullResponseDto, folders, {
       excludeExtraneousValues: true,
     })
   }
@@ -34,7 +34,7 @@ export class FoldersController {
   async getById(@Param("id", ParseIntPipe) id: number) {
     const folder = await this.foldersService.findOneById(id)
 
-    return plainToInstance(FolderWithRelationsResponseDto, folder, {
+    return plainToInstance(FolderFullResponseDto, folder, {
       excludeExtraneousValues: true,
     })
   }
@@ -44,7 +44,7 @@ export class FoldersController {
   async create(@Body() createFolderDto: CreateFolderDto) {
     const folder = await this.foldersService.create(createFolderDto)
 
-    return plainToInstance(FolderWithRelationsResponseDto, folder, {
+    return plainToInstance(FolderFullResponseDto, folder, {
       excludeExtraneousValues: true,
     })
   }

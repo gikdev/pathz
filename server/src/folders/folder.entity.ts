@@ -6,7 +6,7 @@ import {
   ManyToMany,
   JoinTable,
 } from "typeorm"
-import { FolderType } from "./folder-type.enum"
+import { FolderType } from "./enum/folder-type.enum"
 import { Piece } from "src/pieces/piece.entity"
 
 @Entity()

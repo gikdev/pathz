@@ -1,0 +1,8 @@
+export enum SortFolderBy {
+  TITLE = "TITLE",
+  DESCRIPTION = "DESCRIPTION",
+  TYPE = "TYPE",
+  POSITION = "POSITION",
+  CREATED_AT = "CREATED_AT",
+  UPDATED_AT = "UPDATED_AT",
+}
