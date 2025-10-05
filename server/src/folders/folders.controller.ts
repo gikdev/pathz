@@ -19,12 +19,22 @@ import { CreateFolderDto } from "./dto/create-folder.dto"
 export class FoldersController {
   constructor(private readonly foldersService: FoldersService) {}
 
-  @ApiOperation({ summary: "Get all folders" })
+  @ApiOperation({ summary: "Get all (parent) folders" })
   @Get()
   async getAll() {
-    const folders = await this.foldersService.getAll()
+    const folders = await this.foldersService.getAllParents()
 
     return plainToInstance(FolderWithRelationsResponseDto, folders, {
+      excludeExtraneousValues: true,
+    })
+  }
+
+  @ApiOperation({ summary: "Get folder by ID" })
+  @Get(":id")
+  async getById(@Param("id", ParseIntPipe) id: number) {
+    const folder = await this.foldersService.findOneById(id)
+
+    return plainToInstance(FolderWithRelationsResponseDto, folder, {
       excludeExtraneousValues: true,
     })
   }

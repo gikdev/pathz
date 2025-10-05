@@ -17,8 +17,8 @@ async function bootstrap() {
 
   // Swagger & Scalar config
   const config = new DocumentBuilder()
-    .setTitle("Booky app API")
-    .setDescription("This is the backend API of the 'Booky' app.")
+    .setTitle("PathZ app API")
+    .setDescription("This is the backend API of the 'PathZ' app.")
     .addServer("http://localhost:3002/api")
     .setVersion("1.0")
     .build()
@@ -33,7 +33,7 @@ async function bootstrap() {
     apiReference({
       content: doc,
       theme: "deepSpace",
-      layout: "classic",
+      layout: "modern",
       defaultHttpClient: {
         targetKey: "js",
         clientKey: "fetch",

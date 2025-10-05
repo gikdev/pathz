@@ -28,6 +28,16 @@ export class FoldersService {
     return folder
   }
 
+  async getAllParents() {
+    const parentFolders = await this.foldersRepo
+      .createQueryBuilder("folder")
+      .leftJoin("folder.parentFolders", "parents")
+      .where("parents.id IS NULL")
+      .getMany()
+
+    return parentFolders
+  }
+
   async getAll() {
     const folders = await this.foldersRepo.find({
       relations: {

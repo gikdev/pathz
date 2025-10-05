@@ -5,6 +5,23 @@
   "license": "UNLICENSED",
   "author": "Bahrami85.ir",
   "type": "module",
-  "scripts": {},
-  "workspaces": ["server"]
+  "scripts": {
+    "dev:ui": "cd ui && npm run dev",
+    "dev:server": "cd server && npm run dev",
+    "dev": "concurrently \"npm run dev:ui\" \"npm run dev:server\"",
+    "build:ui": "cd ui && npm run build",
+    "build:server": "cd server && npm run build",
+    "build": "concurrently \"npm run build:ui\" \"npm run build:server\"",
+    "format:ui": "cd ui && npm run format",
+    "format:server": "cd server && npm run format",
+    "format": "concurrently \"npm run format:ui\" \"npm run format:server\"",
+    "start": "node ./server/dist/main"
+  },
+  "workspaces": [
+    "server",
+    "ui"
+  ],
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
 }
