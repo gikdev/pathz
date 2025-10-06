@@ -16,13 +16,13 @@ async function bootstrap() {
   )
 
   // Swagger & Scalar config
-  const config = new DocumentBuilder()
+  const docsConfig = new DocumentBuilder()
     .setTitle("PathZ app API")
     .setDescription("This is the backend API of the 'PathZ' app.")
     .addServer("http://localhost:3002/api")
     .setVersion("1.0")
     .build()
-  const doc = SwaggerModule.createDocument(app, config)
+  const doc = SwaggerModule.createDocument(app, docsConfig)
 
   SwaggerModule.setup("docs/swagger", app, doc, {
     jsonDocumentUrl: "docs/swagger/json",

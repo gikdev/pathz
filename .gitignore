@@ -15,3 +15,5 @@ storybook-static
 
 *.db
 *.sqlite
+
+.env

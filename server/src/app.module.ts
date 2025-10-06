@@ -4,6 +4,8 @@ import { join } from "node:path"
 import { FoldersModule } from "./folders/folders.module"
 import { PiecesModule } from "./pieces/pieces.module"
 import { SeedModule } from "./seed/seed.module"
+import { UploadsModule } from './uploads/uploads.module';
+import { ConfigModule } from "@nestjs/config"
 
 const typeorm = TypeOrmModule.forRoot({
   type: "sqlite",
@@ -13,6 +15,8 @@ const typeorm = TypeOrmModule.forRoot({
 })
 
 @Module({
-  imports: [typeorm, FoldersModule, PiecesModule, SeedModule],
+  imports: [
+    ConfigModule.forRoot({isGlobal:true}),
+    typeorm, FoldersModule, PiecesModule, SeedModule, UploadsModule],
 })
 export class AppModule {}
