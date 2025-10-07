@@ -1,10 +1,19 @@
-import { Injectable, InternalServerErrorException } from "@nestjs/common"
-import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3"
+import {
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from "@nestjs/common"
+import {
+  GetObjectCommand,
+  PutObjectCommand,
+  S3Client,
+} from "@aws-sdk/client-s3"
 import * as path from "path"
 import * as uuid from "uuid"
 import { InjectRepository } from "@nestjs/typeorm"
 import { Upload } from "./upload.entity"
 import { Repository } from "typeorm"
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner"
 
 if (!process.env.LIARA_ENDPOINT)
   throw new Error(
@@ -50,16 +59,41 @@ export class UploadsService {
     return newUpload
   }
 
+  async getFileDownloadUrl(id: number) {
+    const upload = await this.getUploadFromDbByIdOrThrow(id)
+    const uploadKey = this.generateFileKey(upload.fileId, upload.extension)
+    const command = new GetObjectCommand({
+      Bucket: process.env.LIARA_BUCKET_NAME as string,
+      Key: uploadKey,
+    })
+
+    const url = await getSignedUrl(s3, command)
+
+    return url
+  }
+
+  private async getUploadFromDbByIdOrThrow(id: number) {
+    const upload = await this.uploadsRepo.findOneBy({ id })
+    if (!upload)
+      throw new NotFoundException(`Upload with ID #${id} was not found.`)
+
+    return upload
+  }
+
+  private generateFileKey(fileName: string, extension: string) {
+    return `${this.folderName}/${fileName}.${extension}`
+  }
+
   private async uploadToLiaraObjectStorage(file: Express.Multer.File) {
     if (!file) throw new InternalServerErrorException("No file provided")
 
     const fileExt = path.extname(file.originalname)
     const fileId = uuid.v4()
-    const uniqueKey = `${this.folderName}/${fileId}-${fileExt}`
+    const uploadKey = this.generateFileKey(fileId, fileExt)
 
     const putObjectCommand = new PutObjectCommand({
       Bucket: process.env.LIARA_BUCKET_NAME as string,
-      Key: uniqueKey,
+      Key: uploadKey,
       Body: file.buffer,
       ContentType: file.mimetype,
     })

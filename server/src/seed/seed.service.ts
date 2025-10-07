@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common"
-import { FoldersService } from "src/folders/folders.service"
-import { PieceType } from "src/pieces/piece-type.enum"
-import { PiecesService } from "src/pieces/pieces.service"
+import { FoldersService } from "../folders/folders.service"
+import { PieceType } from "../pieces/piece-type.enum"
+import { PiecesService } from "../pieces/pieces.service"
 
 @Injectable()
 export class SeedService {

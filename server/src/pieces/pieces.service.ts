@@ -3,7 +3,7 @@ import { CreatePieceDto } from "./dto/create-piece.dto"
 import { InjectRepository } from "@nestjs/typeorm"
 import { Piece } from "./piece.entity"
 import { Repository } from "typeorm"
-import { FoldersService } from "src/folders/folders.service"
+import { FoldersService } from "../folders/folders.service"
 
 @Injectable()
 export class PiecesService {

@@ -1,4 +1,15 @@
-import { Controller, Post, UploadedFile, UseInterceptors } from "@nestjs/common"
+import {
+  Controller,
+  Get,
+  HttpRedirectResponse,
+  HttpStatus,
+  Param,
+  ParseIntPipe,
+  Post,
+  Redirect,
+  UploadedFile,
+  UseInterceptors,
+} from "@nestjs/common"
 import { FileInterceptor } from "@nestjs/platform-express"
 import { ApiBody, ApiConsumes, ApiOperation } from "@nestjs/swagger"
 import type { Express } from "express"
@@ -32,5 +43,18 @@ export class UploadsController {
     return plainToInstance(UploadResponseDto, result, {
       excludeExtraneousValues: true,
     })
+  }
+
+  @Get(":id/url")
+  @Redirect("/", 302)
+  async redirectToFile(
+    @Param("id", ParseIntPipe) id: number,
+  ): Promise<HttpRedirectResponse> {
+    const url = await this.uploadsService.getFileDownloadUrl(id)
+
+    return {
+      url,
+      statusCode: HttpStatus.FOUND,
+    }
   }
 }

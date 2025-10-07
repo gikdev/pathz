@@ -1,6 +1,6 @@
 import { Column, Entity, PrimaryGeneratedColumn, ManyToOne } from "typeorm"
 import { PieceType } from "./piece-type.enum"
-import { Folder } from "src/folders/folder.entity"
+import { Folder } from "../folders/folder.entity"
 
 @Entity()
 export class Piece {

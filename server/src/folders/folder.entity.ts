@@ -7,7 +7,7 @@ import {
   JoinTable,
 } from "typeorm"
 import { FolderType } from "./enum/folder-type.enum"
-import { Piece } from "src/pieces/piece.entity"
+import { Piece } from "../pieces/piece.entity"
 
 @Entity()
 export class Folder {

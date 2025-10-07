@@ -1,7 +1,7 @@
 import { Module } from "@nestjs/common"
 import { SeedService } from "./seed.service"
-import { PiecesModule } from "src/pieces/pieces.module"
-import { FoldersModule } from "src/folders/folders.module"
+import { PiecesModule } from "../pieces/pieces.module"
+import { FoldersModule } from "../folders/folders.module"
 import { SeedController } from "./seed.controller"
 
 @Module({
