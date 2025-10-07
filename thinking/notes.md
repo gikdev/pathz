@@ -1,11 +1,12 @@
 App path:
+
+- Project
+- Course
   - Project
-  - Course
-    - Project
-    - Module
-      - Quiz
-      - Exercise
-      - Lesson
-        - Video
-        - Podcast
-        - Article
+  - Module
+    - Quiz
+    - Exercise
+    - Lesson
+      - Video
+      - Podcast
+      - Article

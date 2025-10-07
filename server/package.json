@@ -8,7 +8,6 @@
   "scripts": {
     "seed": "bun ./scripts/seed.ts",
     "build": "nest build",
-    "format": "prettier --write \"src/**/*.ts\"",
     "start": "node dist/main",
     "dev": "nest start --watch",
     "debug": "nest start --debug --watch",
@@ -30,7 +29,8 @@
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1",
     "sqlite3": "^5.1.7",
-    "typeorm": "^0.3.27"
+    "typeorm": "^0.3.27",
+    "uuid": "^11.1.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",

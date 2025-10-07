@@ -12,9 +12,7 @@
     "build:ui": "cd ui && npm run build",
     "build:server": "cd server && npm run build",
     "build": "concurrently \"npm run build:ui\" \"npm run build:server\"",
-    "format:ui": "cd ui && npm run format",
-    "format:server": "cd server && npm run format",
-    "format": "concurrently \"npm run format:ui\" \"npm run format:server\"",
+    "format": "prettier --write .",
     "start": "node ./server/dist/main"
   },
   "workspaces": [

@@ -1,52 +1,91 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common'
-import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3'
-import * as path from 'path'
+import { Injectable, InternalServerErrorException } from "@nestjs/common"
+import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3"
+import * as path from "path"
+import * as uuid from "uuid"
+import { InjectRepository } from "@nestjs/typeorm"
+import { Upload } from "./upload.entity"
+import { Repository } from "typeorm"
+
+if (!process.env.LIARA_ENDPOINT)
+  throw new Error(
+    "Missing Liara endpoint configuration in environment variables.",
+  )
+if (!process.env.LIARA_BUCKET_NAME)
+  throw new Error(
+    "Missing Liara bucket name configuration in environment variables.",
+  )
+if (!process.env.LIARA_ACCESS_KEY)
+  throw new Error(
+    "Missing Liara access key configuration in environment variables.",
+  )
+if (!process.env.LIARA_SECRET_KEY)
+  throw new Error(
+    "Missing Liara secret key configuration in environment variables.",
+  )
+
+const s3 = new S3Client({
+  region: "default",
+  endpoint: process.env.LIARA_ENDPOINT as string,
+  forcePathStyle: true,
+  credentials: {
+    accessKeyId: process.env.LIARA_ACCESS_KEY as string,
+    secretAccessKey: process.env.LIARA_SECRET_KEY as string,
+  },
+})
 
 @Injectable()
 export class UploadsService {
-  private readonly s3: S3Client
+  private readonly folderName = "pathz"
 
-  constructor() {
-    // ✅ Make sure env vars exist
-    if (!process.env.LIARA_ENDPOINT || !process.env.LIARA_BUCKET_NAME) {
-      throw new Error('Missing Liara configuration in environment variables.')
-    }
-
-    this.s3 = new S3Client({
-      region: 'default', // Liara doesn’t require a real region
-      endpoint: process.env.LIARA_ENDPOINT,
-      forcePathStyle: true, // 👈 important for Liara (and most S3-compatible providers)
-      credentials: {
-        accessKeyId: process.env.LIARA_ACCESS_KEY!,
-        secretAccessKey: process.env.LIARA_SECRET_KEY!,
-      },
-    })
-  }
+  constructor(
+    @InjectRepository(Upload)
+    private readonly uploadsRepo: Repository<Upload>,
+  ) {}
 
   async uploadFile(file: Express.Multer.File) {
-    if (!file) throw new InternalServerErrorException('No file provided')
+    const fileId = await this.uploadToLiaraObjectStorage(file)
 
-    const uniqueKey = `${Date.now()}-${path.basename(file.originalname)}`
+    const newUpload = await this.saveInDb(file, fileId)
 
-    const params = {
-      Bucket: process.env.LIARA_BUCKET_NAME!,
+    return newUpload
+  }
+
+  private async uploadToLiaraObjectStorage(file: Express.Multer.File) {
+    if (!file) throw new InternalServerErrorException("No file provided")
+
+    const fileExt = path.extname(file.originalname)
+    const fileId = uuid.v4()
+    const uniqueKey = `${this.folderName}/${fileId}-${fileExt}`
+
+    const putObjectCommand = new PutObjectCommand({
+      Bucket: process.env.LIARA_BUCKET_NAME as string,
       Key: uniqueKey,
       Body: file.buffer,
       ContentType: file.mimetype,
-    }
+    })
 
     try {
-      await this.s3.send(new PutObjectCommand(params))
-
-      // ✅ Construct correct Liara public URL
-      const endpoint = process.env.LIARA_ENDPOINT!.replace(/\/$/, '')
-      const bucket = process.env.LIARA_BUCKET_NAME!
-      const fileUrl = `${endpoint}/${bucket}/${uniqueKey}`
-
-      return { success: true, url: fileUrl }
+      await s3.send(putObjectCommand)
     } catch (error) {
-      console.error('❌ Upload error:', error)
-      throw new InternalServerErrorException('File upload failed.')
+      console.error("❌ Upload error:", error)
+      throw new InternalServerErrorException("File upload failed.")
     }
+
+    return fileId
+  }
+
+  private async saveInDb(file: Express.Multer.File, fileId: string) {
+    const extension = path.extname(file.originalname)
+
+    let newUpload = this.uploadsRepo.create({
+      extension,
+      fileId,
+      mime: file.mimetype,
+      size: file.size,
+    })
+
+    newUpload = await this.uploadsRepo.save(newUpload)
+
+    return newUpload
   }
 }

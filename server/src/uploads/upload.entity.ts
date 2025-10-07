@@ -1,5 +1,10 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-import { FileType } from "./file-type.enum";
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from "typeorm"
 
 @Entity()
 export class Upload {
@@ -10,10 +15,7 @@ export class Upload {
   fileId: string
 
   @Column()
-  type: FileType
-
-  @Column()
-  extention: string
+  extension: string
 
   @Column()
   mime: string
