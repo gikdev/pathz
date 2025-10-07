@@ -4,6 +4,8 @@ import { ApiBody, ApiConsumes, ApiOperation } from '@nestjs/swagger';
 import type {Express} from "express"
 import { UploadsService } from './uploads.service';
 import { memoryStorage } from 'multer';
+import { plainToInstance } from 'class-transformer';
+import { UploadResponseDto } from './upload-response.dto';
 
 @Controller('uploads')
 export class UploadsController {
@@ -12,7 +14,7 @@ export class UploadsController {
   ) {}
 
   @ApiOperation({ summary: "Upload a file to server" })
-    @ApiConsumes('multipart/form-data') // 👈 tells Swagger this is a form upload
+  @ApiConsumes('multipart/form-data')
   @ApiBody({
     schema: {
       type: 'object',
@@ -27,6 +29,8 @@ export class UploadsController {
   @Post("file")
   @UseInterceptors(FileInterceptor('file', { storage: memoryStorage() }))
   async uploadFile(@UploadedFile() file: Express.Multer.File) {
-    return await this.uploadsService.uploadFile(file)
+    const result = await this.uploadsService.uploadFile(file)
+
+    return plainToInstance(UploadResponseDto, result, { excludeExtraneousValues: true })
   }
 }
