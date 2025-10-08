@@ -14,6 +14,9 @@ import { InjectRepository } from "@nestjs/typeorm"
 import { Upload } from "./upload.entity"
 import { Repository } from "typeorm"
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner"
+import dotenv from "dotenv"
+
+dotenv.config()
 
 if (!process.env.LIARA_ENDPOINT)
   throw new Error(
