@@ -6,12 +6,8 @@
   "author": "Bahrami85.ir",
   "type": "module",
   "scripts": {
-    "dev:ui": "cd ui && npm run dev",
-    "dev:server": "cd server && npm run dev",
-    "dev": "concurrently \"npm run dev:ui\" \"npm run dev:server\"",
-    "build:ui": "cd ui && npm run build",
-    "build:server": "cd server && npm run build",
-    "build": "concurrently \"npm run build:ui\" \"npm run build:server\"",
+    "dev": "node ./scripts/dev.js",
+    "build": "node ./scripts/build.js",
     "format": "prettier --write .",
     "start": "node ./server/dist/main"
   },
