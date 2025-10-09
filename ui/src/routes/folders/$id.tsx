@@ -1,7 +1,13 @@
 import { useQuery } from "@tanstack/react-query"
-import { createFileRoute, Link, useParams } from "@tanstack/react-router"
+import { createFileRoute, useParams } from "@tanstack/react-router"
 import { foldersControllerGetByIdOptions } from "../../api-client"
-import { CaretRightIcon, SquaresFourIcon } from "@phosphor-icons/react"
+import { AppBar } from "../../components/app-bar"
+import { list, page } from "../../shared/skins"
+import { Folder, FolderSkeletons } from "../../components/folder"
+import { ErrorParagraph } from "../../components/error-paragraph"
+import { GoBackInHistoryBtn } from "../../components/go-back-in-history-btn"
+import ReactMarkdown from "react-markdown"
+import { BottomTabs } from "../../components/bottom-tabs"
 
 export const Route = createFileRoute("/folders/$id")({
   component: RouteComponent,
@@ -10,32 +16,42 @@ export const Route = createFileRoute("/folders/$id")({
 function RouteComponent() {
   const { id } = useParams({ from: "/folders/$id" })
   const folderId = Number(id)
-  const { data: folder, status } = useQuery(
-    foldersControllerGetByIdOptions({ path: { id: folderId } }),
-  )
-
-  if (status === "pending") return <p>در حال بارگذاری...</p>
-
-  if (status === "error") return <p>یه مشکلی پیش اومد</p>
+  const {
+    data: folder,
+    isSuccess,
+    isError,
+    isPending,
+    refetch,
+  } = useQuery(foldersControllerGetByIdOptions({ path: { id: folderId } }))
 
   return (
-    <div className="text-zinc-600 bg-zinc-50 p-4 gap-4 flex flex-col max-w-96 w-full min-h-dvh mx-auto flex-1">
-      {folder.subFolders.map(f => (
-        <Link
-          key={f.id}
-          to="/folders/$id"
-          params={{ id: f.id.toString() }}
-          className="flex flex-col gap-2 p-4 bg-zinc-100 border border-zinc-300 rounded-lg cursor-pointer"
-        >
-          <div className="flex gap-2 items-start">
-            <SquaresFourIcon size={24} className="shrink-0 grow-0" />
-            <p className="flex-1">{f.title}</p>
-            <CaretRightIcon size={24} className="shrink-0 grow-0" />
-          </div>
+    <div className={page()}>
+      <AppBar title={folder?.title || ""} slotStart={<GoBackInHistoryBtn />} />
 
-          {f.description && <p className="ps-8">{f.description}</p>}
-        </Link>
-      ))}
+      <div className={list()}>
+        {isPending && <FolderSkeletons />}
+
+        {isSuccess &&
+          folder.subFolders.map(f => (
+            <Folder
+              key={f.id}
+              id={f.id}
+              title={f.title}
+              description={f.description}
+            />
+          ))}
+
+        {isSuccess &&
+          folder.pieces.map(p => (
+            <ReactMarkdown key={p.id}>
+              {p.type === "TEXT" ? (p.payload.content as string) : null}
+            </ReactMarkdown>
+          ))}
+
+        {isError && <ErrorParagraph onClick={() => refetch()} />}
+      </div>
+
+      <BottomTabs />
     </div>
   )
 }

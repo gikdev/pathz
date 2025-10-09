@@ -8,60 +8,77 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from "./routes/__root"
-import { Route as FoldersIndexRouteImport } from "./routes/folders/index"
-import { Route as FoldersIdRouteImport } from "./routes/folders/$id"
+import { Route as rootRouteImport } from './routes/__root'
+import { Route as IndexRouteImport } from './routes/index'
+import { Route as FoldersIndexRouteImport } from './routes/folders/index'
+import { Route as FoldersIdRouteImport } from './routes/folders/$id'
 
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const FoldersIndexRoute = FoldersIndexRouteImport.update({
-  id: "/folders/",
-  path: "/folders/",
+  id: '/folders/',
+  path: '/folders/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FoldersIdRoute = FoldersIdRouteImport.update({
-  id: "/folders/$id",
-  path: "/folders/$id",
+  id: '/folders/$id',
+  path: '/folders/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
-  "/folders/$id": typeof FoldersIdRoute
-  "/folders": typeof FoldersIndexRoute
+  '/': typeof IndexRoute
+  '/folders/$id': typeof FoldersIdRoute
+  '/folders': typeof FoldersIndexRoute
 }
 export interface FileRoutesByTo {
-  "/folders/$id": typeof FoldersIdRoute
-  "/folders": typeof FoldersIndexRoute
+  '/': typeof IndexRoute
+  '/folders/$id': typeof FoldersIdRoute
+  '/folders': typeof FoldersIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  "/folders/$id": typeof FoldersIdRoute
-  "/folders/": typeof FoldersIndexRoute
+  '/': typeof IndexRoute
+  '/folders/$id': typeof FoldersIdRoute
+  '/folders/': typeof FoldersIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: "/folders/$id" | "/folders"
+  fullPaths: '/' | '/folders/$id' | '/folders'
   fileRoutesByTo: FileRoutesByTo
-  to: "/folders/$id" | "/folders"
-  id: "__root__" | "/folders/$id" | "/folders/"
+  to: '/' | '/folders/$id' | '/folders'
+  id: '__root__' | '/' | '/folders/$id' | '/folders/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
+  IndexRoute: typeof IndexRoute
   FoldersIdRoute: typeof FoldersIdRoute
   FoldersIndexRoute: typeof FoldersIndexRoute
 }
 
-declare module "@tanstack/react-router" {
+declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    "/folders/": {
-      id: "/folders/"
-      path: "/folders"
-      fullPath: "/folders"
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/folders/': {
+      id: '/folders/'
+      path: '/folders'
+      fullPath: '/folders'
       preLoaderRoute: typeof FoldersIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    "/folders/$id": {
-      id: "/folders/$id"
-      path: "/folders/$id"
-      fullPath: "/folders/$id"
+    '/folders/$id': {
+      id: '/folders/$id'
+      path: '/folders/$id'
+      fullPath: '/folders/$id'
       preLoaderRoute: typeof FoldersIdRouteImport
       parentRoute: typeof rootRouteImport
     }
@@ -69,6 +86,7 @@ declare module "@tanstack/react-router" {
 }
 
 const rootRouteChildren: RootRouteChildren = {
+  IndexRoute: IndexRoute,
   FoldersIdRoute: FoldersIdRoute,
   FoldersIndexRoute: FoldersIndexRoute,
 }

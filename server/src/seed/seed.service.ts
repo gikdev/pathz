@@ -13,38 +13,43 @@ export class SeedService {
   async run() {
     // Single folder
     const singleFolder = await this.foldersService.create({
-      title: "Single folder",
+      title: "پوشه تنها",
     })
 
     // Folder with subs
     const folderWithSubs = await this.foldersService.create({
-      title: "Folder with subs",
+      title: "پوشه با زیر پوشه",
     })
     const subFolder1 = await this.foldersService.create({
-      title: "Sub Folder 1",
+      title: "زیرپوشه ۱",
       parentFolderIds: [folderWithSubs.id],
     })
 
     // Folder with pieces
     const folderWithPieces = await this.foldersService.create({
-      title: "Folder with pieces",
+      title: "پوشه تکه‌دار",
     })
     const piece1 = await this.piecesService.create({
-      payload: {},
+      payload: { content: "***به نام خداوند بخشنده و مهربان***" },
+      type: PieceType.TEXT,
+      folderId: folderWithPieces.id,
+    })
+    const piece3 = await this.piecesService.create({
+      payload: { content: "هلو بپر تو گلو!" },
       type: PieceType.TEXT,
       folderId: folderWithPieces.id,
     })
 
     // Folder with subs & pieces
     const folderWithSubsAndPieces = await this.foldersService.create({
-      title: "Folder with subs & pieces",
+      title: "پوشه با ریزپوشه و تکه",
     })
     const subFolder2 = await this.foldersService.create({
-      title: "Sub Folder 2",
+      title: "زیر پوشه ۲",
       parentFolderIds: [folderWithSubsAndPieces.id],
     })
     const piece2 = await this.piecesService.create({
-      payload: {},
+      payload: { content: "سلام به **همگی**!" },
       type: PieceType.TEXT,
       folderId: folderWithSubsAndPieces.id,
     })

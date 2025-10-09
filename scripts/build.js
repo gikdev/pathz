@@ -7,12 +7,12 @@ concurrently([
     command: "npm run build",
     cwd: "server",
     name: " SERVER ",
-    prefixColor: "green",
+    prefixColor: "cyan",
   },
   {
     command: "npm run build",
     cwd: "ui",
     name: "   UI   ",
-    prefixColor: "cyan",
+    prefixColor: "green",
   },
 ])

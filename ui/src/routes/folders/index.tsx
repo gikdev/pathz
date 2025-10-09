@@ -1,37 +1,62 @@
 import { useQuery } from "@tanstack/react-query"
-import { createFileRoute, Link } from "@tanstack/react-router"
+import { createFileRoute } from "@tanstack/react-router"
 import { foldersControllerGetAllOptions } from "../../api-client"
-import { CaretRightIcon, SquaresFourIcon } from "@phosphor-icons/react"
+import { appBarIconBtn, list, page } from "../../shared/skins"
+import { AppBar } from "../../components/app-bar"
+import { Folder, FolderSkeletons } from "../../components/folder"
+import { InfoIcon, PlusIcon } from "@phosphor-icons/react"
+import { ErrorParagraph } from "../../components/error-paragraph"
+import { BottomTabs } from "../../components/bottom-tabs"
+import { Can } from "../../shared/auth"
 
 export const Route = createFileRoute("/folders/")({
   component: RouteComponent,
 })
 
 function RouteComponent() {
-  const { data: folders, status } = useQuery(foldersControllerGetAllOptions())
-
-  if (status === "pending") return <p>در حال بارگذاری...</p>
-
-  if (status === "error") return <p>یه مشکلی پیش اومد</p>
+  const {
+    data: folders,
+    isSuccess,
+    isPending,
+    isError,
+    refetch,
+  } = useQuery(foldersControllerGetAllOptions())
 
   return (
-    <div className="text-zinc-600 bg-zinc-50 p-4 gap-4 flex flex-col max-w-96 w-full min-h-dvh mx-auto flex-1">
-      {folders.map(f => (
-        <Link
-          key={f.id}
-          to="/folders/$id"
-          params={{ id: f.id.toString() }}
-          className="flex flex-col gap-2 p-4 bg-zinc-100 border border-zinc-300 rounded-lg cursor-pointer"
-        >
-          <div className="flex gap-2 items-start">
-            <SquaresFourIcon size={24} className="shrink-0 grow-0" />
-            <p className="flex-1">{f.title}</p>
-            <CaretRightIcon size={24} className="shrink-0 grow-0" />
-          </div>
+    <div className={page()}>
+      <AppBar
+        title="مسیر"
+        slotStart={
+          <Can I="CREATE" a="FOLDER">
+            <button className={appBarIconBtn()}>
+              <PlusIcon />
+            </button>
+          </Can>
+        }
+        slotEnd={
+          <button className={appBarIconBtn()} disabled>
+            <InfoIcon />
+          </button>
+        }
+      />
 
-          {f.description && <p className="ps-8">{f.description}</p>}
-        </Link>
-      ))}
+      <div className={list()}>
+        {isPending && <FolderSkeletons />}
+
+        {isSuccess &&
+          folders.map(f => (
+            <Folder
+              key={f.id}
+              id={f.id}
+              title={f.title}
+              description={f.description}
+            />
+          ))}
+
+        {isError && <ErrorParagraph onClick={() => refetch()} />}
+      </div>
+
+      <BottomTabs />
     </div>
   )
 }
