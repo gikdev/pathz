@@ -1,9 +1,16 @@
 import { cva } from "./cva"
 
-export const page = cva({
+export const phonePage = cva({
   base: `
     flex flex-col max-w-120 mx-auto
-    w-full h-dvh text-zinc-600 bg-zinc-100
+    w-full h-dvh bg-zinc-50
+  `,
+})
+
+export const desktopPage = cva({
+  base: `
+    flex flex-col max-w-400 mx-auto
+    w-full h-dvh bg-zinc-50
   `,
 })
 

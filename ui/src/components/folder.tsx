@@ -12,7 +12,7 @@ export function Folder({ id, title, description }: FolderProps) {
     <Link
       to="/folders/$id"
       params={{ id: id.toString() }}
-      className="flex flex-col gap-2 p-4 bg-zinc-50 border border-zinc-300 rounded-lg cursor-pointer"
+      className="flex flex-col gap-2 p-4 bg-zinc-100 border border-zinc-300 rounded-lg cursor-pointer"
     >
       <div className="flex gap-2 items-start">
         <SquaresFourIcon size={24} className="shrink-0 grow-0" />

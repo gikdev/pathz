@@ -9,86 +9,109 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as FoldersIndexRouteImport } from './routes/folders/index'
-import { Route as FoldersIdRouteImport } from './routes/folders/$id'
+import { Route as AppIndexRouteImport } from './routes/_app/index'
+import { Route as AdminAuthRouteImport } from './routes/admin/auth'
+import { Route as AppFoldersIndexRouteImport } from './routes/_app/folders/index'
+import { Route as AppFoldersIdRouteImport } from './routes/_app/folders/$id'
 
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
+const AppIndexRoute = AppIndexRouteImport.update({
+  id: '/_app/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const FoldersIndexRoute = FoldersIndexRouteImport.update({
-  id: '/folders/',
+const AdminAuthRoute = AdminAuthRouteImport.update({
+  id: '/admin/auth',
+  path: '/admin/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppFoldersIndexRoute = AppFoldersIndexRouteImport.update({
+  id: '/_app/folders/',
   path: '/folders/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const FoldersIdRoute = FoldersIdRouteImport.update({
-  id: '/folders/$id',
+const AppFoldersIdRoute = AppFoldersIdRouteImport.update({
+  id: '/_app/folders/$id',
   path: '/folders/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/folders/$id': typeof FoldersIdRoute
-  '/folders': typeof FoldersIndexRoute
+  '/admin/auth': typeof AdminAuthRoute
+  '/': typeof AppIndexRoute
+  '/folders/$id': typeof AppFoldersIdRoute
+  '/folders': typeof AppFoldersIndexRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/folders/$id': typeof FoldersIdRoute
-  '/folders': typeof FoldersIndexRoute
+  '/admin/auth': typeof AdminAuthRoute
+  '/': typeof AppIndexRoute
+  '/folders/$id': typeof AppFoldersIdRoute
+  '/folders': typeof AppFoldersIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
-  '/folders/$id': typeof FoldersIdRoute
-  '/folders/': typeof FoldersIndexRoute
+  '/admin/auth': typeof AdminAuthRoute
+  '/_app/': typeof AppIndexRoute
+  '/_app/folders/$id': typeof AppFoldersIdRoute
+  '/_app/folders/': typeof AppFoldersIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/folders/$id' | '/folders'
+  fullPaths: '/admin/auth' | '/' | '/folders/$id' | '/folders'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/folders/$id' | '/folders'
-  id: '__root__' | '/' | '/folders/$id' | '/folders/'
+  to: '/admin/auth' | '/' | '/folders/$id' | '/folders'
+  id:
+    | '__root__'
+    | '/admin/auth'
+    | '/_app/'
+    | '/_app/folders/$id'
+    | '/_app/folders/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  FoldersIdRoute: typeof FoldersIdRoute
-  FoldersIndexRoute: typeof FoldersIndexRoute
+  AdminAuthRoute: typeof AdminAuthRoute
+  AppIndexRoute: typeof AppIndexRoute
+  AppFoldersIdRoute: typeof AppFoldersIdRoute
+  AppFoldersIndexRoute: typeof AppFoldersIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
+    '/_app/': {
+      id: '/_app/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+      preLoaderRoute: typeof AppIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/folders/': {
-      id: '/folders/'
+    '/admin/auth': {
+      id: '/admin/auth'
+      path: '/admin/auth'
+      fullPath: '/admin/auth'
+      preLoaderRoute: typeof AdminAuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_app/folders/': {
+      id: '/_app/folders/'
       path: '/folders'
       fullPath: '/folders'
-      preLoaderRoute: typeof FoldersIndexRouteImport
+      preLoaderRoute: typeof AppFoldersIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/folders/$id': {
-      id: '/folders/$id'
+    '/_app/folders/$id': {
+      id: '/_app/folders/$id'
       path: '/folders/$id'
       fullPath: '/folders/$id'
-      preLoaderRoute: typeof FoldersIdRouteImport
+      preLoaderRoute: typeof AppFoldersIdRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
-  FoldersIdRoute: FoldersIdRoute,
-  FoldersIndexRoute: FoldersIndexRoute,
+  AdminAuthRoute: AdminAuthRoute,
+  AppIndexRoute: AppIndexRoute,
+  AppFoldersIdRoute: AppFoldersIdRoute,
+  AppFoldersIndexRoute: AppFoldersIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

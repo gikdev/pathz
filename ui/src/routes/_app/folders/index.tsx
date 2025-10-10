@@ -1,15 +1,15 @@
 import { useQuery } from "@tanstack/react-query"
 import { createFileRoute } from "@tanstack/react-router"
-import { foldersControllerGetAllOptions } from "../../api-client"
-import { appBarIconBtn, list, page } from "../../shared/skins"
-import { AppBar } from "../../components/app-bar"
-import { Folder, FolderSkeletons } from "../../components/folder"
+import { foldersControllerGetAllOptions } from "../../../api-client"
+import { appBarIconBtn, list, phonePage } from "../../../shared/skins"
+import { AppBar } from "../../../components/app-bar"
+import { Folder, FolderSkeletons } from "../../../components/folder"
 import { InfoIcon, PlusIcon } from "@phosphor-icons/react"
-import { ErrorParagraph } from "../../components/error-paragraph"
-import { BottomTabs } from "../../components/bottom-tabs"
-import { Can } from "../../shared/auth"
+import { ErrorParagraph } from "../../../components/error-paragraph"
+import { BottomTabs } from "../../../components/bottom-tabs"
+import { Can } from "../../../shared/auth"
 
-export const Route = createFileRoute("/folders/")({
+export const Route = createFileRoute("/_app/folders/")({
   component: RouteComponent,
 })
 
@@ -23,7 +23,7 @@ function RouteComponent() {
   } = useQuery(foldersControllerGetAllOptions())
 
   return (
-    <div className={page()}>
+    <div className={phonePage()}>
       <AppBar
         title="مسیر"
         slotStart={
