@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query"
 import { createFileRoute } from "@tanstack/react-router"
 import { foldersControllerGetAllOptions } from "../../../api-client"
-import { appBarIconBtn, list, phonePage } from "../../../shared/skins"
+import { paginationIconBtn, list, phonePage } from "../../../shared/skins"
 import { AppBar } from "../../../components/app-bar"
 import { Folder, FolderSkeletons } from "../../../components/folder"
 import { InfoIcon, PlusIcon } from "@phosphor-icons/react"
@@ -28,13 +28,13 @@ function RouteComponent() {
         title="مسیر"
         slotStart={
           <Can I="CREATE" a="FOLDER">
-            <button className={appBarIconBtn()}>
+            <button className={paginationIconBtn()}>
               <PlusIcon />
             </button>
           </Can>
         }
         slotEnd={
-          <button className={appBarIconBtn()} disabled>
+          <button className={paginationIconBtn()} disabled>
             <InfoIcon />
           </button>
         }
