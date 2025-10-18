@@ -1,5 +1,5 @@
 import { CaretLeftIcon } from "@phosphor-icons/react"
-import { paginationIconBtn } from "../shared/skins"
+import { iconBtn } from "../shared/skins"
 import { useRouter } from "@tanstack/react-router"
 
 export function GoBackInHistoryBtn() {
@@ -7,7 +7,7 @@ export function GoBackInHistoryBtn() {
 
   return (
     <button
-      className={paginationIconBtn()}
+      className={iconBtn()}
       onClick={() => router.history.back()}
     >
       <CaretLeftIcon mirrored />

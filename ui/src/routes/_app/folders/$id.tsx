@@ -1,13 +1,13 @@
 import { useQuery } from "@tanstack/react-query"
 import { createFileRoute, useParams } from "@tanstack/react-router"
-import { foldersControllerGetByIdOptions } from "../../../api-client"
-import { AppBar } from "../../../components/app-bar"
-import { list, phonePage } from "../../../shared/skins"
-import { Folder, FolderSkeletons } from "../../../components/folder"
-import { ErrorParagraph } from "../../../components/error-paragraph"
-import { GoBackInHistoryBtn } from "../../../components/go-back-in-history-btn"
+import { foldersControllerGetByIdOptions } from "#/api-client"
+import { AppBar } from "#/components/app-bar"
+import { list, phonePage } from "#/shared/skins"
+import { Folder, FolderSkeletons } from "#/components/folder"
+import { ErrorParagraph } from "#/components/error-paragraph"
+import { GoBackInHistoryBtn } from "#/components/go-back-in-history-btn"
 import ReactMarkdown from "react-markdown"
-import { BottomTabs } from "../../../components/bottom-tabs"
+import { BottomTabs } from "#/components/bottom-tabs"
 
 export const Route = createFileRoute("/_app/folders/$id")({
   component: RouteComponent,

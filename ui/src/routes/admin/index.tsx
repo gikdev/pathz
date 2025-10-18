@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router"
-import { paginationIconBtn, desktopPage, iconBtn } from "../../shared/skins"
+import { paginationIconBtn, desktopPage, iconBtn } from "#/shared/skins"
 import {
   CaretLeftIcon,
   CaretLineLeftIcon,

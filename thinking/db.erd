@@ -4,13 +4,13 @@
   "settings": {
     "width": 2000,
     "height": 2000,
-    "scrollTop": -486.3587,
-    "scrollLeft": -609.5742,
-    "zoomLevel": 0.73,
+    "scrollTop": -36.5956,
+    "scrollLeft": 0,
+    "zoomLevel": 1,
     "show": 511,
     "database": 16,
     "databaseName": "",
-    "canvasType": "ERD",
+    "canvasType": "@dineug/erd-editor/builtin-schema-sql",
     "language": 1,
     "tableNameCase": 4,
     "columnNameCase": 2,
@@ -42,31 +42,6 @@
   },
   "collections": {
     "tableEntities": {
-      "vKgUc6BUi1APuFVPy46w5": {
-        "id": "vKgUc6BUi1APuFVPy46w5",
-        "name": "User",
-        "comment": "",
-        "columnIds": [
-          "cjqnF3Ca4xmhPicW1rZtg",
-          "dd2oHKun-Q9GZQouxLUS0"
-        ],
-        "seqColumnIds": [
-          "cjqnF3Ca4xmhPicW1rZtg",
-          "dd2oHKun-Q9GZQouxLUS0"
-        ],
-        "ui": {
-          "x": 200,
-          "y": 100,
-          "zIndex": 2,
-          "widthName": 60,
-          "widthComment": 60,
-          "color": ""
-        },
-        "meta": {
-          "updateAt": 1759324109202,
-          "createAt": 1759324052891
-        }
-      },
       "uaGuVnrCcXHwBWyTOqSov": {
         "id": "uaGuVnrCcXHwBWyTOqSov",
         "name": "Folder",
@@ -129,46 +104,6 @@
       }
     },
     "tableColumnEntities": {
-      "cjqnF3Ca4xmhPicW1rZtg": {
-        "id": "cjqnF3Ca4xmhPicW1rZtg",
-        "tableId": "vKgUc6BUi1APuFVPy46w5",
-        "name": "",
-        "comment": "",
-        "dataType": "",
-        "default": "",
-        "options": 13,
-        "ui": {
-          "keys": 0,
-          "widthName": 60,
-          "widthComment": 60,
-          "widthDataType": 60,
-          "widthDefault": 60
-        },
-        "meta": {
-          "updateAt": 1759324102120,
-          "createAt": 1759324064023
-        }
-      },
-      "dd2oHKun-Q9GZQouxLUS0": {
-        "id": "dd2oHKun-Q9GZQouxLUS0",
-        "tableId": "vKgUc6BUi1APuFVPy46w5",
-        "name": "",
-        "comment": "",
-        "dataType": "",
-        "default": "",
-        "options": 0,
-        "ui": {
-          "keys": 0,
-          "widthName": 60,
-          "widthComment": 60,
-          "widthDataType": 60,
-          "widthDefault": 60
-        },
-        "meta": {
-          "updateAt": 1759324109202,
-          "createAt": 1759324109202
-        }
-      },
       "ZgPM6MEcR80J0DvRQc0HZ": {
         "id": "ZgPM6MEcR80J0DvRQc0HZ",
         "tableId": "uaGuVnrCcXHwBWyTOqSov",

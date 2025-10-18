@@ -1,13 +1,13 @@
 import { useQuery } from "@tanstack/react-query"
 import { createFileRoute } from "@tanstack/react-router"
-import { foldersControllerGetAllOptions } from "../../../api-client"
-import { paginationIconBtn, list, phonePage } from "../../../shared/skins"
-import { AppBar } from "../../../components/app-bar"
-import { Folder, FolderSkeletons } from "../../../components/folder"
+import { foldersControllerGetAllOptions } from "#/api-client"
+import { list, phonePage, iconBtn } from "#/shared/skins"
+import { AppBar } from "#/components/app-bar"
+import { Folder, FolderSkeletons } from "#/components/folder"
 import { InfoIcon, PlusIcon } from "@phosphor-icons/react"
-import { ErrorParagraph } from "../../../components/error-paragraph"
-import { BottomTabs } from "../../../components/bottom-tabs"
-import { Can } from "../../../shared/auth"
+import { ErrorParagraph } from "#/components/error-paragraph"
+import { BottomTabs } from "#/components/bottom-tabs"
+import { Can } from "#/features/auth"
 
 export const Route = createFileRoute("/_app/folders/")({
   component: RouteComponent,
@@ -27,14 +27,14 @@ function RouteComponent() {
       <AppBar
         title="مسیر"
         slotStart={
-          <Can I="CREATE" a="FOLDER">
-            <button className={paginationIconBtn()}>
+          <Can I="MANAGE" a="FOLDER">
+            <button className={iconBtn()}>
               <PlusIcon />
             </button>
           </Can>
         }
         slotEnd={
-          <button className={paginationIconBtn()} disabled>
+          <button className={iconBtn()} disabled>
             <InfoIcon />
           </button>
         }
