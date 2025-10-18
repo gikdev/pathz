@@ -8,58 +8,58 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from './routes/__root'
-import { Route as AdminIndexRouteImport } from './routes/admin/index'
-import { Route as AppIndexRouteImport } from './routes/_app/index'
-import { Route as AppFoldersIndexRouteImport } from './routes/_app/folders/index'
-import { Route as AppFoldersIdRouteImport } from './routes/_app/folders/$id'
+import { Route as rootRouteImport } from "./routes/__root"
+import { Route as AdminIndexRouteImport } from "./routes/admin/index"
+import { Route as AppIndexRouteImport } from "./routes/_app/index"
+import { Route as AppFoldersIndexRouteImport } from "./routes/_app/folders/index"
+import { Route as AppFoldersIdRouteImport } from "./routes/_app/folders/$id"
 
 const AdminIndexRoute = AdminIndexRouteImport.update({
-  id: '/admin/',
-  path: '/admin/',
+  id: "/admin/",
+  path: "/admin/",
   getParentRoute: () => rootRouteImport,
 } as any)
 const AppIndexRoute = AppIndexRouteImport.update({
-  id: '/_app/',
-  path: '/',
+  id: "/_app/",
+  path: "/",
   getParentRoute: () => rootRouteImport,
 } as any)
 const AppFoldersIndexRoute = AppFoldersIndexRouteImport.update({
-  id: '/_app/folders/',
-  path: '/folders/',
+  id: "/_app/folders/",
+  path: "/folders/",
   getParentRoute: () => rootRouteImport,
 } as any)
 const AppFoldersIdRoute = AppFoldersIdRouteImport.update({
-  id: '/_app/folders/$id',
-  path: '/folders/$id',
+  id: "/_app/folders/$id",
+  path: "/folders/$id",
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof AppIndexRoute
-  '/admin': typeof AdminIndexRoute
-  '/folders/$id': typeof AppFoldersIdRoute
-  '/folders': typeof AppFoldersIndexRoute
+  "/": typeof AppIndexRoute
+  "/admin": typeof AdminIndexRoute
+  "/folders/$id": typeof AppFoldersIdRoute
+  "/folders": typeof AppFoldersIndexRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof AppIndexRoute
-  '/admin': typeof AdminIndexRoute
-  '/folders/$id': typeof AppFoldersIdRoute
-  '/folders': typeof AppFoldersIndexRoute
+  "/": typeof AppIndexRoute
+  "/admin": typeof AdminIndexRoute
+  "/folders/$id": typeof AppFoldersIdRoute
+  "/folders": typeof AppFoldersIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/_app/': typeof AppIndexRoute
-  '/admin/': typeof AdminIndexRoute
-  '/_app/folders/$id': typeof AppFoldersIdRoute
-  '/_app/folders/': typeof AppFoldersIndexRoute
+  "/_app/": typeof AppIndexRoute
+  "/admin/": typeof AdminIndexRoute
+  "/_app/folders/$id": typeof AppFoldersIdRoute
+  "/_app/folders/": typeof AppFoldersIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/admin' | '/folders/$id' | '/folders'
+  fullPaths: "/" | "/admin" | "/folders/$id" | "/folders"
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/admin' | '/folders/$id' | '/folders'
-  id: '__root__' | '/_app/' | '/admin/' | '/_app/folders/$id' | '/_app/folders/'
+  to: "/" | "/admin" | "/folders/$id" | "/folders"
+  id: "__root__" | "/_app/" | "/admin/" | "/_app/folders/$id" | "/_app/folders/"
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -69,33 +69,33 @@ export interface RootRouteChildren {
   AppFoldersIndexRoute: typeof AppFoldersIndexRoute
 }
 
-declare module '@tanstack/react-router' {
+declare module "@tanstack/react-router" {
   interface FileRoutesByPath {
-    '/admin/': {
-      id: '/admin/'
-      path: '/admin'
-      fullPath: '/admin'
+    "/admin/": {
+      id: "/admin/"
+      path: "/admin"
+      fullPath: "/admin"
       preLoaderRoute: typeof AdminIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_app/': {
-      id: '/_app/'
-      path: '/'
-      fullPath: '/'
+    "/_app/": {
+      id: "/_app/"
+      path: "/"
+      fullPath: "/"
       preLoaderRoute: typeof AppIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_app/folders/': {
-      id: '/_app/folders/'
-      path: '/folders'
-      fullPath: '/folders'
+    "/_app/folders/": {
+      id: "/_app/folders/"
+      path: "/folders"
+      fullPath: "/folders"
       preLoaderRoute: typeof AppFoldersIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_app/folders/$id': {
-      id: '/_app/folders/$id'
-      path: '/folders/$id'
-      fullPath: '/folders/$id'
+    "/_app/folders/$id": {
+      id: "/_app/folders/$id"
+      path: "/folders/$id"
+      fullPath: "/folders/$id"
       preLoaderRoute: typeof AppFoldersIdRouteImport
       parentRoute: typeof rootRouteImport
     }

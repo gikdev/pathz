@@ -6,10 +6,7 @@ export function GoBackInHistoryBtn() {
   const router = useRouter()
 
   return (
-    <button
-      className={iconBtn()}
-      onClick={() => router.history.back()}
-    >
+    <button className={iconBtn()} onClick={() => router.history.back()}>
       <CaretLeftIcon mirrored />
     </button>
   )
