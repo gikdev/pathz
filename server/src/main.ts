@@ -5,7 +5,7 @@ import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger"
 import { apiReference } from "@scalar/nestjs-api-reference"
 
 class Main {
-  private APP_PORT = 3000
+  private APP_PORT = process.env.APP_PORT || 3000
 
   async bootstrap() {
     const app = await NestFactory.create(AppModule)
