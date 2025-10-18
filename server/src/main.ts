@@ -49,7 +49,7 @@ class Main {
   private setupDocs(app: INestApplication) {
     const config = new DocumentBuilder()
       .setTitle("App API")
-      .addServer(`http://localhost:${this.APP_PORT}/api`)
+      .addServer(`http://localhost:${this.APP_PORT}`)
       .setVersion("1.0")
       // .addBearerAuth(
       //   {

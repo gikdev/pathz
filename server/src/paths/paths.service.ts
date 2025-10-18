@@ -32,7 +32,7 @@ export class PathsService {
     return path
   }
 
-  async deleteOneById(id: number) {
+  async removeOneById(id: number) {
     await this.prisma.path.delete({ where: { id } })
 
     return { id }

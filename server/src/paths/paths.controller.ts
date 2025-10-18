@@ -53,7 +53,7 @@ export class PathsController {
   @Patch(":id")
   async updateOneById(
     @ParamId() id: number,
-    updatePathReqDto: UpdatePathReqDto,
+    @Body() updatePathReqDto: UpdatePathReqDto,
   ) {
     const path = await this.pathsService.updateOneById(id, updatePathReqDto)
 
@@ -64,7 +64,7 @@ export class PathsController {
   @Version("1")
   @Delete(":id")
   async deleteOneById(@ParamId() id: number) {
-    const res = await this.pathsService.deleteOneById(id)
+    const res = await this.pathsService.removeOneById(id)
 
     return plainToInstance(
       DeletedResDto,
