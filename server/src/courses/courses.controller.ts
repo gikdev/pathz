@@ -24,7 +24,7 @@ export class CoursesController {
   @ApiSummary("Create a course")
   @Version("1")
   @Post()
-  async create(@Body() createCourseReqDto: CreateCourseReqDto) {
+  async createOne(@Body() createCourseReqDto: CreateCourseReqDto) {
     const course = await this.coursesService.create(createCourseReqDto)
 
     return plainToInstance(
@@ -50,7 +50,7 @@ export class CoursesController {
   @ApiSummary("Get a course")
   @Version("1")
   @Get(":id")
-  async findOne(@ParamId() id: number) {
+  async findOneById(@ParamId() id: number) {
     const course = await this.coursesService.findOneByIdOrThrow(id)
 
     return plainToInstance(
@@ -63,7 +63,7 @@ export class CoursesController {
   @ApiSummary("Update a course")
   @Version("1")
   @Patch(":id")
-  async update(
+  async updateOneById(
     @ParamId() id: number,
     @Body() updateCourseReqDto: UpdateCourseReqDto,
   ) {
@@ -82,7 +82,7 @@ export class CoursesController {
   @ApiSummary("Delete a course")
   @Version("1")
   @Delete(":id")
-  async remove(@ParamId() id: number) {
+  async removeOneById(@ParamId() id: number) {
     const res = await this.coursesService.removeOneById(id)
 
     return plainToInstance(
