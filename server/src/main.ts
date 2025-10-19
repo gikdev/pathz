@@ -6,15 +6,16 @@ import { apiReference } from "@scalar/nestjs-api-reference"
 
 class Main {
   private APP_PORT = process.env.APP_PORT || 3000
+  private GLOBAL_PREFIX = "api"
 
   async bootstrap() {
     const app = await NestFactory.create(AppModule)
 
     // Do stuff...
-    this.setupValidation(app)
     app.enableVersioning()
+    app.setGlobalPrefix(this.GLOBAL_PREFIX)
+    this.setupValidation(app)
     this.enableCors(app)
-    app.setGlobalPrefix("api")
     this.setupDocs(app)
 
     await app.listen(this.APP_PORT)
@@ -42,7 +43,9 @@ class Main {
 
   private showUrls() {
     console.log("App running:")
-    console.log(`  - Server:  http://localhost:${this.APP_PORT}/api`)
+    console.log(
+      `  - Server:  http://localhost:${this.APP_PORT}/${this.GLOBAL_PREFIX}`,
+    )
     console.log(`  - Scalar:  http://localhost:${this.APP_PORT}/docs/scalar`)
   }
 
