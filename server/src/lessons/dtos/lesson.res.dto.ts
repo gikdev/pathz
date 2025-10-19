@@ -1,12 +1,13 @@
 import { Expose } from "class-transformer"
 
-export class CourseResDto {
+export class LessonResDto {
   @Expose()
   id!: number
 
   @Expose()
   title!: string
 
-  @Expose()
-  description!: string | null
+  // @Expose()
+  // @Type(() => CourseResDto)
+  // course: CourseResDto
 }

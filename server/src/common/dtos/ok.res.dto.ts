@@ -1,6 +1,6 @@
 import { Expose } from "class-transformer"
 
-export class DeletedResDto {
+export class OkResDto {
   @Expose()
-  id!: number
+  ok!: boolean
 }

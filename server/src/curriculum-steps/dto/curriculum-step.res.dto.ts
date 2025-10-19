@@ -1,1 +1,13 @@
-export class CurriculumStepResDto {}
+import { Expose } from "class-transformer"
+
+export class CurriculumStepResDto {
+  @Expose()
+  id!: number
+
+  @Expose()
+  position!: number
+
+  // @Expose()
+  // @Type(() => LessonResDto)
+  // lesson!: LessonResDto
+}

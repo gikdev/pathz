@@ -81,7 +81,8 @@ class Main {
         // authentication: {
         //   preferredSecurityScheme: "bearer",
         // },
-        theme: "deepSpace",
+        showOperationId: true,
+        theme: "default",
         layout: "modern",
         defaultHttpClient: {
           targetKey: "js",

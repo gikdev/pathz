@@ -4,9 +4,9 @@ import { IsNullable } from "src/common/decorators/is-nullable.decorator"
 export class BaseCourseReqDto {
   @IsString()
   @IsNotEmpty()
-  title: string
+  title!: string
 
   @IsString()
   @IsNullable()
-  description: string | null
+  description!: string | null
 }
