@@ -25,20 +25,18 @@ export function Folder({ id, title, description }: FolderProps) {
   )
 }
 
-function FolderSkeleton() {
-  return (
-    <div className="flex gap-2 items-start animate-pulse p-4 bg-zinc-50 border border-zinc-300 rounded-lg">
-      <div className="rounded-md bg-zinc-300 size-6" />
-      <div className="rounded-md bg-zinc-300 h-6 w-24 me-auto" />
-      <CaretRightIcon size={24} className="shrink-0 grow-0" mirrored />
-    </div>
-  )
-}
+Folder.Skeleton = () => (
+  <div className="flex gap-2 items-start animate-pulse p-4 bg-zinc-50 border border-zinc-300 rounded-lg">
+    <div className="rounded-md bg-zinc-300 size-6" />
+    <div className="rounded-md bg-zinc-300 h-6 w-24 me-auto" />
+    <div className="rounded-md bg-zinc-300 size-6" />
+  </div>
+)
 
 export const FolderSkeletons = () => (
   <>
-    <FolderSkeleton />
-    <FolderSkeleton />
-    <FolderSkeleton />
+    <Folder.Skeleton />
+    <Folder.Skeleton />
+    <Folder.Skeleton />
   </>
 )

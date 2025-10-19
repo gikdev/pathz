@@ -100,7 +100,7 @@ function BottomTab({
   if (isActive)
     return (
       <div className="flex flex-col items-center justify-center">
-        <div className="flex gap-1 py-2 px-4 items-center justify-center rounded-4xl bg-emerald-400 text-zinc-900">
+        <div className="flex gap-1 py-2 px-4 items-center justify-center rounded-4xl bg-indigo-600 text-zinc-100">
           <Icon size={24} weight="fill" />
         </div>
       </div>

@@ -53,7 +53,7 @@ function RouteComponent() {
             />
           ))}
 
-        {isError && <ErrorParagraph onClick={() => refetch()} />}
+        {isError && <ErrorParagraph onClick={() => void refetch()} />}
       </div>
 
       <BottomTabs />
