@@ -1,51 +1,51 @@
-import { cva } from "./cva"
+import { tv } from "tailwind-variants"
 
-export const phonePage = cva({
+export const phonePage = tv({
   base: `
     flex flex-col max-w-120 mx-auto
-    w-full h-dvh bg-zinc-50
+    w-full h-dvh bg-gray-50
   `,
 })
 
-export const desktopPage = cva({
+export const desktopPage = tv({
   base: `
     flex flex-col mx-auto
-    w-full max-w-400 h-dvh bg-zinc-50
+    w-full max-w-400 h-dvh bg-gray-50
   `,
 })
 
-export const list = cva({
+export const list = tv({
   base: "p-4 gap-4 flex flex-col flex-1 overflow-y-auto",
 })
 
-export const iconBtn = cva({
+export const iconBtn = tv({
   base: `
     size-12 [&_svg]:text-[1.5em] flex flex-col
     items-center justify-center rounded-md
     cursor-pointer disabled:cursor-not-allowed
-    text-zinc-600 hover:text-zinc-900 disabled:hover:text-zinc-600
-    bg-transparent hover:bg-zinc-200 disabled:hover:bg-transparent
+    text-gray-600 hover:text-gray-900 disabled:hover:text-gray-600
+    bg-transparent hover:bg-gray-200 disabled:hover:bg-transparent
     active:scale-95 disabled:active:scale-100
     disabled:opacity-50
   `,
 })
 
-export const paginationIconBtn = cva({
+export const paginationIconBtn = tv({
   base: `
     size-8 [&_svg]:text-[1.33em] flex flex-col text-xs
     items-center justify-center rounded-md
     cursor-pointer disabled:cursor-not-allowed
-    text-zinc-600 hover:text-zinc-900 disabled:hover:text-zinc-600
-    bg-transparent hover:bg-zinc-200 disabled:hover:bg-transparent
+    text-gray-600 hover:text-gray-900 disabled:hover:text-gray-600
+    bg-transparent hover:bg-gray-200 disabled:hover:bg-transparent
     active:scale-95 disabled:active:scale-100
     disabled:opacity-50
   `,
 })
 
-export const linkBtn = cva({
+export const linkBtn = tv({
   base: `
     underline 
-    text-zinc-600 hover:text-zinc-900 disabled:hover:text-zinc-600
+    text-gray-600 hover:text-gray-900 disabled:hover:text-gray-600
     cursor-pointer disabled:cursor-not-allowed
   `,
 })

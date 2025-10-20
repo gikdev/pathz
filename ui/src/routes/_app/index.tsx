@@ -13,7 +13,7 @@ function RouteComponent() {
       <AppBar title="خانه" />
 
       <div className={list()}>
-        <p>خوش آمدی!</p>
+        <p>خوش اومدی!</p>
       </div>
 
       <BottomTabs />

@@ -81,9 +81,8 @@ class Main {
         // authentication: {
         //   preferredSecurityScheme: "bearer",
         // },
-        showOperationId: true,
         theme: "default",
-        layout: "modern",
+        layout: "classic",
         defaultHttpClient: {
           targetKey: "js",
           clientKey: "fetch",

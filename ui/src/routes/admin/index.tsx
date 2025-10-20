@@ -94,7 +94,7 @@ const MainNav = () => (
 
 const SearchAndFilterNav = () => (
   <div className="flex items-center gap-4">
-    <label className="h-12 gap-2 flex py-3 px-4 items-start me-auto w-full max-w-120 border border-zinc-300 rounded-lg focus-within:border-zinc-600 text-zinc-900">
+    <label className="h-12 gap-2 flex py-3 px-4 items-start me-auto w-full max-w-120 border border-gray-300 rounded-lg focus-within:border-gray-600 text-gray-900">
       <MagnifyingGlassIcon size={24} className="shrink-0" />
       <input
         className="border-0 focus:outline-0 flex-1"

@@ -6,7 +6,7 @@ import { createContext, useCallback, useContext, type ReactNode } from "react"
 const ACTIONS = ["MANAGE", "READ", "NONE"] as const
 type Action = (typeof ACTIONS)[number]
 
-const RESOURCES = ["FOLDER", "PIECE", "SETTINGS"] as const
+const RESOURCES = ["COURSE", "PIECE", "LESSON"] as const
 type Resource = (typeof RESOURCES)[number]
 
 // -----------------
@@ -16,14 +16,14 @@ type Role = "viewer" | "admin"
 
 const PERMISSIONS: Record<Role, Record<Resource, Action>> = {
   viewer: {
-    FOLDER: "READ",
+    COURSE: "READ",
+    LESSON: "READ",
     PIECE: "READ",
-    SETTINGS: "NONE",
   },
   admin: {
-    FOLDER: "MANAGE",
+    COURSE: "MANAGE",
+    LESSON: "MANAGE",
     PIECE: "MANAGE",
-    SETTINGS: "MANAGE",
   },
 }
 

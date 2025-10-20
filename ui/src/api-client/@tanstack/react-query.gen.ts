@@ -3,8 +3,8 @@
 import { type DefaultError, queryOptions, type UseMutationOptions } from '@tanstack/react-query';
 
 import { client } from '../client.gen';
-import { foldersControllerCreate, foldersControllerGetAll, foldersControllerGetById, foldersControllerRemove, type Options, piecesControllerCreate, piecesControllerGetAll, piecesControllerRemove, seedControllerSeed } from '../sdk.gen';
-import type { FoldersControllerCreateData, FoldersControllerCreateResponse, FoldersControllerGetAllData, FoldersControllerGetByIdData, FoldersControllerRemoveData, FoldersControllerRemoveResponse, PiecesControllerCreateData, PiecesControllerCreateResponse, PiecesControllerGetAllData, PiecesControllerRemoveData, PiecesControllerRemoveResponse, SeedControllerSeedData, SeedControllerSeedResponse } from '../types.gen';
+import { coursesControllerCreateOneV1, coursesControllerFindAllV1, coursesControllerFindOneByIdV1, coursesControllerRemoveOneByIdV1, coursesControllerUpdateOneByIdV1, curriculumStepsControllerFindAllWithLessonsV1, lessonsControllerOkV1, type Options } from '../sdk.gen';
+import type { CoursesControllerCreateOneV1Data, CoursesControllerCreateOneV1Response, CoursesControllerFindAllV1Data, CoursesControllerFindOneByIdV1Data, CoursesControllerRemoveOneByIdV1Data, CoursesControllerRemoveOneByIdV1Response, CoursesControllerUpdateOneByIdV1Data, CoursesControllerUpdateOneByIdV1Response, CurriculumStepsControllerFindAllWithLessonsV1Data, LessonsControllerOkV1Data } from '../types.gen';
 
 export type QueryKey<TOptions extends Options> = [
     Pick<TOptions, 'baseUrl' | 'body' | 'headers' | 'path' | 'query'> & {
@@ -41,15 +41,15 @@ const createQueryKey = <TOptions extends Options>(id: string, options?: TOptions
     ];
 };
 
-export const foldersControllerGetAllQueryKey = (options?: Options<FoldersControllerGetAllData>) => createQueryKey('foldersControllerGetAll', options);
+export const coursesControllerFindAllV1QueryKey = (options?: Options<CoursesControllerFindAllV1Data>) => createQueryKey('coursesControllerFindAllV1', options);
 
 /**
- * Get all (parent) folders
+ * Get courses
  */
-export const foldersControllerGetAllOptions = (options?: Options<FoldersControllerGetAllData>) => {
+export const coursesControllerFindAllV1Options = (options?: Options<CoursesControllerFindAllV1Data>) => {
     return queryOptions({
         queryFn: async ({ queryKey, signal }) => {
-            const { data } = await foldersControllerGetAll({
+            const { data } = await coursesControllerFindAllV1({
                 ...options,
                 ...queryKey[0],
                 signal,
@@ -57,17 +57,17 @@ export const foldersControllerGetAllOptions = (options?: Options<FoldersControll
             });
             return data;
         },
-        queryKey: foldersControllerGetAllQueryKey(options)
+        queryKey: coursesControllerFindAllV1QueryKey(options)
     });
 };
 
 /**
- * Create a folder
+ * Create a course
  */
-export const foldersControllerCreateMutation = (options?: Partial<Options<FoldersControllerCreateData>>): UseMutationOptions<FoldersControllerCreateResponse, DefaultError, Options<FoldersControllerCreateData>> => {
-    const mutationOptions: UseMutationOptions<FoldersControllerCreateResponse, DefaultError, Options<FoldersControllerCreateData>> = {
+export const coursesControllerCreateOneV1Mutation = (options?: Partial<Options<CoursesControllerCreateOneV1Data>>): UseMutationOptions<CoursesControllerCreateOneV1Response, DefaultError, Options<CoursesControllerCreateOneV1Data>> => {
+    const mutationOptions: UseMutationOptions<CoursesControllerCreateOneV1Response, DefaultError, Options<CoursesControllerCreateOneV1Data>> = {
         mutationFn: async (fnOptions) => {
-            const { data } = await foldersControllerCreate({
+            const { data } = await coursesControllerCreateOneV1({
                 ...options,
                 ...fnOptions,
                 throwOnError: true
@@ -79,12 +79,12 @@ export const foldersControllerCreateMutation = (options?: Partial<Options<Folder
 };
 
 /**
- * Delete a folder
+ * Delete a course
  */
-export const foldersControllerRemoveMutation = (options?: Partial<Options<FoldersControllerRemoveData>>): UseMutationOptions<FoldersControllerRemoveResponse, DefaultError, Options<FoldersControllerRemoveData>> => {
-    const mutationOptions: UseMutationOptions<FoldersControllerRemoveResponse, DefaultError, Options<FoldersControllerRemoveData>> = {
+export const coursesControllerRemoveOneByIdV1Mutation = (options?: Partial<Options<CoursesControllerRemoveOneByIdV1Data>>): UseMutationOptions<CoursesControllerRemoveOneByIdV1Response, DefaultError, Options<CoursesControllerRemoveOneByIdV1Data>> => {
+    const mutationOptions: UseMutationOptions<CoursesControllerRemoveOneByIdV1Response, DefaultError, Options<CoursesControllerRemoveOneByIdV1Data>> = {
         mutationFn: async (fnOptions) => {
-            const { data } = await foldersControllerRemove({
+            const { data } = await coursesControllerRemoveOneByIdV1({
                 ...options,
                 ...fnOptions,
                 throwOnError: true
@@ -95,15 +95,15 @@ export const foldersControllerRemoveMutation = (options?: Partial<Options<Folder
     return mutationOptions;
 };
 
-export const foldersControllerGetByIdQueryKey = (options: Options<FoldersControllerGetByIdData>) => createQueryKey('foldersControllerGetById', options);
+export const coursesControllerFindOneByIdV1QueryKey = (options: Options<CoursesControllerFindOneByIdV1Data>) => createQueryKey('coursesControllerFindOneByIdV1', options);
 
 /**
- * Get folder by ID
+ * Get a course
  */
-export const foldersControllerGetByIdOptions = (options: Options<FoldersControllerGetByIdData>) => {
+export const coursesControllerFindOneByIdV1Options = (options: Options<CoursesControllerFindOneByIdV1Data>) => {
     return queryOptions({
         queryFn: async ({ queryKey, signal }) => {
-            const { data } = await foldersControllerGetById({
+            const { data } = await coursesControllerFindOneByIdV1({
                 ...options,
                 ...queryKey[0],
                 signal,
@@ -111,19 +111,36 @@ export const foldersControllerGetByIdOptions = (options: Options<FoldersControll
             });
             return data;
         },
-        queryKey: foldersControllerGetByIdQueryKey(options)
+        queryKey: coursesControllerFindOneByIdV1QueryKey(options)
     });
 };
 
-export const piecesControllerGetAllQueryKey = (options?: Options<PiecesControllerGetAllData>) => createQueryKey('piecesControllerGetAll', options);
+/**
+ * Update a course
+ */
+export const coursesControllerUpdateOneByIdV1Mutation = (options?: Partial<Options<CoursesControllerUpdateOneByIdV1Data>>): UseMutationOptions<CoursesControllerUpdateOneByIdV1Response, DefaultError, Options<CoursesControllerUpdateOneByIdV1Data>> => {
+    const mutationOptions: UseMutationOptions<CoursesControllerUpdateOneByIdV1Response, DefaultError, Options<CoursesControllerUpdateOneByIdV1Data>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await coursesControllerUpdateOneByIdV1({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+export const curriculumStepsControllerFindAllWithLessonsV1QueryKey = (options?: Options<CurriculumStepsControllerFindAllWithLessonsV1Data>) => createQueryKey('curriculumStepsControllerFindAllWithLessonsV1', options);
 
 /**
- * Get all pieces
+ * Get all steps (w/ lessons)
  */
-export const piecesControllerGetAllOptions = (options?: Options<PiecesControllerGetAllData>) => {
+export const curriculumStepsControllerFindAllWithLessonsV1Options = (options?: Options<CurriculumStepsControllerFindAllWithLessonsV1Data>) => {
     return queryOptions({
         queryFn: async ({ queryKey, signal }) => {
-            const { data } = await piecesControllerGetAll({
+            const { data } = await curriculumStepsControllerFindAllWithLessonsV1({
                 ...options,
                 ...queryKey[0],
                 signal,
@@ -131,57 +148,26 @@ export const piecesControllerGetAllOptions = (options?: Options<PiecesController
             });
             return data;
         },
-        queryKey: piecesControllerGetAllQueryKey(options)
+        queryKey: curriculumStepsControllerFindAllWithLessonsV1QueryKey(options)
     });
 };
 
-/**
- * Create a piece
- */
-export const piecesControllerCreateMutation = (options?: Partial<Options<PiecesControllerCreateData>>): UseMutationOptions<PiecesControllerCreateResponse, DefaultError, Options<PiecesControllerCreateData>> => {
-    const mutationOptions: UseMutationOptions<PiecesControllerCreateResponse, DefaultError, Options<PiecesControllerCreateData>> = {
-        mutationFn: async (fnOptions) => {
-            const { data } = await piecesControllerCreate({
-                ...options,
-                ...fnOptions,
-                throwOnError: true
-            });
-            return data;
-        }
-    };
-    return mutationOptions;
-};
+export const lessonsControllerOkV1QueryKey = (options?: Options<LessonsControllerOkV1Data>) => createQueryKey('lessonsControllerOkV1', options);
 
 /**
- * Delete a piece
+ * Lessons -> OK?
  */
-export const piecesControllerRemoveMutation = (options?: Partial<Options<PiecesControllerRemoveData>>): UseMutationOptions<PiecesControllerRemoveResponse, DefaultError, Options<PiecesControllerRemoveData>> => {
-    const mutationOptions: UseMutationOptions<PiecesControllerRemoveResponse, DefaultError, Options<PiecesControllerRemoveData>> = {
-        mutationFn: async (fnOptions) => {
-            const { data } = await piecesControllerRemove({
+export const lessonsControllerOkV1Options = (options?: Options<LessonsControllerOkV1Data>) => {
+    return queryOptions({
+        queryFn: async ({ queryKey, signal }) => {
+            const { data } = await lessonsControllerOkV1({
                 ...options,
-                ...fnOptions,
+                ...queryKey[0],
+                signal,
                 throwOnError: true
             });
             return data;
-        }
-    };
-    return mutationOptions;
-};
-
-/**
- * Seed the DB.
- */
-export const seedControllerSeedMutation = (options?: Partial<Options<SeedControllerSeedData>>): UseMutationOptions<SeedControllerSeedResponse, DefaultError, Options<SeedControllerSeedData>> => {
-    const mutationOptions: UseMutationOptions<SeedControllerSeedResponse, DefaultError, Options<SeedControllerSeedData>> = {
-        mutationFn: async (fnOptions) => {
-            const { data } = await seedControllerSeed({
-                ...options,
-                ...fnOptions,
-                throwOnError: true
-            });
-            return data;
-        }
-    };
-    return mutationOptions;
+        },
+        queryKey: lessonsControllerOkV1QueryKey(options)
+    });
 };

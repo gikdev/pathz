@@ -2,7 +2,7 @@
 
 import type { Client, Options as Options2, TDataShape } from './client';
 import { client } from './client.gen';
-import type { FoldersControllerCreateData, FoldersControllerCreateResponses, FoldersControllerGetAllData, FoldersControllerGetAllResponses, FoldersControllerGetByIdData, FoldersControllerGetByIdResponses, FoldersControllerRemoveData, FoldersControllerRemoveResponses, PiecesControllerCreateData, PiecesControllerCreateResponses, PiecesControllerGetAllData, PiecesControllerGetAllResponses, PiecesControllerRemoveData, PiecesControllerRemoveResponses, SeedControllerSeedData, SeedControllerSeedResponses } from './types.gen';
+import type { CoursesControllerCreateOneV1Data, CoursesControllerCreateOneV1Responses, CoursesControllerFindAllV1Data, CoursesControllerFindAllV1Responses, CoursesControllerFindOneByIdV1Data, CoursesControllerFindOneByIdV1Responses, CoursesControllerRemoveOneByIdV1Data, CoursesControllerRemoveOneByIdV1Responses, CoursesControllerUpdateOneByIdV1Data, CoursesControllerUpdateOneByIdV1Responses, CurriculumStepsControllerFindAllWithLessonsV1Data, CurriculumStepsControllerFindAllWithLessonsV1Responses, LessonsControllerOkV1Data, LessonsControllerOkV1Responses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean> = Options2<TData, ThrowOnError> & {
     /**
@@ -19,21 +19,21 @@ export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends 
 };
 
 /**
- * Get all (parent) folders
+ * Get courses
  */
-export const foldersControllerGetAll = <ThrowOnError extends boolean = false>(options?: Options<FoldersControllerGetAllData, ThrowOnError>) => {
-    return (options?.client ?? client).get<FoldersControllerGetAllResponses, unknown, ThrowOnError>({
-        url: '/folders',
+export const coursesControllerFindAllV1 = <ThrowOnError extends boolean = false>(options?: Options<CoursesControllerFindAllV1Data, ThrowOnError>) => {
+    return (options?.client ?? client).get<CoursesControllerFindAllV1Responses, unknown, ThrowOnError>({
+        url: '/api/v1/courses',
         ...options
     });
 };
 
 /**
- * Create a folder
+ * Create a course
  */
-export const foldersControllerCreate = <ThrowOnError extends boolean = false>(options: Options<FoldersControllerCreateData, ThrowOnError>) => {
-    return (options.client ?? client).post<FoldersControllerCreateResponses, unknown, ThrowOnError>({
-        url: '/folders',
+export const coursesControllerCreateOneV1 = <ThrowOnError extends boolean = false>(options: Options<CoursesControllerCreateOneV1Data, ThrowOnError>) => {
+    return (options.client ?? client).post<CoursesControllerCreateOneV1Responses, unknown, ThrowOnError>({
+        url: '/api/v1/courses',
         ...options,
         headers: {
             'Content-Type': 'application/json',
@@ -43,41 +43,31 @@ export const foldersControllerCreate = <ThrowOnError extends boolean = false>(op
 };
 
 /**
- * Delete a folder
+ * Delete a course
  */
-export const foldersControllerRemove = <ThrowOnError extends boolean = false>(options: Options<FoldersControllerRemoveData, ThrowOnError>) => {
-    return (options.client ?? client).delete<FoldersControllerRemoveResponses, unknown, ThrowOnError>({
-        url: '/folders/{id}',
+export const coursesControllerRemoveOneByIdV1 = <ThrowOnError extends boolean = false>(options: Options<CoursesControllerRemoveOneByIdV1Data, ThrowOnError>) => {
+    return (options.client ?? client).delete<CoursesControllerRemoveOneByIdV1Responses, unknown, ThrowOnError>({
+        url: '/api/v1/courses/{id}',
         ...options
     });
 };
 
 /**
- * Get folder by ID
+ * Get a course
  */
-export const foldersControllerGetById = <ThrowOnError extends boolean = false>(options: Options<FoldersControllerGetByIdData, ThrowOnError>) => {
-    return (options.client ?? client).get<FoldersControllerGetByIdResponses, unknown, ThrowOnError>({
-        url: '/folders/{id}',
+export const coursesControllerFindOneByIdV1 = <ThrowOnError extends boolean = false>(options: Options<CoursesControllerFindOneByIdV1Data, ThrowOnError>) => {
+    return (options.client ?? client).get<CoursesControllerFindOneByIdV1Responses, unknown, ThrowOnError>({
+        url: '/api/v1/courses/{id}',
         ...options
     });
 };
 
 /**
- * Get all pieces
+ * Update a course
  */
-export const piecesControllerGetAll = <ThrowOnError extends boolean = false>(options?: Options<PiecesControllerGetAllData, ThrowOnError>) => {
-    return (options?.client ?? client).get<PiecesControllerGetAllResponses, unknown, ThrowOnError>({
-        url: '/pieces',
-        ...options
-    });
-};
-
-/**
- * Create a piece
- */
-export const piecesControllerCreate = <ThrowOnError extends boolean = false>(options: Options<PiecesControllerCreateData, ThrowOnError>) => {
-    return (options.client ?? client).post<PiecesControllerCreateResponses, unknown, ThrowOnError>({
-        url: '/pieces',
+export const coursesControllerUpdateOneByIdV1 = <ThrowOnError extends boolean = false>(options: Options<CoursesControllerUpdateOneByIdV1Data, ThrowOnError>) => {
+    return (options.client ?? client).patch<CoursesControllerUpdateOneByIdV1Responses, unknown, ThrowOnError>({
+        url: '/api/v1/courses/{id}',
         ...options,
         headers: {
             'Content-Type': 'application/json',
@@ -87,21 +77,21 @@ export const piecesControllerCreate = <ThrowOnError extends boolean = false>(opt
 };
 
 /**
- * Delete a piece
+ * Get all steps (w/ lessons)
  */
-export const piecesControllerRemove = <ThrowOnError extends boolean = false>(options: Options<PiecesControllerRemoveData, ThrowOnError>) => {
-    return (options.client ?? client).delete<PiecesControllerRemoveResponses, unknown, ThrowOnError>({
-        url: '/pieces/{id}',
+export const curriculumStepsControllerFindAllWithLessonsV1 = <ThrowOnError extends boolean = false>(options?: Options<CurriculumStepsControllerFindAllWithLessonsV1Data, ThrowOnError>) => {
+    return (options?.client ?? client).get<CurriculumStepsControllerFindAllWithLessonsV1Responses, unknown, ThrowOnError>({
+        url: '/api/v1/curriculum-steps',
         ...options
     });
 };
 
 /**
- * Seed the DB.
+ * Lessons -> OK?
  */
-export const seedControllerSeed = <ThrowOnError extends boolean = false>(options?: Options<SeedControllerSeedData, ThrowOnError>) => {
-    return (options?.client ?? client).post<SeedControllerSeedResponses, unknown, ThrowOnError>({
-        url: '/seed',
+export const lessonsControllerOkV1 = <ThrowOnError extends boolean = false>(options?: Options<LessonsControllerOkV1Data, ThrowOnError>) => {
+    return (options?.client ?? client).get<LessonsControllerOkV1Responses, unknown, ThrowOnError>({
+        url: '/api/v1/lessons/ok',
         ...options
     });
 };

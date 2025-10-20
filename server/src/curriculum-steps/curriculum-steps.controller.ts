@@ -4,7 +4,7 @@ import { ApiSummary } from "src/common/decorators/api-summary.decorator"
 import { plainToInstance } from "class-transformer"
 import { getDefaultClassTransformOptions } from "src/common/utils"
 import { ApiTags } from "@nestjs/swagger"
-import { OkResDto } from "src/common/dtos/ok.res.dto"
+import { CurriculumStepWithLessonResDto } from "./dto/curriculum-step-with-lesson.res.dto"
 
 @ApiTags("Curriculum Steps")
 @Controller("curriculum-steps")
@@ -13,12 +13,16 @@ export class CurriculumStepsController {
     private readonly curriculumStepsService: CurriculumStepsService,
   ) {}
 
-  @ApiSummary("Curriculum steps -> OK?")
+  @ApiSummary("Get all steps (w/ lessons)")
   @Version("1")
-  @Get("ok")
-  async findAll() {
-    const ok = await this.curriculumStepsService.ok()
+  @Get()
+  async findAllWithLessons() {
+    const { steps } = await this.curriculumStepsService.findAllWithLessons()
 
-    return plainToInstance(OkResDto, ok, getDefaultClassTransformOptions())
+    return plainToInstance(
+      CurriculumStepWithLessonResDto,
+      steps,
+      getDefaultClassTransformOptions(),
+    )
   }
 }

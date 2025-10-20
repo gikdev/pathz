@@ -11,8 +11,8 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
 import { Route as AppIndexRouteImport } from './routes/_app/index'
-import { Route as AppFoldersIndexRouteImport } from './routes/_app/folders/index'
-import { Route as AppFoldersIdRouteImport } from './routes/_app/folders/$id'
+import { Route as AppCurriculumIndexRouteImport } from './routes/_app/curriculum/index'
+import { Route as AppCoursesIndexRouteImport } from './routes/_app/courses/index'
 
 const AdminIndexRoute = AdminIndexRouteImport.update({
   id: '/admin/',
@@ -24,49 +24,49 @@ const AppIndexRoute = AppIndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AppFoldersIndexRoute = AppFoldersIndexRouteImport.update({
-  id: '/_app/folders/',
-  path: '/folders/',
+const AppCurriculumIndexRoute = AppCurriculumIndexRouteImport.update({
+  id: '/_app/curriculum/',
+  path: '/curriculum/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AppFoldersIdRoute = AppFoldersIdRouteImport.update({
-  id: '/_app/folders/$id',
-  path: '/folders/$id',
+const AppCoursesIndexRoute = AppCoursesIndexRouteImport.update({
+  id: '/_app/courses/',
+  path: '/courses/',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof AppIndexRoute
   '/admin': typeof AdminIndexRoute
-  '/folders/$id': typeof AppFoldersIdRoute
-  '/folders': typeof AppFoldersIndexRoute
+  '/courses': typeof AppCoursesIndexRoute
+  '/curriculum': typeof AppCurriculumIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof AppIndexRoute
   '/admin': typeof AdminIndexRoute
-  '/folders/$id': typeof AppFoldersIdRoute
-  '/folders': typeof AppFoldersIndexRoute
+  '/courses': typeof AppCoursesIndexRoute
+  '/curriculum': typeof AppCurriculumIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_app/': typeof AppIndexRoute
   '/admin/': typeof AdminIndexRoute
-  '/_app/folders/$id': typeof AppFoldersIdRoute
-  '/_app/folders/': typeof AppFoldersIndexRoute
+  '/_app/courses/': typeof AppCoursesIndexRoute
+  '/_app/curriculum/': typeof AppCurriculumIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/admin' | '/folders/$id' | '/folders'
+  fullPaths: '/' | '/admin' | '/courses' | '/curriculum'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/admin' | '/folders/$id' | '/folders'
-  id: '__root__' | '/_app/' | '/admin/' | '/_app/folders/$id' | '/_app/folders/'
+  to: '/' | '/admin' | '/courses' | '/curriculum'
+  id: '__root__' | '/_app/' | '/admin/' | '/_app/courses/' | '/_app/curriculum/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   AppIndexRoute: typeof AppIndexRoute
   AdminIndexRoute: typeof AdminIndexRoute
-  AppFoldersIdRoute: typeof AppFoldersIdRoute
-  AppFoldersIndexRoute: typeof AppFoldersIndexRoute
+  AppCoursesIndexRoute: typeof AppCoursesIndexRoute
+  AppCurriculumIndexRoute: typeof AppCurriculumIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -85,18 +85,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_app/folders/': {
-      id: '/_app/folders/'
-      path: '/folders'
-      fullPath: '/folders'
-      preLoaderRoute: typeof AppFoldersIndexRouteImport
+    '/_app/curriculum/': {
+      id: '/_app/curriculum/'
+      path: '/curriculum'
+      fullPath: '/curriculum'
+      preLoaderRoute: typeof AppCurriculumIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_app/folders/$id': {
-      id: '/_app/folders/$id'
-      path: '/folders/$id'
-      fullPath: '/folders/$id'
-      preLoaderRoute: typeof AppFoldersIdRouteImport
+    '/_app/courses/': {
+      id: '/_app/courses/'
+      path: '/courses'
+      fullPath: '/courses'
+      preLoaderRoute: typeof AppCoursesIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -105,8 +105,8 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   AppIndexRoute: AppIndexRoute,
   AdminIndexRoute: AdminIndexRoute,
-  AppFoldersIdRoute: AppFoldersIdRoute,
-  AppFoldersIndexRoute: AppFoldersIndexRoute,
+  AppCoursesIndexRoute: AppCoursesIndexRoute,
+  AppCurriculumIndexRoute: AppCurriculumIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

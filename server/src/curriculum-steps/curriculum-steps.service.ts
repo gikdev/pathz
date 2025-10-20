@@ -5,8 +5,18 @@ import { PrismaService } from "src/prisma/prisma.service"
 export class CurriculumStepsService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async ok() {
-    await this.prisma.curriculumStep.count()
-    return { ok: true }
+  async findAll() {
+    const steps = await this.prisma.curriculumStep.findMany()
+    return { steps }
+  }
+
+  async findAllWithLessons() {
+    const steps = await this.prisma.curriculumStep.findMany({
+      include: {
+        lesson: true,
+      },
+    })
+
+    return { steps }
   }
 }

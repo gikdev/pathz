@@ -1,13 +1,21 @@
 import { linkOptions } from "@tanstack/react-router"
 import {
+  BookOpenTextIcon,
   ChatsIcon,
   HouseIcon,
   MapTrifoldIcon,
-  StackIcon,
   UserCircleIcon,
 } from "@phosphor-icons/react"
 import type { Icon } from "@phosphor-icons/react"
 import { Link, useLocation } from "@tanstack/react-router"
+
+interface TabItem {
+  id: number
+  Icon: Icon
+  title: string
+  to: string
+  disabled?: boolean
+}
 
 const DEFAULT_TAB_ITEMS: TabItem[] = [
   {
@@ -18,16 +26,15 @@ const DEFAULT_TAB_ITEMS: TabItem[] = [
   },
   {
     id: 1,
-    Icon: StackIcon,
+    Icon: BookOpenTextIcon,
     title: "دوره‌ها",
-    to: linkOptions({ to: "/" }).to,
-    disabled: true,
+    to: linkOptions({ to: "/courses" }).to,
   },
   {
     id: 2,
     Icon: MapTrifoldIcon,
     title: "مسیر",
-    to: linkOptions({ to: "/folders" }).to,
+    to: linkOptions({ to: "/curriculum" }).to,
   },
   {
     id: 3,
@@ -45,14 +52,6 @@ const DEFAULT_TAB_ITEMS: TabItem[] = [
   },
 ]
 
-export interface TabItem {
-  id: number
-  Icon: Icon
-  title: string
-  to: string
-  disabled?: boolean
-}
-
 interface BottomTabsProps {
   tabItems?: TabItem[]
 }
@@ -61,7 +60,7 @@ export function BottomTabs({ tabItems = DEFAULT_TAB_ITEMS }: BottomTabsProps) {
   const { pathname } = useLocation()
 
   return (
-    <div className="h-16 bg-zinc-100 border-t border-zinc-300 w-full grid [grid-template-columns:repeat(auto-fit,minmax(0,1fr))]">
+    <div className="h-16 bg-gray-100 border-t border-gray-300 w-full grid [grid-template-columns:repeat(auto-fit,minmax(0,1fr))]">
       {tabItems.map(t => (
         <BottomTab
           Icon={t.Icon}
@@ -100,7 +99,7 @@ function BottomTab({
   if (isActive)
     return (
       <div className="flex flex-col items-center justify-center">
-        <div className="flex gap-1 py-2 px-4 items-center justify-center rounded-4xl bg-indigo-600 text-zinc-100">
+        <div className="flex gap-1 py-2 px-4 items-center justify-center rounded-lg bg-indigo-600 text-gray-100">
           <Icon size={24} weight="fill" />
         </div>
       </div>
@@ -110,7 +109,7 @@ function BottomTab({
     <Link
       to={to}
       key={id}
-      className="flex flex-col gap-0.5 p-2 items-center text-xs cursor-pointer hover:bg-zinc-200"
+      className="flex flex-col gap-0.5 p-2 items-center text-xs cursor-pointer hover:bg-gray-200"
     >
       <Icon size={24} />
       <span>{title}</span>

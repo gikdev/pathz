@@ -6,8 +6,4 @@ export class CurriculumStepResDto {
 
   @Expose()
   position!: number
-
-  // @Expose()
-  // @Type(() => LessonResDto)
-  // lesson!: LessonResDto
 }
