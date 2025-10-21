@@ -9,6 +9,8 @@ export default defineConfig({
   plugins: [
     tanstackRouter({
       target: "react",
+      semicolons: false,
+      quoteStyle: "double",
       autoCodeSplitting: false,
     }),
     react(),
