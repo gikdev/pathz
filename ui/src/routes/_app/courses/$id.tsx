@@ -1,11 +1,14 @@
 import { coursesControllerFindOneByIdV1Options } from "#/api-client"
 import { AppBar } from "#/components/app-bar"
-import { CourseCard } from "#/components/course-card"
 import { ErrorParagraph } from "#/components/error-paragraph"
+import { FabMenu, type FabItem } from "#/components/fab-menu"
 import { GoBackInHistoryBtn } from "#/components/go-back-in-history-btn"
+import { Can } from "#/features/auth"
 import { list, phonePage } from "#/shared/skins"
+import { PenIcon, TrashIcon } from "@phosphor-icons/react"
 import { useQuery } from "@tanstack/react-query"
 import { createFileRoute } from "@tanstack/react-router"
+import { useState } from "react"
 
 export const Route = createFileRoute("/_app/courses/$id")({
   component: RouteComponent,
@@ -18,30 +21,50 @@ export const Route = createFileRoute("/_app/courses/$id")({
   },
 })
 
+const items: FabItem[] = [
+  {
+    key: "delete",
+    label: "حذف دوره",
+    theme: "secondary-danger",
+    icon: TrashIcon,
+    onClick: () => console.log("Delete clicked"),
+    closeAfterClick: true,
+  },
+  {
+    key: "edit",
+    label: "ویرایش دوره",
+    theme: "secondary-brand",
+    icon: PenIcon,
+    onClick: () => console.log("Edit clicked"),
+    closeAfterClick: true,
+  },
+]
+
 function RouteComponent() {
+  const [isOpen, setOpen] = useState(false)
   const { id } = Route.useParams()
-  const {
-    data: course,
-    isSuccess,
-    isPending,
-    isError,
-    refetch,
-  } = useQuery(coursesControllerFindOneByIdV1Options({ path: { id } }))
+  const { data, isError, refetch } = useQuery(
+    coursesControllerFindOneByIdV1Options({ path: { id } }),
+  )
 
   return (
-    <div className={phonePage()}>
+    <div className={phonePage({ className: "relative" })}>
       <AppBar
-        title={isSuccess ? course.title : "..."}
+        title={data ? data.title : "skeleton"}
         slotStart={<GoBackInHistoryBtn />}
       />
 
       <div className={list()}>
         {isError && <ErrorParagraph onClick={() => void refetch()} />}
-
-        {isPending && <CourseCard.ListSkeleton />}
-
-        {isSuccess && course.title}
       </div>
+
+      <Can I="MANAGE" a="COURSE">
+        <FabMenu
+          isOpen={isOpen}
+          onClick={() => setOpen(p => !p)}
+          items={items}
+        />
+      </Can>
     </div>
   )
 }
