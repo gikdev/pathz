@@ -31,7 +31,7 @@ function RouteComponent() {
         title="دوره‌ها"
         slotStart={
           <Can I="MANAGE" a="COURSE">
-            <Link to="/" className={iconBtn()}>
+            <Link to="/courses/new" className={iconBtn()}>
               <PlusIcon />
             </Link>
           </Can>

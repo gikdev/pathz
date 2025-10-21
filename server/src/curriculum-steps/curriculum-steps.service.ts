@@ -12,9 +12,8 @@ export class CurriculumStepsService {
 
   async findAllWithLessons() {
     const steps = await this.prisma.curriculumStep.findMany({
-      include: {
-        lesson: true,
-      },
+      orderBy: { position: "asc" },
+      include: { lesson: true },
     })
 
     return { steps }

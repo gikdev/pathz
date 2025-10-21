@@ -7,7 +7,7 @@ export const Route = createRootRoute({ component: RootLayout })
 function RootLayout() {
   return (
     <TanStackQueryProvider>
-      <CanProvider role="viewer">
+      <CanProvider role="admin">
         <Outlet />
       </CanProvider>
     </TanStackQueryProvider>

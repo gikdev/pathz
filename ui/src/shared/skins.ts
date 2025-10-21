@@ -49,3 +49,34 @@ export const linkBtn = tv({
     cursor-pointer disabled:cursor-not-allowed
   `,
 })
+
+export const btn = tv({
+  base: `
+    flex items-center justify-center
+    [&_svg]:text-[1.3em]
+
+    disabled:opacity-50
+    disabled:grayscale-100
+
+    active:scale-95 disabled:active:scale-100
+    cursor-pointer  disabled:cursor-not-allowed
+  `,
+  variants: {
+    size: {
+      md: `min-h-12 gap-2 rounded-md`,
+    },
+    theme: {
+      "contained-primary": `
+        bg-indigo-600
+        hover:bg-indigo-700 
+        disabled:hover:bg-indigo-600
+
+        text-gray-50
+      `,
+    },
+  },
+  defaultVariants: {
+    size: "md",
+    theme: "contained-primary",
+  },
+})
