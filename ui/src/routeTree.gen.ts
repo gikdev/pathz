@@ -8,118 +8,148 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from "./routes/__root"
-import { Route as AdminIndexRouteImport } from "./routes/admin/index"
-import { Route as AppIndexRouteImport } from "./routes/_app/index"
-import { Route as AppCurriculumIndexRouteImport } from "./routes/_app/curriculum/index"
-import { Route as AppCoursesIndexRouteImport } from "./routes/_app/courses/index"
-import { Route as AppCoursesNewRouteImport } from "./routes/_app/courses/new"
+import { Route as rootRouteImport } from './routes/__root'
+import { Route as AdminIndexRouteImport } from './routes/admin/index'
+import { Route as AppIndexRouteImport } from './routes/_app/index'
+import { Route as AppCurriculumIndexRouteImport } from './routes/_app/curriculum/index'
+import { Route as AppCoursesIndexRouteImport } from './routes/_app/courses/index'
+import { Route as AppCoursesNewRouteImport } from './routes/_app/courses/new'
+import { Route as AppCoursesIdRouteImport } from './routes/_app/courses/$id'
 
 const AdminIndexRoute = AdminIndexRouteImport.update({
-  id: "/admin/",
-  path: "/admin/",
+  id: '/admin/',
+  path: '/admin/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AppIndexRoute = AppIndexRouteImport.update({
-  id: "/_app/",
-  path: "/",
+  id: '/_app/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AppCurriculumIndexRoute = AppCurriculumIndexRouteImport.update({
-  id: "/_app/curriculum/",
-  path: "/curriculum/",
+  id: '/_app/curriculum/',
+  path: '/curriculum/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AppCoursesIndexRoute = AppCoursesIndexRouteImport.update({
-  id: "/_app/courses/",
-  path: "/courses/",
+  id: '/_app/courses/',
+  path: '/courses/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AppCoursesNewRoute = AppCoursesNewRouteImport.update({
-  id: "/_app/courses/new",
-  path: "/courses/new",
+  id: '/_app/courses/new',
+  path: '/courses/new',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppCoursesIdRoute = AppCoursesIdRouteImport.update({
+  id: '/_app/courses/$id',
+  path: '/courses/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
-  "/": typeof AppIndexRoute
-  "/admin": typeof AdminIndexRoute
-  "/courses/new": typeof AppCoursesNewRoute
-  "/courses": typeof AppCoursesIndexRoute
-  "/curriculum": typeof AppCurriculumIndexRoute
+  '/': typeof AppIndexRoute
+  '/admin': typeof AdminIndexRoute
+  '/courses/$id': typeof AppCoursesIdRoute
+  '/courses/new': typeof AppCoursesNewRoute
+  '/courses': typeof AppCoursesIndexRoute
+  '/curriculum': typeof AppCurriculumIndexRoute
 }
 export interface FileRoutesByTo {
-  "/": typeof AppIndexRoute
-  "/admin": typeof AdminIndexRoute
-  "/courses/new": typeof AppCoursesNewRoute
-  "/courses": typeof AppCoursesIndexRoute
-  "/curriculum": typeof AppCurriculumIndexRoute
+  '/': typeof AppIndexRoute
+  '/admin': typeof AdminIndexRoute
+  '/courses/$id': typeof AppCoursesIdRoute
+  '/courses/new': typeof AppCoursesNewRoute
+  '/courses': typeof AppCoursesIndexRoute
+  '/curriculum': typeof AppCurriculumIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  "/_app/": typeof AppIndexRoute
-  "/admin/": typeof AdminIndexRoute
-  "/_app/courses/new": typeof AppCoursesNewRoute
-  "/_app/courses/": typeof AppCoursesIndexRoute
-  "/_app/curriculum/": typeof AppCurriculumIndexRoute
+  '/_app/': typeof AppIndexRoute
+  '/admin/': typeof AdminIndexRoute
+  '/_app/courses/$id': typeof AppCoursesIdRoute
+  '/_app/courses/new': typeof AppCoursesNewRoute
+  '/_app/courses/': typeof AppCoursesIndexRoute
+  '/_app/curriculum/': typeof AppCurriculumIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: "/" | "/admin" | "/courses/new" | "/courses" | "/curriculum"
+  fullPaths:
+    | '/'
+    | '/admin'
+    | '/courses/$id'
+    | '/courses/new'
+    | '/courses'
+    | '/curriculum'
   fileRoutesByTo: FileRoutesByTo
-  to: "/" | "/admin" | "/courses/new" | "/courses" | "/curriculum"
+  to:
+    | '/'
+    | '/admin'
+    | '/courses/$id'
+    | '/courses/new'
+    | '/courses'
+    | '/curriculum'
   id:
-    | "__root__"
-    | "/_app/"
-    | "/admin/"
-    | "/_app/courses/new"
-    | "/_app/courses/"
-    | "/_app/curriculum/"
+    | '__root__'
+    | '/_app/'
+    | '/admin/'
+    | '/_app/courses/$id'
+    | '/_app/courses/new'
+    | '/_app/courses/'
+    | '/_app/curriculum/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   AppIndexRoute: typeof AppIndexRoute
   AdminIndexRoute: typeof AdminIndexRoute
+  AppCoursesIdRoute: typeof AppCoursesIdRoute
   AppCoursesNewRoute: typeof AppCoursesNewRoute
   AppCoursesIndexRoute: typeof AppCoursesIndexRoute
   AppCurriculumIndexRoute: typeof AppCurriculumIndexRoute
 }
 
-declare module "@tanstack/react-router" {
+declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    "/admin/": {
-      id: "/admin/"
-      path: "/admin"
-      fullPath: "/admin"
+    '/admin/': {
+      id: '/admin/'
+      path: '/admin'
+      fullPath: '/admin'
       preLoaderRoute: typeof AdminIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    "/_app/": {
-      id: "/_app/"
-      path: "/"
-      fullPath: "/"
+    '/_app/': {
+      id: '/_app/'
+      path: '/'
+      fullPath: '/'
       preLoaderRoute: typeof AppIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    "/_app/curriculum/": {
-      id: "/_app/curriculum/"
-      path: "/curriculum"
-      fullPath: "/curriculum"
+    '/_app/curriculum/': {
+      id: '/_app/curriculum/'
+      path: '/curriculum'
+      fullPath: '/curriculum'
       preLoaderRoute: typeof AppCurriculumIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    "/_app/courses/": {
-      id: "/_app/courses/"
-      path: "/courses"
-      fullPath: "/courses"
+    '/_app/courses/': {
+      id: '/_app/courses/'
+      path: '/courses'
+      fullPath: '/courses'
       preLoaderRoute: typeof AppCoursesIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    "/_app/courses/new": {
-      id: "/_app/courses/new"
-      path: "/courses/new"
-      fullPath: "/courses/new"
+    '/_app/courses/new': {
+      id: '/_app/courses/new'
+      path: '/courses/new'
+      fullPath: '/courses/new'
       preLoaderRoute: typeof AppCoursesNewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_app/courses/$id': {
+      id: '/_app/courses/$id'
+      path: '/courses/$id'
+      fullPath: '/courses/$id'
+      preLoaderRoute: typeof AppCoursesIdRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -128,6 +158,7 @@ declare module "@tanstack/react-router" {
 const rootRouteChildren: RootRouteChildren = {
   AppIndexRoute: AppIndexRoute,
   AdminIndexRoute: AdminIndexRoute,
+  AppCoursesIdRoute: AppCoursesIdRoute,
   AppCoursesNewRoute: AppCoursesNewRoute,
   AppCoursesIndexRoute: AppCoursesIndexRoute,
   AppCurriculumIndexRoute: AppCurriculumIndexRoute,
