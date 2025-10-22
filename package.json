@@ -5,7 +5,9 @@
   "license": "UNLICENSED",
   "author": "Bahrami85.ir",
   "type": "module",
+  "packageManager": "npm@11.6.1",
   "scripts": {
+    "init": "npm i && cd server && npm i && cd .. && cd ui && npm i && cd ..",
     "dev": "node ./scripts/dev.js",
     "build": "node ./scripts/build.js",
     "format": "prettier --write .",
@@ -17,6 +19,5 @@
   ],
   "devDependencies": {
     "concurrently": "^9.2.1"
-  },
-  "packageManager": "npm@11.6.1"
+  }
 }
