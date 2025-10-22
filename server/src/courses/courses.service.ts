@@ -26,6 +26,17 @@ export class CoursesService {
     return course
   }
 
+  async findOneByIdOrThrowWithLessons(id: number) {
+    const course = await this.prisma.course.findUnique({
+      where: { id },
+      include: { lessons: true },
+    })
+
+    if (!course) throw new NotFoundException(`Course #${id} wasn't found!`)
+
+    return course
+  }
+
   async updateOneById(id: number, updateCourseReqDto: UpdateCourseReqDto) {
     const course = await this.prisma.course.update({
       where: { id },

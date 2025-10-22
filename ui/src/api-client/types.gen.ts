@@ -15,6 +15,18 @@ export type CourseResDto = {
     description: string | null;
 };
 
+export type LessonResDto = {
+    id: number;
+    title: string;
+};
+
+export type CourseWithLessonsResDto = {
+    id: number;
+    title: string;
+    description: string | null;
+    lessons: Array<LessonResDto>;
+};
+
 export type UpdateCourseReqDto = {
     title?: string;
     description?: string | null;
@@ -24,19 +36,18 @@ export type DeletedResDto = {
     id: number;
 };
 
-export type LessonResDto = {
-    id: number;
+export type CreateLessonReqDto = {
     title: string;
+};
+
+export type OkResDto = {
+    ok: boolean;
 };
 
 export type CurriculumStepWithLessonResDto = {
     lesson: LessonResDto;
     id: number;
     position: number;
-};
-
-export type OkResDto = {
-    ok: boolean;
 };
 
 export type CoursesControllerFindAllV1Data = {
@@ -80,7 +91,7 @@ export type CoursesControllerRemoveOneByIdV1Responses = {
 
 export type CoursesControllerRemoveOneByIdV1Response = CoursesControllerRemoveOneByIdV1Responses[keyof CoursesControllerRemoveOneByIdV1Responses];
 
-export type CoursesControllerFindOneByIdV1Data = {
+export type CoursesControllerFindOneByIdWithLessonsV1Data = {
     body?: never;
     path: {
         id: number;
@@ -89,11 +100,11 @@ export type CoursesControllerFindOneByIdV1Data = {
     url: '/api/v1/courses/{id}';
 };
 
-export type CoursesControllerFindOneByIdV1Responses = {
-    200: CourseResDto;
+export type CoursesControllerFindOneByIdWithLessonsV1Responses = {
+    200: CourseWithLessonsResDto;
 };
 
-export type CoursesControllerFindOneByIdV1Response = CoursesControllerFindOneByIdV1Responses[keyof CoursesControllerFindOneByIdV1Responses];
+export type CoursesControllerFindOneByIdWithLessonsV1Response = CoursesControllerFindOneByIdWithLessonsV1Responses[keyof CoursesControllerFindOneByIdWithLessonsV1Responses];
 
 export type CoursesControllerUpdateOneByIdV1Data = {
     body: UpdateCourseReqDto;
@@ -110,18 +121,20 @@ export type CoursesControllerUpdateOneByIdV1Responses = {
 
 export type CoursesControllerUpdateOneByIdV1Response = CoursesControllerUpdateOneByIdV1Responses[keyof CoursesControllerUpdateOneByIdV1Responses];
 
-export type CurriculumStepsControllerFindAllWithLessonsV1Data = {
-    body?: never;
-    path?: never;
+export type CoursesControllerCreateOneLessonByCourseIdV1Data = {
+    body: CreateLessonReqDto;
+    path: {
+        id: number;
+    };
     query?: never;
-    url: '/api/v1/curriculum-steps';
+    url: '/api/v1/courses/{id}/lesson';
 };
 
-export type CurriculumStepsControllerFindAllWithLessonsV1Responses = {
-    200: Array<CurriculumStepWithLessonResDto>;
+export type CoursesControllerCreateOneLessonByCourseIdV1Responses = {
+    201: LessonResDto;
 };
 
-export type CurriculumStepsControllerFindAllWithLessonsV1Response = CurriculumStepsControllerFindAllWithLessonsV1Responses[keyof CurriculumStepsControllerFindAllWithLessonsV1Responses];
+export type CoursesControllerCreateOneLessonByCourseIdV1Response = CoursesControllerCreateOneLessonByCourseIdV1Responses[keyof CoursesControllerCreateOneLessonByCourseIdV1Responses];
 
 export type LessonsControllerOkV1Data = {
     body?: never;
@@ -135,3 +148,16 @@ export type LessonsControllerOkV1Responses = {
 };
 
 export type LessonsControllerOkV1Response = LessonsControllerOkV1Responses[keyof LessonsControllerOkV1Responses];
+
+export type CurriculumStepsControllerFindAllWithLessonsV1Data = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/api/v1/curriculum-steps';
+};
+
+export type CurriculumStepsControllerFindAllWithLessonsV1Responses = {
+    200: Array<CurriculumStepWithLessonResDto>;
+};
+
+export type CurriculumStepsControllerFindAllWithLessonsV1Response = CurriculumStepsControllerFindAllWithLessonsV1Responses[keyof CurriculumStepsControllerFindAllWithLessonsV1Responses];

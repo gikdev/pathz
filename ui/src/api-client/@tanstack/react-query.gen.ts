@@ -3,8 +3,8 @@
 import { type DefaultError, queryOptions, type UseMutationOptions } from '@tanstack/react-query';
 
 import { client } from '../client.gen';
-import { coursesControllerCreateOneV1, coursesControllerFindAllV1, coursesControllerFindOneByIdV1, coursesControllerRemoveOneByIdV1, coursesControllerUpdateOneByIdV1, curriculumStepsControllerFindAllWithLessonsV1, lessonsControllerOkV1, type Options } from '../sdk.gen';
-import type { CoursesControllerCreateOneV1Data, CoursesControllerCreateOneV1Response, CoursesControllerFindAllV1Data, CoursesControllerFindOneByIdV1Data, CoursesControllerRemoveOneByIdV1Data, CoursesControllerRemoveOneByIdV1Response, CoursesControllerUpdateOneByIdV1Data, CoursesControllerUpdateOneByIdV1Response, CurriculumStepsControllerFindAllWithLessonsV1Data, LessonsControllerOkV1Data } from '../types.gen';
+import { coursesControllerCreateOneLessonByCourseIdV1, coursesControllerCreateOneV1, coursesControllerFindAllV1, coursesControllerFindOneByIdWithLessonsV1, coursesControllerRemoveOneByIdV1, coursesControllerUpdateOneByIdV1, curriculumStepsControllerFindAllWithLessonsV1, lessonsControllerOkV1, type Options } from '../sdk.gen';
+import type { CoursesControllerCreateOneLessonByCourseIdV1Data, CoursesControllerCreateOneLessonByCourseIdV1Response, CoursesControllerCreateOneV1Data, CoursesControllerCreateOneV1Response, CoursesControllerFindAllV1Data, CoursesControllerFindOneByIdWithLessonsV1Data, CoursesControllerRemoveOneByIdV1Data, CoursesControllerRemoveOneByIdV1Response, CoursesControllerUpdateOneByIdV1Data, CoursesControllerUpdateOneByIdV1Response, CurriculumStepsControllerFindAllWithLessonsV1Data, LessonsControllerOkV1Data } from '../types.gen';
 
 export type QueryKey<TOptions extends Options> = [
     Pick<TOptions, 'baseUrl' | 'body' | 'headers' | 'path' | 'query'> & {
@@ -95,15 +95,15 @@ export const coursesControllerRemoveOneByIdV1Mutation = (options?: Partial<Optio
     return mutationOptions;
 };
 
-export const coursesControllerFindOneByIdV1QueryKey = (options: Options<CoursesControllerFindOneByIdV1Data>) => createQueryKey('coursesControllerFindOneByIdV1', options);
+export const coursesControllerFindOneByIdWithLessonsV1QueryKey = (options: Options<CoursesControllerFindOneByIdWithLessonsV1Data>) => createQueryKey('coursesControllerFindOneByIdWithLessonsV1', options);
 
 /**
- * Get a course
+ * Get a course (w/ lessons)
  */
-export const coursesControllerFindOneByIdV1Options = (options: Options<CoursesControllerFindOneByIdV1Data>) => {
+export const coursesControllerFindOneByIdWithLessonsV1Options = (options: Options<CoursesControllerFindOneByIdWithLessonsV1Data>) => {
     return queryOptions({
         queryFn: async ({ queryKey, signal }) => {
-            const { data } = await coursesControllerFindOneByIdV1({
+            const { data } = await coursesControllerFindOneByIdWithLessonsV1({
                 ...options,
                 ...queryKey[0],
                 signal,
@@ -111,7 +111,7 @@ export const coursesControllerFindOneByIdV1Options = (options: Options<CoursesCo
             });
             return data;
         },
-        queryKey: coursesControllerFindOneByIdV1QueryKey(options)
+        queryKey: coursesControllerFindOneByIdWithLessonsV1QueryKey(options)
     });
 };
 
@@ -132,24 +132,21 @@ export const coursesControllerUpdateOneByIdV1Mutation = (options?: Partial<Optio
     return mutationOptions;
 };
 
-export const curriculumStepsControllerFindAllWithLessonsV1QueryKey = (options?: Options<CurriculumStepsControllerFindAllWithLessonsV1Data>) => createQueryKey('curriculumStepsControllerFindAllWithLessonsV1', options);
-
 /**
- * Get all steps (w/ lessons)
+ * Create lesson by course ID
  */
-export const curriculumStepsControllerFindAllWithLessonsV1Options = (options?: Options<CurriculumStepsControllerFindAllWithLessonsV1Data>) => {
-    return queryOptions({
-        queryFn: async ({ queryKey, signal }) => {
-            const { data } = await curriculumStepsControllerFindAllWithLessonsV1({
+export const coursesControllerCreateOneLessonByCourseIdV1Mutation = (options?: Partial<Options<CoursesControllerCreateOneLessonByCourseIdV1Data>>): UseMutationOptions<CoursesControllerCreateOneLessonByCourseIdV1Response, DefaultError, Options<CoursesControllerCreateOneLessonByCourseIdV1Data>> => {
+    const mutationOptions: UseMutationOptions<CoursesControllerCreateOneLessonByCourseIdV1Response, DefaultError, Options<CoursesControllerCreateOneLessonByCourseIdV1Data>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await coursesControllerCreateOneLessonByCourseIdV1({
                 ...options,
-                ...queryKey[0],
-                signal,
+                ...fnOptions,
                 throwOnError: true
             });
             return data;
-        },
-        queryKey: curriculumStepsControllerFindAllWithLessonsV1QueryKey(options)
-    });
+        }
+    };
+    return mutationOptions;
 };
 
 export const lessonsControllerOkV1QueryKey = (options?: Options<LessonsControllerOkV1Data>) => createQueryKey('lessonsControllerOkV1', options);
@@ -169,5 +166,25 @@ export const lessonsControllerOkV1Options = (options?: Options<LessonsController
             return data;
         },
         queryKey: lessonsControllerOkV1QueryKey(options)
+    });
+};
+
+export const curriculumStepsControllerFindAllWithLessonsV1QueryKey = (options?: Options<CurriculumStepsControllerFindAllWithLessonsV1Data>) => createQueryKey('curriculumStepsControllerFindAllWithLessonsV1', options);
+
+/**
+ * Get all steps (w/ lessons)
+ */
+export const curriculumStepsControllerFindAllWithLessonsV1Options = (options?: Options<CurriculumStepsControllerFindAllWithLessonsV1Data>) => {
+    return queryOptions({
+        queryFn: async ({ queryKey, signal }) => {
+            const { data } = await curriculumStepsControllerFindAllWithLessonsV1({
+                ...options,
+                ...queryKey[0],
+                signal,
+                throwOnError: true
+            });
+            return data;
+        },
+        queryKey: curriculumStepsControllerFindAllWithLessonsV1QueryKey(options)
     });
 };

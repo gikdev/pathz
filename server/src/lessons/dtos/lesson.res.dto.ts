@@ -6,8 +6,4 @@ export class LessonResDto {
 
   @Expose()
   title!: string
-
-  // @Expose()
-  // @Type(() => CourseResDto)
-  // course: CourseResDto
 }

@@ -1,4 +1,3 @@
-import { coursesControllerFindOneByIdV1Options } from "#/api-client"
 import { AppBar } from "#/components/app-bar"
 import { list, phonePage } from "#/shared/skins"
 import { SpinnerGapIcon } from "@phosphor-icons/react"
@@ -8,6 +7,7 @@ import { CourseForm, select } from "../-course-form"
 import { useNavigateTo } from "#/shared/hooks"
 import { GoBackBtn } from "#/components/go-back-btn"
 import { ErrorParagraph } from "#/components/error-paragraph"
+import { coursesControllerFindOneByIdWithLessonsV1Options } from "#/api-client"
 
 export const Route = createFileRoute("/_app/courses/$id/edit")({
   component: RouteComponent,
@@ -30,7 +30,7 @@ function RouteComponent() {
     isError,
     refetch,
   } = useQuery({
-    ...coursesControllerFindOneByIdV1Options({ path: { id } }),
+    ...coursesControllerFindOneByIdWithLessonsV1Options({ path: { id } }),
     select,
   })
 

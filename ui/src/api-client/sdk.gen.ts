@@ -2,7 +2,7 @@
 
 import type { Client, Options as Options2, TDataShape } from './client';
 import { client } from './client.gen';
-import type { CoursesControllerCreateOneV1Data, CoursesControllerCreateOneV1Responses, CoursesControllerFindAllV1Data, CoursesControllerFindAllV1Responses, CoursesControllerFindOneByIdV1Data, CoursesControllerFindOneByIdV1Responses, CoursesControllerRemoveOneByIdV1Data, CoursesControllerRemoveOneByIdV1Responses, CoursesControllerUpdateOneByIdV1Data, CoursesControllerUpdateOneByIdV1Responses, CurriculumStepsControllerFindAllWithLessonsV1Data, CurriculumStepsControllerFindAllWithLessonsV1Responses, LessonsControllerOkV1Data, LessonsControllerOkV1Responses } from './types.gen';
+import type { CoursesControllerCreateOneLessonByCourseIdV1Data, CoursesControllerCreateOneLessonByCourseIdV1Responses, CoursesControllerCreateOneV1Data, CoursesControllerCreateOneV1Responses, CoursesControllerFindAllV1Data, CoursesControllerFindAllV1Responses, CoursesControllerFindOneByIdWithLessonsV1Data, CoursesControllerFindOneByIdWithLessonsV1Responses, CoursesControllerRemoveOneByIdV1Data, CoursesControllerRemoveOneByIdV1Responses, CoursesControllerUpdateOneByIdV1Data, CoursesControllerUpdateOneByIdV1Responses, CurriculumStepsControllerFindAllWithLessonsV1Data, CurriculumStepsControllerFindAllWithLessonsV1Responses, LessonsControllerOkV1Data, LessonsControllerOkV1Responses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean> = Options2<TData, ThrowOnError> & {
     /**
@@ -53,10 +53,10 @@ export const coursesControllerRemoveOneByIdV1 = <ThrowOnError extends boolean = 
 };
 
 /**
- * Get a course
+ * Get a course (w/ lessons)
  */
-export const coursesControllerFindOneByIdV1 = <ThrowOnError extends boolean = false>(options: Options<CoursesControllerFindOneByIdV1Data, ThrowOnError>) => {
-    return (options.client ?? client).get<CoursesControllerFindOneByIdV1Responses, unknown, ThrowOnError>({
+export const coursesControllerFindOneByIdWithLessonsV1 = <ThrowOnError extends boolean = false>(options: Options<CoursesControllerFindOneByIdWithLessonsV1Data, ThrowOnError>) => {
+    return (options.client ?? client).get<CoursesControllerFindOneByIdWithLessonsV1Responses, unknown, ThrowOnError>({
         url: '/api/v1/courses/{id}',
         ...options
     });
@@ -77,12 +77,16 @@ export const coursesControllerUpdateOneByIdV1 = <ThrowOnError extends boolean = 
 };
 
 /**
- * Get all steps (w/ lessons)
+ * Create lesson by course ID
  */
-export const curriculumStepsControllerFindAllWithLessonsV1 = <ThrowOnError extends boolean = false>(options?: Options<CurriculumStepsControllerFindAllWithLessonsV1Data, ThrowOnError>) => {
-    return (options?.client ?? client).get<CurriculumStepsControllerFindAllWithLessonsV1Responses, unknown, ThrowOnError>({
-        url: '/api/v1/curriculum-steps',
-        ...options
+export const coursesControllerCreateOneLessonByCourseIdV1 = <ThrowOnError extends boolean = false>(options: Options<CoursesControllerCreateOneLessonByCourseIdV1Data, ThrowOnError>) => {
+    return (options.client ?? client).post<CoursesControllerCreateOneLessonByCourseIdV1Responses, unknown, ThrowOnError>({
+        url: '/api/v1/courses/{id}/lesson',
+        ...options,
+        headers: {
+            'Content-Type': 'application/json',
+            ...options.headers
+        }
     });
 };
 
@@ -92,6 +96,16 @@ export const curriculumStepsControllerFindAllWithLessonsV1 = <ThrowOnError exten
 export const lessonsControllerOkV1 = <ThrowOnError extends boolean = false>(options?: Options<LessonsControllerOkV1Data, ThrowOnError>) => {
     return (options?.client ?? client).get<LessonsControllerOkV1Responses, unknown, ThrowOnError>({
         url: '/api/v1/lessons/ok',
+        ...options
+    });
+};
+
+/**
+ * Get all steps (w/ lessons)
+ */
+export const curriculumStepsControllerFindAllWithLessonsV1 = <ThrowOnError extends boolean = false>(options?: Options<CurriculumStepsControllerFindAllWithLessonsV1Data, ThrowOnError>) => {
+    return (options?.client ?? client).get<CurriculumStepsControllerFindAllWithLessonsV1Responses, unknown, ThrowOnError>({
+        url: '/api/v1/curriculum-steps',
         ...options
     });
 };
