@@ -14,8 +14,7 @@ import { Route as AppIndexRouteImport } from "./routes/_app/index"
 import { Route as AppCurriculumIndexRouteImport } from "./routes/_app/curriculum/index"
 import { Route as AppCoursesIndexRouteImport } from "./routes/_app/courses/index"
 import { Route as AppCoursesNewRouteImport } from "./routes/_app/courses/new"
-import { Route as AppCoursesIdRouteRouteImport } from "./routes/_app/courses/$id/route"
-import { Route as AppCoursesIdViewRouteImport } from "./routes/_app/courses/$id/view"
+import { Route as AppCoursesIdIndexRouteImport } from "./routes/_app/courses/$id/index"
 import { Route as AppCoursesIdEditRouteImport } from "./routes/_app/courses/$id/edit"
 
 const AdminIndexRoute = AdminIndexRouteImport.update({
@@ -43,93 +42,83 @@ const AppCoursesNewRoute = AppCoursesNewRouteImport.update({
   path: "/courses/new",
   getParentRoute: () => rootRouteImport,
 } as any)
-const AppCoursesIdRouteRoute = AppCoursesIdRouteRouteImport.update({
-  id: "/_app/courses/$id",
-  path: "/courses/$id",
+const AppCoursesIdIndexRoute = AppCoursesIdIndexRouteImport.update({
+  id: "/_app/courses/$id/",
+  path: "/courses/$id/",
   getParentRoute: () => rootRouteImport,
 } as any)
-const AppCoursesIdViewRoute = AppCoursesIdViewRouteImport.update({
-  id: "/view",
-  path: "/view",
-  getParentRoute: () => AppCoursesIdRouteRoute,
-} as any)
 const AppCoursesIdEditRoute = AppCoursesIdEditRouteImport.update({
-  id: "/edit",
-  path: "/edit",
-  getParentRoute: () => AppCoursesIdRouteRoute,
+  id: "/_app/courses/$id/edit",
+  path: "/courses/$id/edit",
+  getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   "/": typeof AppIndexRoute
   "/admin": typeof AdminIndexRoute
-  "/courses/$id": typeof AppCoursesIdRouteRouteWithChildren
   "/courses/new": typeof AppCoursesNewRoute
   "/courses": typeof AppCoursesIndexRoute
   "/curriculum": typeof AppCurriculumIndexRoute
   "/courses/$id/edit": typeof AppCoursesIdEditRoute
-  "/courses/$id/view": typeof AppCoursesIdViewRoute
+  "/courses/$id": typeof AppCoursesIdIndexRoute
 }
 export interface FileRoutesByTo {
   "/": typeof AppIndexRoute
   "/admin": typeof AdminIndexRoute
-  "/courses/$id": typeof AppCoursesIdRouteRouteWithChildren
   "/courses/new": typeof AppCoursesNewRoute
   "/courses": typeof AppCoursesIndexRoute
   "/curriculum": typeof AppCurriculumIndexRoute
   "/courses/$id/edit": typeof AppCoursesIdEditRoute
-  "/courses/$id/view": typeof AppCoursesIdViewRoute
+  "/courses/$id": typeof AppCoursesIdIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   "/_app/": typeof AppIndexRoute
   "/admin/": typeof AdminIndexRoute
-  "/_app/courses/$id": typeof AppCoursesIdRouteRouteWithChildren
   "/_app/courses/new": typeof AppCoursesNewRoute
   "/_app/courses/": typeof AppCoursesIndexRoute
   "/_app/curriculum/": typeof AppCurriculumIndexRoute
   "/_app/courses/$id/edit": typeof AppCoursesIdEditRoute
-  "/_app/courses/$id/view": typeof AppCoursesIdViewRoute
+  "/_app/courses/$id/": typeof AppCoursesIdIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | "/"
     | "/admin"
-    | "/courses/$id"
     | "/courses/new"
     | "/courses"
     | "/curriculum"
     | "/courses/$id/edit"
-    | "/courses/$id/view"
+    | "/courses/$id"
   fileRoutesByTo: FileRoutesByTo
   to:
     | "/"
     | "/admin"
-    | "/courses/$id"
     | "/courses/new"
     | "/courses"
     | "/curriculum"
     | "/courses/$id/edit"
-    | "/courses/$id/view"
+    | "/courses/$id"
   id:
     | "__root__"
     | "/_app/"
     | "/admin/"
-    | "/_app/courses/$id"
     | "/_app/courses/new"
     | "/_app/courses/"
     | "/_app/curriculum/"
     | "/_app/courses/$id/edit"
-    | "/_app/courses/$id/view"
+    | "/_app/courses/$id/"
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   AppIndexRoute: typeof AppIndexRoute
   AdminIndexRoute: typeof AdminIndexRoute
-  AppCoursesIdRouteRoute: typeof AppCoursesIdRouteRouteWithChildren
   AppCoursesNewRoute: typeof AppCoursesNewRoute
   AppCoursesIndexRoute: typeof AppCoursesIndexRoute
   AppCurriculumIndexRoute: typeof AppCurriculumIndexRoute
+  AppCoursesIdEditRoute: typeof AppCoursesIdEditRoute
+  AppCoursesIdIndexRoute: typeof AppCoursesIdIndexRoute
 }
 
 declare module "@tanstack/react-router" {
@@ -169,50 +158,31 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof AppCoursesNewRouteImport
       parentRoute: typeof rootRouteImport
     }
-    "/_app/courses/$id": {
-      id: "/_app/courses/$id"
+    "/_app/courses/$id/": {
+      id: "/_app/courses/$id/"
       path: "/courses/$id"
       fullPath: "/courses/$id"
-      preLoaderRoute: typeof AppCoursesIdRouteRouteImport
+      preLoaderRoute: typeof AppCoursesIdIndexRouteImport
       parentRoute: typeof rootRouteImport
-    }
-    "/_app/courses/$id/view": {
-      id: "/_app/courses/$id/view"
-      path: "/view"
-      fullPath: "/courses/$id/view"
-      preLoaderRoute: typeof AppCoursesIdViewRouteImport
-      parentRoute: typeof AppCoursesIdRouteRoute
     }
     "/_app/courses/$id/edit": {
       id: "/_app/courses/$id/edit"
-      path: "/edit"
+      path: "/courses/$id/edit"
       fullPath: "/courses/$id/edit"
       preLoaderRoute: typeof AppCoursesIdEditRouteImport
-      parentRoute: typeof AppCoursesIdRouteRoute
+      parentRoute: typeof rootRouteImport
     }
   }
 }
 
-interface AppCoursesIdRouteRouteChildren {
-  AppCoursesIdEditRoute: typeof AppCoursesIdEditRoute
-  AppCoursesIdViewRoute: typeof AppCoursesIdViewRoute
-}
-
-const AppCoursesIdRouteRouteChildren: AppCoursesIdRouteRouteChildren = {
-  AppCoursesIdEditRoute: AppCoursesIdEditRoute,
-  AppCoursesIdViewRoute: AppCoursesIdViewRoute,
-}
-
-const AppCoursesIdRouteRouteWithChildren =
-  AppCoursesIdRouteRoute._addFileChildren(AppCoursesIdRouteRouteChildren)
-
 const rootRouteChildren: RootRouteChildren = {
   AppIndexRoute: AppIndexRoute,
   AdminIndexRoute: AdminIndexRoute,
-  AppCoursesIdRouteRoute: AppCoursesIdRouteRouteWithChildren,
   AppCoursesNewRoute: AppCoursesNewRoute,
   AppCoursesIndexRoute: AppCoursesIndexRoute,
   AppCurriculumIndexRoute: AppCurriculumIndexRoute,
+  AppCoursesIdEditRoute: AppCoursesIdEditRoute,
+  AppCoursesIdIndexRoute: AppCoursesIdIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

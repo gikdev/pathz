@@ -14,8 +14,15 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router"
 import { useMemo, useState } from "react"
 import toast from "react-hot-toast"
 
-export const Route = createFileRoute("/_app/courses/$id/view")({
+export const Route = createFileRoute("/_app/courses/$id/")({
   component: RouteComponent,
+  params: {
+    parse: ({ id }) => {
+      const num = Number(id)
+      const finalId = Number.isNaN(num) ? 0 : num
+      return { id: finalId }
+    },
+  },
 })
 
 function RouteComponent() {
@@ -32,7 +39,7 @@ function RouteComponent() {
       />
 
       <div className={list()}>
-        {isError && <ErrorParagraph onClick={() => void refetch()} />}
+        {isError && <ErrorParagraph onClick={refetch} />}
       </div>
 
       <FabMenuWrapper id={id} />
