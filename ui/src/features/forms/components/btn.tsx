@@ -37,7 +37,11 @@ export function Btn({
             disabled={shouldBeDisabled}
             className={className}
           >
-            {shouldBeLoading ? <CircleNotchIcon /> : children}
+            {shouldBeLoading ? (
+              <CircleNotchIcon className="animate-spin" size={24} />
+            ) : (
+              children
+            )}
           </button>
         )
       }}

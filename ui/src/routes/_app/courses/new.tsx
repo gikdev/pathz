@@ -1,11 +1,12 @@
-import { createFileRoute } from "@tanstack/react-router"
+import { createFileRoute, useNavigate } from "@tanstack/react-router"
 import { btn, list, phonePage } from "#/shared/skins"
 import { AppBar } from "#/components/app-bar"
-import { GoBackInHistoryBtn } from "#/components/go-back-in-history-btn"
 import { PlusIcon } from "@phosphor-icons/react"
 import { useAppForm } from "#/features/forms"
 import { useMutation } from "@tanstack/react-query"
 import { coursesControllerCreateOneV1Mutation } from "#/api-client"
+import toast from "react-hot-toast"
+import { GoBackNavBtn } from "#/components/go-back-nav-btn"
 
 export const Route = createFileRoute("/_app/courses/new")({
   component: RouteComponent,
@@ -22,13 +23,15 @@ const defaultValues: FormData = {
 }
 
 function RouteComponent() {
+  const navigate = useNavigate()
   const { mutate: createCourse, isPending } = useMutation({
     ...coursesControllerCreateOneV1Mutation(),
     onError: error => {
-      alert(error?.message || "خطای ناشناخته")
+      toast.error(`یه مشکلی پیش اومد: ${JSON.stringify(error)}`)
     },
     onSuccess: () => {
-      alert("انجام شد!")
+      toast.success("انجام شد!")
+      navigate({ to: "/courses" })
     },
   })
 
@@ -46,18 +49,23 @@ function RouteComponent() {
     onSubmit: async p => {
       const { title, description } = p.value
 
-      createCourse({
-        body: {
-          title,
-          description: description || null,
-        },
-      })
+      const body = {
+        title,
+        description: description || null,
+      }
+
+      const onSuccess = () => form.reset({ title: "", description: "" })
+
+      createCourse({ body }, { onSuccess })
     },
   })
 
   return (
     <div className={phonePage()}>
-      <AppBar title="دوره جدید" slotStart={<GoBackInHistoryBtn />} />
+      <AppBar
+        title="دوره جدید"
+        slotStart={<GoBackNavBtn onClick={nav => nav({ to: "/courses" })} />}
+      />
 
       <div className={list()}>
         <form.AppField name="title">
