@@ -47,9 +47,7 @@ export type OkResDto = {
 export type PieceResDto = {
     id: number;
     position: number;
-    type: {
-        [key: string]: unknown;
-    };
+    type: 'Text' | 'Video' | 'Audio' | 'Separator' | 'Image';
     payload: string | null;
 };
 
@@ -61,6 +59,18 @@ export type LessonWithPiecesResDto = {
 
 export type UpdateLessonReqDto = {
     title?: string;
+};
+
+export type PieceWithStatusResDto = {
+    id: number;
+    position: number;
+    type: 'Text' | 'Video' | 'Audio' | 'Separator' | 'Image';
+    payload: string | null;
+    status: 'Untouched' | 'Edited' | 'Created' | 'Deleted';
+};
+
+export type LessonContentResDto = {
+    content: Array<PieceWithStatusResDto>;
 };
 
 export type CurriculumStepWithLessonResDto = {
@@ -212,6 +222,21 @@ export type LessonsControllerUpdateOneByIdV1Responses = {
 };
 
 export type LessonsControllerUpdateOneByIdV1Response = LessonsControllerUpdateOneByIdV1Responses[keyof LessonsControllerUpdateOneByIdV1Responses];
+
+export type LessonsControllerGetContentOfOneByIdV1Data = {
+    body?: never;
+    path: {
+        id: number;
+    };
+    query?: never;
+    url: '/api/v1/lessons/{id}/content';
+};
+
+export type LessonsControllerGetContentOfOneByIdV1Responses = {
+    200: LessonContentResDto;
+};
+
+export type LessonsControllerGetContentOfOneByIdV1Response = LessonsControllerGetContentOfOneByIdV1Responses[keyof LessonsControllerGetContentOfOneByIdV1Responses];
 
 export type CurriculumStepsControllerFindAllWithLessonsV1Data = {
     body?: never;

@@ -96,6 +96,16 @@ function FabMenuWrapper({ id }: { id: number }) {
           navigate({ to: "/lessons/$id/edit", params: { id } })
         },
       },
+      {
+        key: "write",
+        label: "نوشتن",
+        theme: "secondary-brand",
+        icon: PenIcon,
+        closeAfterClick: true,
+        onClick: () => {
+          navigate({ to: "/lessons/$id/write", params: { id } })
+        },
+      },
     ],
     [id, remove],
   )

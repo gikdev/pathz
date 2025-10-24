@@ -2,7 +2,7 @@
 
 import type { Client, Options as Options2, TDataShape } from './client';
 import { client } from './client.gen';
-import type { CoursesControllerCreateOneLessonByCourseIdV1Data, CoursesControllerCreateOneLessonByCourseIdV1Responses, CoursesControllerCreateOneV1Data, CoursesControllerCreateOneV1Responses, CoursesControllerFindAllV1Data, CoursesControllerFindAllV1Responses, CoursesControllerFindOneByIdWithLessonsV1Data, CoursesControllerFindOneByIdWithLessonsV1Responses, CoursesControllerRemoveOneByIdV1Data, CoursesControllerRemoveOneByIdV1Responses, CoursesControllerUpdateOneByIdV1Data, CoursesControllerUpdateOneByIdV1Responses, CurriculumStepsControllerFindAllWithLessonsV1Data, CurriculumStepsControllerFindAllWithLessonsV1Responses, LessonsControllerFindOneByIdWithPiecesV1Data, LessonsControllerFindOneByIdWithPiecesV1Responses, LessonsControllerOkV1Data, LessonsControllerOkV1Responses, LessonsControllerRemoveOneByIdV1Data, LessonsControllerRemoveOneByIdV1Responses, LessonsControllerUpdateOneByIdV1Data, LessonsControllerUpdateOneByIdV1Responses } from './types.gen';
+import type { CoursesControllerCreateOneLessonByCourseIdV1Data, CoursesControllerCreateOneLessonByCourseIdV1Responses, CoursesControllerCreateOneV1Data, CoursesControllerCreateOneV1Responses, CoursesControllerFindAllV1Data, CoursesControllerFindAllV1Responses, CoursesControllerFindOneByIdWithLessonsV1Data, CoursesControllerFindOneByIdWithLessonsV1Responses, CoursesControllerRemoveOneByIdV1Data, CoursesControllerRemoveOneByIdV1Responses, CoursesControllerUpdateOneByIdV1Data, CoursesControllerUpdateOneByIdV1Responses, CurriculumStepsControllerFindAllWithLessonsV1Data, CurriculumStepsControllerFindAllWithLessonsV1Responses, LessonsControllerFindOneByIdWithPiecesV1Data, LessonsControllerFindOneByIdWithPiecesV1Responses, LessonsControllerGetContentOfOneByIdV1Data, LessonsControllerGetContentOfOneByIdV1Responses, LessonsControllerOkV1Data, LessonsControllerOkV1Responses, LessonsControllerRemoveOneByIdV1Data, LessonsControllerRemoveOneByIdV1Responses, LessonsControllerUpdateOneByIdV1Data, LessonsControllerUpdateOneByIdV1Responses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean> = Options2<TData, ThrowOnError> & {
     /**
@@ -131,6 +131,16 @@ export const lessonsControllerUpdateOneByIdV1 = <ThrowOnError extends boolean = 
             'Content-Type': 'application/json',
             ...options.headers
         }
+    });
+};
+
+/**
+ * Get a lesson's content
+ */
+export const lessonsControllerGetContentOfOneByIdV1 = <ThrowOnError extends boolean = false>(options: Options<LessonsControllerGetContentOfOneByIdV1Data, ThrowOnError>) => {
+    return (options.client ?? client).get<LessonsControllerGetContentOfOneByIdV1Responses, unknown, ThrowOnError>({
+        url: '/api/v1/lessons/{id}/content',
+        ...options
     });
 };
 

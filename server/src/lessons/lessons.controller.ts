@@ -17,6 +17,7 @@ import { LessonWithPiecesResDto } from "./dtos/lesson-with-pieces.res.dto"
 import { DeletedResDto } from "src/common/dtos/deleted.res.dto"
 import { UpdateLessonReqDto } from "./dtos/update-lesson.req.dto"
 import { LessonResDto } from "./dtos/lesson.res.dto"
+import { LessonContentResDto } from "./dtos/lesson-content.res.dto"
 
 @Controller("lessons")
 export class LessonsController {
@@ -79,4 +80,25 @@ export class LessonsController {
       getDefaultClassTransformOptions(),
     )
   }
+
+  @ApiSummary("Get a lesson's content")
+  @Version("1")
+  @Get(":id/content")
+  async getContentOfOneById(@ParamId() id: number) {
+    const { content } = await this.lessonsService.getContentOfOneById(id)
+
+    return plainToInstance(
+      LessonContentResDto,
+      { content },
+      getDefaultClassTransformOptions(),
+    )
+  }
+
+  // @ApiSummary("Update a lesson's content")
+  // @Version("1")
+  // @Put(":id/content")
+  // async updateContentOfOneById(
+  //   @ParamId() id: number,
+  //   @Body() lessonContentReqDto: LessonContentReqDto,
+  // ) {}
 }

@@ -1,5 +1,5 @@
 import { Expose } from "class-transformer"
-import { PieceType } from "generated/prisma"
+import { PieceType } from "src/pieces/enums/piece-type.enum"
 
 export class PieceResDto {
   @Expose()

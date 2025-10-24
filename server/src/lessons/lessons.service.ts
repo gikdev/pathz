@@ -2,6 +2,7 @@ import { Injectable } from "@nestjs/common"
 import { PrismaService } from "src/prisma/prisma.service"
 import { CreateLessonReqDto } from "./dtos/create-lesson.req.dto"
 import { UpdateLessonReqDto } from "./dtos/update-lesson.req.dto"
+import { PieceStatus } from "../pieces/enums/piece-status.enum"
 
 @Injectable()
 export class LessonsService {
@@ -56,4 +57,17 @@ export class LessonsService {
 
     return { id }
   }
+
+  async getContentOfOneById(id: number) {
+    const pieces = await this.prisma.piece.findMany({
+      where: { lessonId: id },
+      orderBy: { position: "asc" },
+    })
+
+    const content = pieces.map(p => ({ ...p, status: PieceStatus.Untouched }))
+
+    return { content }
+  }
+
+  // async updateContentOfOneById(id: number, { pieces }: LessonContentReqDto) {}
 }
