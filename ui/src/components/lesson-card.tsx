@@ -4,6 +4,7 @@ import {
   CaretRightIcon,
   SquaresFourIcon,
 } from "@phosphor-icons/react"
+import { Link } from "@tanstack/react-router"
 
 interface LessonCardProps {
   id: number
@@ -15,14 +16,16 @@ interface LessonCardsListProps {
 }
 
 export const LessonCard = {
-  Core: ({ title }: LessonCardProps) => (
-    <div className="flex flex-col gap-2 p-4 bg-gray-100 border border-gray-300 rounded-lg cursor-pointer">
-      <div className="flex gap-2 items-start">
-        <SquaresFourIcon size={24} className="shrink-0 grow-0" />
-        <p className="flex-1">{title}</p>
-        <CaretRightIcon size={24} className="shrink-0 grow-0" mirrored />
+  Core: ({ id, title }: LessonCardProps) => (
+    <Link to="/lessons/$id" params={{ id }}>
+      <div className="flex flex-col gap-2 p-4 bg-gray-100 border border-gray-300 rounded-lg cursor-pointer">
+        <div className="flex gap-2 items-start">
+          <SquaresFourIcon size={24} className="shrink-0 grow-0" />
+          <p className="flex-1">{title}</p>
+          <CaretRightIcon size={24} className="shrink-0 grow-0" mirrored />
+        </div>
       </div>
-    </div>
+    </Link>
   ),
 
   Skeleton: () => (

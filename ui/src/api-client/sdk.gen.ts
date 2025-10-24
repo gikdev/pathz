@@ -2,7 +2,7 @@
 
 import type { Client, Options as Options2, TDataShape } from './client';
 import { client } from './client.gen';
-import type { CoursesControllerCreateOneLessonByCourseIdV1Data, CoursesControllerCreateOneLessonByCourseIdV1Responses, CoursesControllerCreateOneV1Data, CoursesControllerCreateOneV1Responses, CoursesControllerFindAllV1Data, CoursesControllerFindAllV1Responses, CoursesControllerFindOneByIdWithLessonsV1Data, CoursesControllerFindOneByIdWithLessonsV1Responses, CoursesControllerRemoveOneByIdV1Data, CoursesControllerRemoveOneByIdV1Responses, CoursesControllerUpdateOneByIdV1Data, CoursesControllerUpdateOneByIdV1Responses, CurriculumStepsControllerFindAllWithLessonsV1Data, CurriculumStepsControllerFindAllWithLessonsV1Responses, LessonsControllerOkV1Data, LessonsControllerOkV1Responses } from './types.gen';
+import type { CoursesControllerCreateOneLessonByCourseIdV1Data, CoursesControllerCreateOneLessonByCourseIdV1Responses, CoursesControllerCreateOneV1Data, CoursesControllerCreateOneV1Responses, CoursesControllerFindAllV1Data, CoursesControllerFindAllV1Responses, CoursesControllerFindOneByIdWithLessonsV1Data, CoursesControllerFindOneByIdWithLessonsV1Responses, CoursesControllerRemoveOneByIdV1Data, CoursesControllerRemoveOneByIdV1Responses, CoursesControllerUpdateOneByIdV1Data, CoursesControllerUpdateOneByIdV1Responses, CurriculumStepsControllerFindAllWithLessonsV1Data, CurriculumStepsControllerFindAllWithLessonsV1Responses, LessonsControllerFindOneByIdWithPiecesV1Data, LessonsControllerFindOneByIdWithPiecesV1Responses, LessonsControllerOkV1Data, LessonsControllerOkV1Responses, LessonsControllerRemoveOneByIdV1Data, LessonsControllerRemoveOneByIdV1Responses, LessonsControllerUpdateOneByIdV1Data, LessonsControllerUpdateOneByIdV1Responses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean> = Options2<TData, ThrowOnError> & {
     /**
@@ -97,6 +97,40 @@ export const lessonsControllerOkV1 = <ThrowOnError extends boolean = false>(opti
     return (options?.client ?? client).get<LessonsControllerOkV1Responses, unknown, ThrowOnError>({
         url: '/api/v1/lessons/ok',
         ...options
+    });
+};
+
+/**
+ * Delete a lesson
+ */
+export const lessonsControllerRemoveOneByIdV1 = <ThrowOnError extends boolean = false>(options: Options<LessonsControllerRemoveOneByIdV1Data, ThrowOnError>) => {
+    return (options.client ?? client).delete<LessonsControllerRemoveOneByIdV1Responses, unknown, ThrowOnError>({
+        url: '/api/v1/lessons/{id}',
+        ...options
+    });
+};
+
+/**
+ * Get a lesson (w/ pieces)
+ */
+export const lessonsControllerFindOneByIdWithPiecesV1 = <ThrowOnError extends boolean = false>(options: Options<LessonsControllerFindOneByIdWithPiecesV1Data, ThrowOnError>) => {
+    return (options.client ?? client).get<LessonsControllerFindOneByIdWithPiecesV1Responses, unknown, ThrowOnError>({
+        url: '/api/v1/lessons/{id}',
+        ...options
+    });
+};
+
+/**
+ * Update a lesson
+ */
+export const lessonsControllerUpdateOneByIdV1 = <ThrowOnError extends boolean = false>(options: Options<LessonsControllerUpdateOneByIdV1Data, ThrowOnError>) => {
+    return (options.client ?? client).patch<LessonsControllerUpdateOneByIdV1Responses, unknown, ThrowOnError>({
+        url: '/api/v1/lessons/{id}',
+        ...options,
+        headers: {
+            'Content-Type': 'application/json',
+            ...options.headers
+        }
     });
 };
 

@@ -1,4 +1,8 @@
-import { coursesControllerCreateOneLessonByCourseIdV1Mutation } from "#/api-client"
+import {
+  coursesControllerCreateOneLessonByCourseIdV1Mutation,
+  lessonsControllerUpdateOneByIdV1Mutation,
+  type LessonResDto,
+} from "#/api-client"
 import { useAppForm } from "#/features/forms"
 import { btn } from "#/shared/skins"
 import { tvcn } from "#/shared/utils"
@@ -16,56 +20,52 @@ const emptyDefaultValues: LessonFormValues = {
   title: "",
 }
 
-// type SelectFn = (lesson: LessonResDto) => LessonFormValues
-// export const select: SelectFn = c => ({
-//   title: c.title,
-// })
+type SelectFn = (lesson: LessonResDto) => LessonFormValues
+export const select: SelectFn = c => ({
+  title: c.title,
+})
 
-type CommonProps = {
+interface CommonProps {
   onSuccess?: () => void
 }
 
-// type EditModeProps = {
-//   mode: "edit"
-//   defaultValues: LessonFormValues
-//   courseId: number
-// }
+interface EditModeProps {
+  mode: "edit"
+  defaultValues: LessonFormValues
+  courseId: number
+}
 
-type CreateModeProps = {
+interface CreateModeProps {
   mode: "create"
   courseId: number
 }
 
-type LessonFormProps = CommonProps &
-  // ( EditModeProps |
-  CreateModeProps
-// )
+type LessonFormProps = CommonProps & (EditModeProps | CreateModeProps)
 
 const onSuccess = () => toast.success("انجام شد...")
 const onError = (err: unknown) =>
   toast.error(`یه مشکلی پیش اومد: ${JSON.stringify(err)}`)
 
-const useCreateCourseMutation = () =>
+const useCreateMutation = () =>
   useMutation({
     ...coursesControllerCreateOneLessonByCourseIdV1Mutation(),
     onSuccess,
     onError,
   })
 
-// const useUpdateCourseMutation = () =>
-//   useMutation({
-//     ...coursesControllerUpdateOneByIdV1Mutation(),
-//     onSuccess,
-//     onError,
-//   })
+const useUpdateMutation = () =>
+  useMutation({
+    ...lessonsControllerUpdateOneByIdV1Mutation(),
+    onSuccess,
+    onError,
+  })
 
 export function LessonForm(p: LessonFormProps) {
-  const { mutate: createLesson } = useCreateCourseMutation()
-  // const { mutate: updateCourse } = useUpdateCourseMutation()
+  const { mutate: create } = useCreateMutation()
+  const { mutate: update } = useUpdateMutation()
 
   const form = useAppForm({
-    // defaultValues: p.mode === "create" ? emptyDefaultValues : p.defaultValues,
-    defaultValues: emptyDefaultValues,
+    defaultValues: p.mode === "create" ? emptyDefaultValues : p.defaultValues,
     validators: { onChange: LessonFormSchema },
     onSubmit: async ({ value }) => {
       const onSuccess = () => {
@@ -80,11 +80,11 @@ export function LessonForm(p: LessonFormProps) {
 
       switch (p.mode) {
         case "create":
-          createLesson({ body, path }, { onSuccess })
+          create({ body, path }, { onSuccess })
           return
-        // case "edit":
-        //   updateCourse({ body, path }, { onSuccess })
-        //   return
+        case "edit":
+          update({ body, path }, { onSuccess })
+          return
         default:
           return
       }

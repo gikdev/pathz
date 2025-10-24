@@ -44,6 +44,25 @@ export type OkResDto = {
     ok: boolean;
 };
 
+export type PieceResDto = {
+    id: number;
+    position: number;
+    type: {
+        [key: string]: unknown;
+    };
+    payload: string | null;
+};
+
+export type LessonWithPiecesResDto = {
+    id: number;
+    title: string;
+    pieces: Array<PieceResDto>;
+};
+
+export type UpdateLessonReqDto = {
+    title?: string;
+};
+
 export type CurriculumStepWithLessonResDto = {
     lesson: LessonResDto;
     id: number;
@@ -148,6 +167,51 @@ export type LessonsControllerOkV1Responses = {
 };
 
 export type LessonsControllerOkV1Response = LessonsControllerOkV1Responses[keyof LessonsControllerOkV1Responses];
+
+export type LessonsControllerRemoveOneByIdV1Data = {
+    body?: never;
+    path: {
+        id: number;
+    };
+    query?: never;
+    url: '/api/v1/lessons/{id}';
+};
+
+export type LessonsControllerRemoveOneByIdV1Responses = {
+    200: DeletedResDto;
+};
+
+export type LessonsControllerRemoveOneByIdV1Response = LessonsControllerRemoveOneByIdV1Responses[keyof LessonsControllerRemoveOneByIdV1Responses];
+
+export type LessonsControllerFindOneByIdWithPiecesV1Data = {
+    body?: never;
+    path: {
+        id: number;
+    };
+    query?: never;
+    url: '/api/v1/lessons/{id}';
+};
+
+export type LessonsControllerFindOneByIdWithPiecesV1Responses = {
+    200: LessonWithPiecesResDto;
+};
+
+export type LessonsControllerFindOneByIdWithPiecesV1Response = LessonsControllerFindOneByIdWithPiecesV1Responses[keyof LessonsControllerFindOneByIdWithPiecesV1Responses];
+
+export type LessonsControllerUpdateOneByIdV1Data = {
+    body: UpdateLessonReqDto;
+    path: {
+        id: number;
+    };
+    query?: never;
+    url: '/api/v1/lessons/{id}';
+};
+
+export type LessonsControllerUpdateOneByIdV1Responses = {
+    200: LessonResDto;
+};
+
+export type LessonsControllerUpdateOneByIdV1Response = LessonsControllerUpdateOneByIdV1Responses[keyof LessonsControllerUpdateOneByIdV1Responses];
 
 export type CurriculumStepsControllerFindAllWithLessonsV1Data = {
     body?: never;

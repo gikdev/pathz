@@ -1,9 +1,22 @@
-import { Controller, Get, Version } from "@nestjs/common"
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  NotFoundException,
+  Patch,
+  Version,
+} from "@nestjs/common"
 import { LessonsService } from "./lessons.service"
 import { ApiSummary } from "src/common/decorators/api-summary.decorator"
 import { plainToInstance } from "class-transformer"
 import { getDefaultClassTransformOptions } from "src/common/utils"
 import { OkResDto } from "src/common/dtos/ok.res.dto"
+import { ParamId } from "src/common/decorators/param-id.decorator"
+import { LessonWithPiecesResDto } from "./dtos/lesson-with-pieces.res.dto"
+import { DeletedResDto } from "src/common/dtos/deleted.res.dto"
+import { UpdateLessonReqDto } from "./dtos/update-lesson.req.dto"
+import { LessonResDto } from "./dtos/lesson.res.dto"
 
 @Controller("lessons")
 export class LessonsController {
@@ -16,5 +29,54 @@ export class LessonsController {
     const ok = await this.lessonsService.ok()
 
     return plainToInstance(OkResDto, ok, getDefaultClassTransformOptions())
+  }
+
+  @ApiSummary("Get a lesson (w/ pieces)")
+  @Version("1")
+  @Get(":id")
+  async findOneByIdWithPieces(@ParamId() id: number) {
+    const { lessonWithPieces } =
+      await this.lessonsService.findOneByIdWithPieces(id)
+
+    if (!lessonWithPieces)
+      throw new NotFoundException(`Lesson #${id} was not found!`)
+
+    return plainToInstance(
+      LessonWithPiecesResDto,
+      lessonWithPieces,
+      getDefaultClassTransformOptions(),
+    )
+  }
+
+  @ApiSummary("Update a lesson")
+  @Version("1")
+  @Patch(":id")
+  async updateOneById(
+    @ParamId() id: number,
+    @Body() updateLessonReqDto: UpdateLessonReqDto,
+  ) {
+    const { lesson } = await this.lessonsService.updateOneById(
+      id,
+      updateLessonReqDto,
+    )
+
+    return plainToInstance(
+      LessonResDto,
+      lesson,
+      getDefaultClassTransformOptions(),
+    )
+  }
+
+  @ApiSummary("Delete a lesson")
+  @Version("1")
+  @Delete(":id")
+  async removeOneById(@ParamId() id: number) {
+    const res = await this.lessonsService.removeOneById(id)
+
+    return plainToInstance(
+      DeletedResDto,
+      res,
+      getDefaultClassTransformOptions(),
+    )
   }
 }

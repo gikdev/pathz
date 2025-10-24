@@ -3,8 +3,8 @@
 import { type DefaultError, queryOptions, type UseMutationOptions } from '@tanstack/react-query';
 
 import { client } from '../client.gen';
-import { coursesControllerCreateOneLessonByCourseIdV1, coursesControllerCreateOneV1, coursesControllerFindAllV1, coursesControllerFindOneByIdWithLessonsV1, coursesControllerRemoveOneByIdV1, coursesControllerUpdateOneByIdV1, curriculumStepsControllerFindAllWithLessonsV1, lessonsControllerOkV1, type Options } from '../sdk.gen';
-import type { CoursesControllerCreateOneLessonByCourseIdV1Data, CoursesControllerCreateOneLessonByCourseIdV1Response, CoursesControllerCreateOneV1Data, CoursesControllerCreateOneV1Response, CoursesControllerFindAllV1Data, CoursesControllerFindOneByIdWithLessonsV1Data, CoursesControllerRemoveOneByIdV1Data, CoursesControllerRemoveOneByIdV1Response, CoursesControllerUpdateOneByIdV1Data, CoursesControllerUpdateOneByIdV1Response, CurriculumStepsControllerFindAllWithLessonsV1Data, LessonsControllerOkV1Data } from '../types.gen';
+import { coursesControllerCreateOneLessonByCourseIdV1, coursesControllerCreateOneV1, coursesControllerFindAllV1, coursesControllerFindOneByIdWithLessonsV1, coursesControllerRemoveOneByIdV1, coursesControllerUpdateOneByIdV1, curriculumStepsControllerFindAllWithLessonsV1, lessonsControllerFindOneByIdWithPiecesV1, lessonsControllerOkV1, lessonsControllerRemoveOneByIdV1, lessonsControllerUpdateOneByIdV1, type Options } from '../sdk.gen';
+import type { CoursesControllerCreateOneLessonByCourseIdV1Data, CoursesControllerCreateOneLessonByCourseIdV1Response, CoursesControllerCreateOneV1Data, CoursesControllerCreateOneV1Response, CoursesControllerFindAllV1Data, CoursesControllerFindOneByIdWithLessonsV1Data, CoursesControllerRemoveOneByIdV1Data, CoursesControllerRemoveOneByIdV1Response, CoursesControllerUpdateOneByIdV1Data, CoursesControllerUpdateOneByIdV1Response, CurriculumStepsControllerFindAllWithLessonsV1Data, LessonsControllerFindOneByIdWithPiecesV1Data, LessonsControllerOkV1Data, LessonsControllerRemoveOneByIdV1Data, LessonsControllerRemoveOneByIdV1Response, LessonsControllerUpdateOneByIdV1Data, LessonsControllerUpdateOneByIdV1Response } from '../types.gen';
 
 export type QueryKey<TOptions extends Options> = [
     Pick<TOptions, 'baseUrl' | 'body' | 'headers' | 'path' | 'query'> & {
@@ -167,6 +167,60 @@ export const lessonsControllerOkV1Options = (options?: Options<LessonsController
         },
         queryKey: lessonsControllerOkV1QueryKey(options)
     });
+};
+
+/**
+ * Delete a lesson
+ */
+export const lessonsControllerRemoveOneByIdV1Mutation = (options?: Partial<Options<LessonsControllerRemoveOneByIdV1Data>>): UseMutationOptions<LessonsControllerRemoveOneByIdV1Response, DefaultError, Options<LessonsControllerRemoveOneByIdV1Data>> => {
+    const mutationOptions: UseMutationOptions<LessonsControllerRemoveOneByIdV1Response, DefaultError, Options<LessonsControllerRemoveOneByIdV1Data>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await lessonsControllerRemoveOneByIdV1({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
+};
+
+export const lessonsControllerFindOneByIdWithPiecesV1QueryKey = (options: Options<LessonsControllerFindOneByIdWithPiecesV1Data>) => createQueryKey('lessonsControllerFindOneByIdWithPiecesV1', options);
+
+/**
+ * Get a lesson (w/ pieces)
+ */
+export const lessonsControllerFindOneByIdWithPiecesV1Options = (options: Options<LessonsControllerFindOneByIdWithPiecesV1Data>) => {
+    return queryOptions({
+        queryFn: async ({ queryKey, signal }) => {
+            const { data } = await lessonsControllerFindOneByIdWithPiecesV1({
+                ...options,
+                ...queryKey[0],
+                signal,
+                throwOnError: true
+            });
+            return data;
+        },
+        queryKey: lessonsControllerFindOneByIdWithPiecesV1QueryKey(options)
+    });
+};
+
+/**
+ * Update a lesson
+ */
+export const lessonsControllerUpdateOneByIdV1Mutation = (options?: Partial<Options<LessonsControllerUpdateOneByIdV1Data>>): UseMutationOptions<LessonsControllerUpdateOneByIdV1Response, DefaultError, Options<LessonsControllerUpdateOneByIdV1Data>> => {
+    const mutationOptions: UseMutationOptions<LessonsControllerUpdateOneByIdV1Response, DefaultError, Options<LessonsControllerUpdateOneByIdV1Data>> = {
+        mutationFn: async (fnOptions) => {
+            const { data } = await lessonsControllerUpdateOneByIdV1({
+                ...options,
+                ...fnOptions,
+                throwOnError: true
+            });
+            return data;
+        }
+    };
+    return mutationOptions;
 };
 
 export const curriculumStepsControllerFindAllWithLessonsV1QueryKey = (options?: Options<CurriculumStepsControllerFindAllWithLessonsV1Data>) => createQueryKey('curriculumStepsControllerFindAllWithLessonsV1', options);
