@@ -7,9 +7,9 @@
   "type": "module",
   "packageManager": "npm@11.6.1",
   "scripts": {
-    "init": "npm i && cd server && npm i && cd .. && cd ui && npm i && cd ..",
+    "init": "npm i --workspaces",
     "dev": "node ./scripts/dev.js",
-    "build": "node ./scripts/build.js",
+    "build": "npm run build --workspaces",
     "format": "prettier --write .",
     "start": "node ./server/dist/main"
   },
