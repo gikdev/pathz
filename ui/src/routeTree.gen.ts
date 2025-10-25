@@ -16,9 +16,9 @@ import { Route as AppCoursesIndexRouteImport } from "./routes/_app/courses/index
 import { Route as AppCoursesNewRouteImport } from "./routes/_app/courses/new"
 import { Route as AppLessonsIdIndexRouteImport } from "./routes/_app/lessons/$id/index"
 import { Route as AppCoursesIdIndexRouteImport } from "./routes/_app/courses/$id/index"
-import { Route as AppLessonsIdWriteRouteImport } from "./routes/_app/lessons/$id/write"
 import { Route as AppLessonsIdEditRouteImport } from "./routes/_app/lessons/$id/edit"
 import { Route as AppCoursesIdEditRouteImport } from "./routes/_app/courses/$id/edit"
+import { Route as AppLessonsIdWriteIndexRouteImport } from "./routes/_app/lessons/$id/write/index"
 import { Route as AppCoursesIdLessonsNewRouteImport } from "./routes/_app/courses/$id/lessons.new"
 
 const AdminIndexRoute = AdminIndexRouteImport.update({
@@ -56,11 +56,6 @@ const AppCoursesIdIndexRoute = AppCoursesIdIndexRouteImport.update({
   path: "/courses/$id/",
   getParentRoute: () => rootRouteImport,
 } as any)
-const AppLessonsIdWriteRoute = AppLessonsIdWriteRouteImport.update({
-  id: "/_app/lessons/$id/write",
-  path: "/lessons/$id/write",
-  getParentRoute: () => rootRouteImport,
-} as any)
 const AppLessonsIdEditRoute = AppLessonsIdEditRouteImport.update({
   id: "/_app/lessons/$id/edit",
   path: "/lessons/$id/edit",
@@ -69,6 +64,11 @@ const AppLessonsIdEditRoute = AppLessonsIdEditRouteImport.update({
 const AppCoursesIdEditRoute = AppCoursesIdEditRouteImport.update({
   id: "/_app/courses/$id/edit",
   path: "/courses/$id/edit",
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppLessonsIdWriteIndexRoute = AppLessonsIdWriteIndexRouteImport.update({
+  id: "/_app/lessons/$id/write/",
+  path: "/lessons/$id/write/",
   getParentRoute: () => rootRouteImport,
 } as any)
 const AppCoursesIdLessonsNewRoute = AppCoursesIdLessonsNewRouteImport.update({
@@ -85,10 +85,10 @@ export interface FileRoutesByFullPath {
   "/curriculum": typeof AppCurriculumIndexRoute
   "/courses/$id/edit": typeof AppCoursesIdEditRoute
   "/lessons/$id/edit": typeof AppLessonsIdEditRoute
-  "/lessons/$id/write": typeof AppLessonsIdWriteRoute
   "/courses/$id": typeof AppCoursesIdIndexRoute
   "/lessons/$id": typeof AppLessonsIdIndexRoute
   "/courses/$id/lessons/new": typeof AppCoursesIdLessonsNewRoute
+  "/lessons/$id/write": typeof AppLessonsIdWriteIndexRoute
 }
 export interface FileRoutesByTo {
   "/": typeof AppIndexRoute
@@ -98,10 +98,10 @@ export interface FileRoutesByTo {
   "/curriculum": typeof AppCurriculumIndexRoute
   "/courses/$id/edit": typeof AppCoursesIdEditRoute
   "/lessons/$id/edit": typeof AppLessonsIdEditRoute
-  "/lessons/$id/write": typeof AppLessonsIdWriteRoute
   "/courses/$id": typeof AppCoursesIdIndexRoute
   "/lessons/$id": typeof AppLessonsIdIndexRoute
   "/courses/$id/lessons/new": typeof AppCoursesIdLessonsNewRoute
+  "/lessons/$id/write": typeof AppLessonsIdWriteIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -112,10 +112,10 @@ export interface FileRoutesById {
   "/_app/curriculum/": typeof AppCurriculumIndexRoute
   "/_app/courses/$id/edit": typeof AppCoursesIdEditRoute
   "/_app/lessons/$id/edit": typeof AppLessonsIdEditRoute
-  "/_app/lessons/$id/write": typeof AppLessonsIdWriteRoute
   "/_app/courses/$id/": typeof AppCoursesIdIndexRoute
   "/_app/lessons/$id/": typeof AppLessonsIdIndexRoute
   "/_app/courses/$id/lessons/new": typeof AppCoursesIdLessonsNewRoute
+  "/_app/lessons/$id/write/": typeof AppLessonsIdWriteIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -127,10 +127,10 @@ export interface FileRouteTypes {
     | "/curriculum"
     | "/courses/$id/edit"
     | "/lessons/$id/edit"
-    | "/lessons/$id/write"
     | "/courses/$id"
     | "/lessons/$id"
     | "/courses/$id/lessons/new"
+    | "/lessons/$id/write"
   fileRoutesByTo: FileRoutesByTo
   to:
     | "/"
@@ -140,10 +140,10 @@ export interface FileRouteTypes {
     | "/curriculum"
     | "/courses/$id/edit"
     | "/lessons/$id/edit"
-    | "/lessons/$id/write"
     | "/courses/$id"
     | "/lessons/$id"
     | "/courses/$id/lessons/new"
+    | "/lessons/$id/write"
   id:
     | "__root__"
     | "/_app/"
@@ -153,10 +153,10 @@ export interface FileRouteTypes {
     | "/_app/curriculum/"
     | "/_app/courses/$id/edit"
     | "/_app/lessons/$id/edit"
-    | "/_app/lessons/$id/write"
     | "/_app/courses/$id/"
     | "/_app/lessons/$id/"
     | "/_app/courses/$id/lessons/new"
+    | "/_app/lessons/$id/write/"
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -167,10 +167,10 @@ export interface RootRouteChildren {
   AppCurriculumIndexRoute: typeof AppCurriculumIndexRoute
   AppCoursesIdEditRoute: typeof AppCoursesIdEditRoute
   AppLessonsIdEditRoute: typeof AppLessonsIdEditRoute
-  AppLessonsIdWriteRoute: typeof AppLessonsIdWriteRoute
   AppCoursesIdIndexRoute: typeof AppCoursesIdIndexRoute
   AppLessonsIdIndexRoute: typeof AppLessonsIdIndexRoute
   AppCoursesIdLessonsNewRoute: typeof AppCoursesIdLessonsNewRoute
+  AppLessonsIdWriteIndexRoute: typeof AppLessonsIdWriteIndexRoute
 }
 
 declare module "@tanstack/react-router" {
@@ -224,13 +224,6 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof AppCoursesIdIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    "/_app/lessons/$id/write": {
-      id: "/_app/lessons/$id/write"
-      path: "/lessons/$id/write"
-      fullPath: "/lessons/$id/write"
-      preLoaderRoute: typeof AppLessonsIdWriteRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     "/_app/lessons/$id/edit": {
       id: "/_app/lessons/$id/edit"
       path: "/lessons/$id/edit"
@@ -243,6 +236,13 @@ declare module "@tanstack/react-router" {
       path: "/courses/$id/edit"
       fullPath: "/courses/$id/edit"
       preLoaderRoute: typeof AppCoursesIdEditRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    "/_app/lessons/$id/write/": {
+      id: "/_app/lessons/$id/write/"
+      path: "/lessons/$id/write"
+      fullPath: "/lessons/$id/write"
+      preLoaderRoute: typeof AppLessonsIdWriteIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     "/_app/courses/$id/lessons/new": {
@@ -263,10 +263,10 @@ const rootRouteChildren: RootRouteChildren = {
   AppCurriculumIndexRoute: AppCurriculumIndexRoute,
   AppCoursesIdEditRoute: AppCoursesIdEditRoute,
   AppLessonsIdEditRoute: AppLessonsIdEditRoute,
-  AppLessonsIdWriteRoute: AppLessonsIdWriteRoute,
   AppCoursesIdIndexRoute: AppCoursesIdIndexRoute,
   AppLessonsIdIndexRoute: AppLessonsIdIndexRoute,
   AppCoursesIdLessonsNewRoute: AppCoursesIdLessonsNewRoute,
+  AppLessonsIdWriteIndexRoute: AppLessonsIdWriteIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

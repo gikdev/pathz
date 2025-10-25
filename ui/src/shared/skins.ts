@@ -20,14 +20,22 @@ export const list = tv({
 
 export const iconBtn = tv({
   base: `
-    size-12 [&_svg]:text-[1.5em] flex flex-col
-    items-center justify-center rounded-md
+    flex flex-col items-center justify-center rounded-md
     cursor-pointer disabled:cursor-not-allowed
     text-gray-600 hover:text-gray-900 disabled:hover:text-gray-600
     bg-transparent hover:bg-gray-200 disabled:hover:bg-transparent
     active:scale-95 disabled:active:scale-100
     disabled:opacity-50
   `,
+  variants: {
+    size: {
+      8: `size-8 text-xs [&_svg]:text-[1.5em]`,
+      12: `size-12 text-base [&_svg]:text-[1.5em]`,
+    },
+  },
+  defaultVariants: {
+    size: 12,
+  },
 })
 
 export const paginationIconBtn = tv({
@@ -63,7 +71,7 @@ export const btn = tv({
   `,
   variants: {
     size: {
-      md: `min-h-12 gap-2 rounded-md`,
+      md: `min-h-12 gap-2 px-4 rounded-md`,
     },
     theme: {
       "contained-primary": `
