@@ -1,4 +1,4 @@
-import type { LessonResDto } from "#/api-client"
+import type { LessonResDto } from "#/generated/api-client"
 import {
   BookOpenTextIcon,
   CaretRightIcon,

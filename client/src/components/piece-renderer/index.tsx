@@ -1,4 +1,4 @@
-import type { PieceWithStatusResDto } from "#/api-client"
+import type { PieceWithStatusResDto } from "#/generated/api-client"
 import { PieceSeparator } from "./piece-separator"
 import { PieceText } from "./piece-text"
 

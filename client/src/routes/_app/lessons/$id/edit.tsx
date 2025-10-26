@@ -5,7 +5,7 @@ import { phonePage, list } from "#/shared/skins"
 import { createFileRoute } from "@tanstack/react-router"
 import { LessonForm, select } from "../-lesson-form"
 import { useQuery } from "@tanstack/react-query"
-import { lessonsControllerFindOneByIdWithPiecesV1Options } from "#/api-client"
+import { lessonsControllerFindOneByIdWithPiecesV1Options } from "#/generated/api-client"
 import { SpinnerGapIcon } from "@phosphor-icons/react"
 
 export const Route = createFileRoute("/_app/lessons/$id/edit")({

@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query"
 import { createFileRoute, useNavigate } from "@tanstack/react-router"
-import { coursesControllerFindAllV1Options } from "#/api-client"
+import { coursesControllerFindAllV1Options } from "#/generated/api-client"
 import { list, phonePage } from "#/shared/skins"
 import { AppBar } from "#/components/app-bar"
 import { CourseCard } from "#/components/course-card"

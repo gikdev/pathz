@@ -7,7 +7,7 @@ import { CourseForm, select } from "../-course-form"
 import { useNavigateTo } from "#/shared/hooks"
 import { GoBackBtn } from "#/components/go-back-btn"
 import { ErrorParagraph } from "#/components/error-paragraph"
-import { coursesControllerFindOneByIdWithLessonsV1Options } from "#/api-client"
+import { coursesControllerFindOneByIdWithLessonsV1Options } from "#/generated/api-client"
 
 export const Route = createFileRoute("/_app/courses/$id/edit")({
   component: RouteComponent,

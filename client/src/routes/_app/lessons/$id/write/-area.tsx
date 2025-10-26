@@ -1,4 +1,4 @@
-import { type PieceWithStatusResDto } from "#/api-client"
+import { type PieceWithStatusResDto } from "#/generated/api-client"
 import { btn, iconBtn } from "#/shared/skins"
 import { useReducer } from "react"
 import { produce } from "immer"

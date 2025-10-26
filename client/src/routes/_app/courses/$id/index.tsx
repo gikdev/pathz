@@ -1,7 +1,7 @@
 import {
   coursesControllerFindOneByIdWithLessonsV1Options,
   coursesControllerRemoveOneByIdV1Mutation,
-} from "#/api-client"
+} from "#/generated/api-client"
 import { AppBar } from "#/components/app-bar"
 import { ErrorParagraph } from "#/components/error-paragraph"
 import { FabMenu, type FabItem } from "#/components/fab-menu"

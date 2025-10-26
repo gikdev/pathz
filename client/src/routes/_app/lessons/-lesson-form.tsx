@@ -2,7 +2,7 @@ import {
   coursesControllerCreateOneLessonByCourseIdV1Mutation,
   lessonsControllerUpdateOneByIdV1Mutation,
   type LessonResDto,
-} from "#/api-client"
+} from "#/generated/api-client"
 import { useAppForm } from "#/features/forms"
 import { btn } from "#/shared/skins"
 import { tvcn } from "#/shared/utils"

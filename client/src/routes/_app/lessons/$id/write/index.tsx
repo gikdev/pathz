@@ -1,4 +1,4 @@
-import { lessonsControllerGetContentOfOneByIdV1Options } from "#/api-client"
+import { lessonsControllerGetContentOfOneByIdV1Options } from "#/generated/api-client"
 import { AppBar } from "#/components/app-bar"
 import { ErrorParagraph } from "#/components/error-paragraph"
 import { GoBackNavBtn } from "#/components/go-back-nav-btn"

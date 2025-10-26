@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query"
 import { createFileRoute } from "@tanstack/react-router"
-import { curriculumStepsControllerFindAllWithLessonsV1Options } from "#/api-client"
+import { curriculumStepsControllerFindAllWithLessonsV1Options } from "#/generated/api-client"
 import { list, phonePage } from "#/shared/skins"
 import { AppBar } from "#/components/app-bar"
 import { LessonCard } from "#/components/lesson-card"
