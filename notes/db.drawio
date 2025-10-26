@@ -1,0 +1,54 @@
+<mxfile host="65bd71144e">
+    <diagram id="3wNoMxpxUYCQtrHjTPZB" name="Page-1">
+        <mxGraphModel dx="777" dy="399" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="4" value="lesson" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=50;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;arcSize=4;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="760" y="220" width="160" height="270" as="geometry"/>
+                </mxCell>
+                <mxCell id="5" value="&lt;div&gt;id&lt;/div&gt;title&lt;div&gt;courseId -&amp;gt; course.id&lt;/div&gt;" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;html=1;" parent="4" vertex="1">
+                    <mxGeometry y="50" width="160" height="220" as="geometry"/>
+                </mxCell>
+                <mxCell id="12" value="Piece" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=50;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;arcSize=4;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="340" y="40" width="270" height="270" as="geometry">
+                        <mxRectangle x="310" y="300" width="80" height="50" as="alternateBounds"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="13" value="&lt;div&gt;&lt;span style=&quot;color: rgb(63, 63, 63); background-color: transparent;&quot;&gt;tyep: video, audio, content, voice, separator&lt;/span&gt;&lt;/div&gt;&lt;div&gt;payload: string | null&amp;nbsp;// url, string, or null&lt;/div&gt;&lt;div&gt;order: number&lt;/div&gt;&lt;div&gt;lessonId -&amp;gt; lesson.id&lt;/div&gt;" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;html=1;" parent="12" vertex="1">
+                    <mxGeometry y="50" width="270" height="220" as="geometry"/>
+                </mxCell>
+                <mxCell id="15" value="Course" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=50;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;arcSize=4;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="380" y="380" width="160" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="16" value="&lt;div&gt;id&lt;/div&gt;&lt;b&gt;name: string&lt;/b&gt;&lt;div&gt;description?: string&lt;/div&gt;" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;html=1;" parent="15" vertex="1">
+                    <mxGeometry y="50" width="160" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="17" value="CurriculumStep" style="swimlane;childLayout=stackLayout;horizontal=1;startSize=50;horizontalStack=0;rounded=1;fontSize=14;fontStyle=0;strokeWidth=2;resizeParent=0;resizeLast=1;shadow=0;dashed=0;align=center;arcSize=4;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="1081" y="300" width="160" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="18" value="&lt;div&gt;id&lt;/div&gt;&lt;div&gt;&lt;b&gt;lessonId&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;position&lt;/b&gt;&lt;/div&gt;" style="align=left;strokeColor=none;fillColor=none;spacingLeft=4;fontSize=12;verticalAlign=top;resizable=0;rotatable=0;part=1;html=1;" parent="17" vertex="1">
+                    <mxGeometry y="50" width="160" height="70" as="geometry"/>
+                </mxCell>
+                <mxCell id="21" value="" style="edgeStyle=entityRelationEdgeStyle;fontSize=12;html=1;endArrow=ERmany;startArrow=ERmany;" parent="1" source="4" target="17" edge="1">
+                    <mxGeometry width="100" height="100" relative="1" as="geometry">
+                        <mxPoint x="780" y="745" as="sourcePoint"/>
+                        <mxPoint x="880" y="645" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="24" value="" style="edgeStyle=entityRelationEdgeStyle;fontSize=12;html=1;endArrow=ERmany;startArrow=ERmany;" parent="1" source="4" target="12" edge="1">
+                    <mxGeometry width="100" height="100" relative="1" as="geometry">
+                        <mxPoint x="860" y="310" as="sourcePoint"/>
+                        <mxPoint x="960" y="210" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="25" value="" style="edgeStyle=entityRelationEdgeStyle;fontSize=12;html=1;endArrow=ERmany;startArrow=ERmany;" parent="1" source="4" target="15" edge="1">
+                    <mxGeometry width="100" height="100" relative="1" as="geometry">
+                        <mxPoint x="200" y="840" as="sourcePoint"/>
+                        <mxPoint x="300" y="740" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

@@ -1,0 +1,23 @@
+{
+  "name": "pathz",
+  "version": "1.0.0",
+  "description": "The path to programming for Gen Z people",
+  "license": "UNLICENSED",
+  "author": "Bahrami85.ir",
+  "type": "module",
+  "packageManager": "npm@11.6.1",
+  "scripts": {
+    "init": "npm i && npm i --workspaces",
+    "dev": "node ./scripts/dev.js",
+    "build": "npm run build --workspaces",
+    "format": "prettier --write .",
+    "start": "node ./server/dist/main"
+  },
+  "workspaces": [
+    "server",
+    "client"
+  ],
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}
