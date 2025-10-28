@@ -6,7 +6,7 @@ import { phonePage, list } from "#/shared/skins"
 import { SpinnerGapIcon } from "@phosphor-icons/react"
 import { useQuery } from "@tanstack/react-query"
 import { createFileRoute } from "@tanstack/react-router"
-import { WritingArea } from "./-area"
+import { WritingArea } from "./-writing-area"
 
 export const Route = createFileRoute("/_app/lessons/$id/write/")({
   component: RouteComponent,

@@ -1,75 +1,6 @@
 import { type PieceWithStatusResDto } from "#/generated/api-client"
-import { btn, iconBtn } from "#/shared/skins"
 import { useReducer } from "react"
 import { produce } from "immer"
-import { input } from "#/features/forms/skins"
-import { PieceRenderer } from "#/components/piece-renderer"
-import {
-  ArrowDownIcon,
-  ArrowUpIcon,
-  PencilSimpleIcon,
-  TrashSimpleIcon,
-} from "@phosphor-icons/react"
-
-interface WritingAreaProps {
-  initialPieces: PieceWithStatusResDto[]
-}
-
-export function WritingArea({ initialPieces }: WritingAreaProps) {
-  const { pieces, addText, moveDown, moveUp } = usePieces(initialPieces)
-
-  return (
-    <div className="flex flex-col gap-4 flex-1 overflow-y-auto">
-      <div className="flex gap-2">
-        <input className={input()} onBlur={e => addText(e.target.value)} />
-        <button className={btn()}>جدید</button>
-      </div>
-
-      <div className="flex flex-col gap-4 flex-1 overflow-y-auto">
-        {pieces.map(p => (
-          <div
-            className="flex flex-col group rounded-lg border border-gray-300/20 hover:border-gray-300 p-2 gap-2"
-            key={p.id}
-            dir="auto"
-          >
-            <PieceRenderer payload={p.payload} type={p.type} />
-
-            <div
-              className="opacity-20 group-hover:opacity-100 flex gap-1 items-center justify-end transition-all"
-              dir="rtl"
-            >
-              <button
-                className={iconBtn({ size: 8 })}
-                onClick={() => moveDown(p.id)}
-              >
-                <ArrowDownIcon />
-              </button>
-
-              <button className={iconBtn({ size: 8 })} disabled>
-                {p.position}
-              </button>
-
-              <button
-                className={iconBtn({ size: 8 })}
-                onClick={() => moveUp(p.id)}
-              >
-                <ArrowUpIcon />
-              </button>
-
-              <button className={iconBtn({ size: 8 })} disabled>
-                <PencilSimpleIcon />
-              </button>
-
-              <button className={iconBtn({ size: 8 })} disabled>
-                <TrashSimpleIcon />
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  )
-}
 
 // type PieceType = PieceWithStatusResDto["type"]
 // type PieceStatus = PieceWithStatusResDto["status"]
@@ -95,7 +26,14 @@ type ActionMoveDown = {
   }
 }
 
-type Action = ActionAddText | ActionMoveDown | ActionMoveUp
+type ActionDelete = {
+  type: "DELETE"
+  payload: {
+    id: number
+  }
+}
+
+type Action = ActionAddText | ActionMoveDown | ActionMoveUp | ActionDelete
 
 type State = PieceWithStatusResDto[]
 
@@ -129,7 +67,11 @@ const reducer = (state: State, action: Action): State =>
         const tempPosition = nextPiece.position
         nextPiece.position = currentPiece.position
         currentPiece.position = tempPosition
+
+        pieces.sort((a, b) => a.position - b.position)
       }
+
+      return
     }
 
     if (action.type === "MOVE_UP") {
@@ -148,15 +90,36 @@ const reducer = (state: State, action: Action): State =>
         const tempPosition = previousPiece.position
         previousPiece.position = currentPiece.position
         currentPiece.position = tempPosition
+
+        pieces.sort((a, b) => a.position - b.position)
       }
+
+      return
     }
 
-    if (action.type === "MOVE_UP" || action.type === "MOVE_DOWN") {
-      pieces.sort((a, b) => a.position - b.position)
+    if (action.type === "DELETE") {
+      const idx = pieces.findIndex(p => p.id === action.payload.id)
+      if (idx === -1) return // Not found — do nothing
+
+      const piece = pieces[idx]
+
+      if (piece.status === "Deleted") return
+
+      if (piece.status === "Untouched") {
+        piece.status = "Deleted"
+      }
+
+      if (piece.status === "Created") {
+        pieces.splice(idx, 1)
+      }
+
+      if (piece.status === "Edited") {
+        piece.status = "Deleted"
+      }
     }
   })
 
-function usePieces(initialPieces: PieceWithStatusResDto[] = []) {
+export function usePieces(initialPieces: PieceWithStatusResDto[] = []) {
   const [pieces, dispatch] = useReducer(reducer, initialPieces)
 
   const addText = (content: string) =>
@@ -166,7 +129,9 @@ function usePieces(initialPieces: PieceWithStatusResDto[] = []) {
   const moveDown = (id: number) =>
     dispatch({ type: "MOVE_DOWN", payload: { id } })
 
-  const returnee = { pieces, addText, moveUp, moveDown }
+  const remove = (id: number) => dispatch({ type: "DELETE", payload: { id } })
+
+  const returnee = { pieces, addText, moveUp, moveDown, remove }
 
   return returnee
 }
