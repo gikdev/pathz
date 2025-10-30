@@ -11,7 +11,7 @@ export const input = tv({
   variants: {
     isMultiline: {
       false: null,
-      true: "h-24 resize-y",
+      true: "min-h-24 resize-y",
     },
   },
   defaultVariants: {

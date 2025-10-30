@@ -1,81 +1,53 @@
-import { type PieceWithStatusResDto } from "#/generated/api-client"
-import { useReducer } from "react"
-import { produce } from "immer"
+import type { PieceWithStatusResDto } from "#/generated/api-client"
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit"
 
-// type PieceType = PieceWithStatusResDto["type"]
-// type PieceStatus = PieceWithStatusResDto["status"]
-
-type ActionAddText = {
-  type: "ADD_TEXT"
-  payload: {
-    content: string
+interface WritingAreaState {
+  pieces: PieceWithStatusResDto[]
+  isOpen: {
+    fabMenu: boolean
+    newTextDialog: boolean
   }
 }
 
-type ActionMoveUp = {
-  type: "MOVE_UP"
-  payload: {
-    id: number
-  }
+const initialState: WritingAreaState = {
+  pieces: [],
+  isOpen: {
+    fabMenu: false,
+    newTextDialog: false,
+  },
 }
 
-type ActionMoveDown = {
-  type: "MOVE_DOWN"
-  payload: {
-    id: number
-  }
-}
+export const writingAreaSlice = createSlice({
+  name: "Writing Area",
+  initialState,
+  reducers: {
+    toggleFabMenu: state => {
+      state.isOpen.fabMenu = !state.isOpen.fabMenu
+    },
 
-type ActionDelete = {
-  type: "DELETE"
-  payload: {
-    id: number
-  }
-}
+    openNewTextDialog: state => {
+      state.isOpen.newTextDialog = true
+    },
+    closeNewTextDialog: state => {
+      state.isOpen.newTextDialog = false
+    },
 
-type Action = ActionAddText | ActionMoveDown | ActionMoveUp | ActionDelete
+    setPieces: (state, action: PayloadAction<PieceWithStatusResDto[]>) => {
+      state.pieces = action.payload
+    },
 
-type State = PieceWithStatusResDto[]
-
-const reducer = (state: State, action: Action): State =>
-  produce(state, pieces => {
-    if (action.type === "ADD_TEXT") {
-      pieces.push({
-        id: pieces.length,
-        payload: JSON.stringify({ content: action.payload.content }),
-        position: pieces.length + 1,
+    addText: (state, action: PayloadAction<string>) => {
+      state.pieces.push({
+        id: state.pieces.length,
+        payload: JSON.stringify({ content: action.payload }),
+        position: state.pieces.length + 1,
         status: "Created",
         type: "Text",
       })
+    },
 
-      return
-    }
-
-    if (action.type === "MOVE_DOWN") {
-      const currentIndex = pieces.findIndex(p => p.id === action.payload.id)
-      const nextIndex = currentIndex + 1
-
-      // Check if the current piece exists in the array
-      const pieceExists = currentIndex >= 0
-      // Check if there is a piece below to swap with
-      const hasNextPiece = nextIndex < pieces.length
-
-      if (pieceExists && hasNextPiece) {
-        const currentPiece = pieces[currentIndex]
-        const nextPiece = pieces[nextIndex]
-
-        const tempPosition = nextPiece.position
-        nextPiece.position = currentPiece.position
-        currentPiece.position = tempPosition
-
-        pieces.sort((a, b) => a.position - b.position)
-      }
-
-      return
-    }
-
-    if (action.type === "MOVE_UP") {
-      const currentIndex = pieces.findIndex(p => p.id === action.payload.id)
+    moveUp: (state, action: PayloadAction<number>) => {
+      const currentIndex = state.pieces.findIndex(p => p.id === action.payload)
       const previousIndex = currentIndex - 1
 
       // Check if the current piece exists
@@ -84,54 +56,68 @@ const reducer = (state: State, action: Action): State =>
       const hasPreviousPiece = previousIndex >= 0
 
       if (pieceExists && hasPreviousPiece) {
-        const currentPiece = pieces[currentIndex]
-        const previousPiece = pieces[previousIndex]
+        const currentPiece = state.pieces[currentIndex]
+        const previousPiece = state.pieces[previousIndex]
 
         const tempPosition = previousPiece.position
         previousPiece.position = currentPiece.position
         currentPiece.position = tempPosition
 
-        pieces.sort((a, b) => a.position - b.position)
+        state.pieces.sort((a, b) => a.position - b.position)
       }
 
       return
-    }
+    },
 
-    if (action.type === "DELETE") {
-      const idx = pieces.findIndex(p => p.id === action.payload.id)
+    moveDown: (state, action: PayloadAction<number>) => {
+      const currentIndex = state.pieces.findIndex(p => p.id === action.payload)
+      const nextIndex = currentIndex + 1
+
+      // Check if the current piece exists in the array
+      const pieceExists = currentIndex >= 0
+      // Check if there is a piece below to swap with
+      const hasNextPiece = nextIndex < state.pieces.length
+
+      if (pieceExists && hasNextPiece) {
+        const currentPiece = state.pieces[currentIndex]
+        const nextPiece = state.pieces[nextIndex]
+
+        const tempPosition = nextPiece.position
+        nextPiece.position = currentPiece.position
+        currentPiece.position = tempPosition
+
+        state.pieces.sort((a, b) => a.position - b.position)
+      }
+
+      return
+    },
+
+    remove: (state, action: PayloadAction<number>) => {
+      const idx = state.pieces.findIndex(p => p.id === action.payload)
       if (idx === -1) return // Not found — do nothing
 
-      const piece = pieces[idx]
+      const piece = state.pieces[idx]
 
-      if (piece.status === "Deleted") return
+      switch (piece.status) {
+        case "Untouched": {
+          piece.status = "Deleted"
+          break
+        }
 
-      if (piece.status === "Untouched") {
-        piece.status = "Deleted"
+        case "Edited": {
+          piece.status = "Deleted"
+          break
+        }
+
+        case "Created": {
+          state.pieces.splice(idx, 1)
+          break
+        }
+
+        case "Deleted":
+        default:
+          break
       }
-
-      if (piece.status === "Created") {
-        pieces.splice(idx, 1)
-      }
-
-      if (piece.status === "Edited") {
-        piece.status = "Deleted"
-      }
-    }
-  })
-
-export function usePieces(initialPieces: PieceWithStatusResDto[] = []) {
-  const [pieces, dispatch] = useReducer(reducer, initialPieces)
-
-  const addText = (content: string) =>
-    dispatch({ type: "ADD_TEXT", payload: { content } })
-
-  const moveUp = (id: number) => dispatch({ type: "MOVE_UP", payload: { id } })
-  const moveDown = (id: number) =>
-    dispatch({ type: "MOVE_DOWN", payload: { id } })
-
-  const remove = (id: number) => dispatch({ type: "DELETE", payload: { id } })
-
-  const returnee = { pieces, addText, moveUp, moveDown, remove }
-
-  return returnee
-}
+    },
+  },
+})

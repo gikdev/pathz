@@ -15,7 +15,7 @@ const dialog = tv({
       flex flex-col gap-4 
 
       -- SIZING
-      w-full max-w-[calc(100%-2rem)] sm:max-w-lg rounded-lg p-3 
+      w-full max-w-[calc(100%-2rem)] sm:max-w-lg rounded-lg p-6 
 
       -- SKIN
       bg-gray-100 shadow-lg border-2 border-gray-300
