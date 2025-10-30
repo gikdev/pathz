@@ -81,10 +81,19 @@ export const btn = tv({
 
         text-gray-50
       `,
+      "light-neutral": `
+        bg-gray-200
+        hover:bg-gray-300 
+        disabled:hover:bg-gray-200
+
+        text-gray-600
+        hover:text-gray-900 
+        disabled:hover:text-gray-600
+      `,
     },
   },
   defaultVariants: {
     size: "md",
-    theme: "contained-primary",
+    theme: "light-neutral",
   },
 })

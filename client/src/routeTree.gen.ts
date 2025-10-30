@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from "./routes/__root"
 import { Route as AdminIndexRouteImport } from "./routes/admin/index"
 import { Route as AppIndexRouteImport } from "./routes/_app/index"
+import { Route as DevTestRouteImport } from "./routes/dev/test"
 import { Route as AppCurriculumIndexRouteImport } from "./routes/_app/curriculum/index"
 import { Route as AppCoursesIndexRouteImport } from "./routes/_app/courses/index"
 import { Route as AppCoursesNewRouteImport } from "./routes/_app/courses/new"
@@ -29,6 +30,11 @@ const AdminIndexRoute = AdminIndexRouteImport.update({
 const AppIndexRoute = AppIndexRouteImport.update({
   id: "/_app/",
   path: "/",
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DevTestRoute = DevTestRouteImport.update({
+  id: "/dev/test",
+  path: "/dev/test",
   getParentRoute: () => rootRouteImport,
 } as any)
 const AppCurriculumIndexRoute = AppCurriculumIndexRouteImport.update({
@@ -78,6 +84,7 @@ const AppCoursesIdLessonsNewRoute = AppCoursesIdLessonsNewRouteImport.update({
 } as any)
 
 export interface FileRoutesByFullPath {
+  "/dev/test": typeof DevTestRoute
   "/": typeof AppIndexRoute
   "/admin": typeof AdminIndexRoute
   "/courses/new": typeof AppCoursesNewRoute
@@ -91,6 +98,7 @@ export interface FileRoutesByFullPath {
   "/lessons/$id/write": typeof AppLessonsIdWriteIndexRoute
 }
 export interface FileRoutesByTo {
+  "/dev/test": typeof DevTestRoute
   "/": typeof AppIndexRoute
   "/admin": typeof AdminIndexRoute
   "/courses/new": typeof AppCoursesNewRoute
@@ -105,6 +113,7 @@ export interface FileRoutesByTo {
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
+  "/dev/test": typeof DevTestRoute
   "/_app/": typeof AppIndexRoute
   "/admin/": typeof AdminIndexRoute
   "/_app/courses/new": typeof AppCoursesNewRoute
@@ -120,6 +129,7 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
+    | "/dev/test"
     | "/"
     | "/admin"
     | "/courses/new"
@@ -133,6 +143,7 @@ export interface FileRouteTypes {
     | "/lessons/$id/write"
   fileRoutesByTo: FileRoutesByTo
   to:
+    | "/dev/test"
     | "/"
     | "/admin"
     | "/courses/new"
@@ -146,6 +157,7 @@ export interface FileRouteTypes {
     | "/lessons/$id/write"
   id:
     | "__root__"
+    | "/dev/test"
     | "/_app/"
     | "/admin/"
     | "/_app/courses/new"
@@ -160,6 +172,7 @@ export interface FileRouteTypes {
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
+  DevTestRoute: typeof DevTestRoute
   AppIndexRoute: typeof AppIndexRoute
   AdminIndexRoute: typeof AdminIndexRoute
   AppCoursesNewRoute: typeof AppCoursesNewRoute
@@ -187,6 +200,13 @@ declare module "@tanstack/react-router" {
       path: "/"
       fullPath: "/"
       preLoaderRoute: typeof AppIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    "/dev/test": {
+      id: "/dev/test"
+      path: "/dev/test"
+      fullPath: "/dev/test"
+      preLoaderRoute: typeof DevTestRouteImport
       parentRoute: typeof rootRouteImport
     }
     "/_app/curriculum/": {
@@ -256,6 +276,7 @@ declare module "@tanstack/react-router" {
 }
 
 const rootRouteChildren: RootRouteChildren = {
+  DevTestRoute: DevTestRoute,
   AppIndexRoute: AppIndexRoute,
   AdminIndexRoute: AdminIndexRoute,
   AppCoursesNewRoute: AppCoursesNewRoute,
