@@ -5,6 +5,7 @@ import {
   Get,
   NotFoundException,
   Patch,
+  Put,
   Version,
 } from "@nestjs/common"
 import { LessonsService } from "./lessons.service"
@@ -18,6 +19,7 @@ import { DeletedResDto } from "src/common/dtos/deleted.res.dto"
 import { UpdateLessonReqDto } from "./dtos/update-lesson.req.dto"
 import { LessonResDto } from "./dtos/lesson.res.dto"
 import { LessonContentResDto } from "./dtos/lesson-content.res.dto"
+// import { LessonContentReqDto } from "./dtos/lesson-content.req.dto";
 
 @Controller("lessons")
 export class LessonsController {
@@ -94,11 +96,10 @@ export class LessonsController {
     )
   }
 
-  // @ApiSummary("Update a lesson's content")
-  // @Version("1")
-  // @Put(":id/content")
-  // async updateContentOfOneById(
-  //   @ParamId() id: number,
-  //   @Body() lessonContentReqDto: LessonContentReqDto,
-  // ) {}
+  @ApiSummary("Update a lesson's content")
+  @Version("1")
+  @Put(":id/content")
+  async updateContentOfOneById() // @ParamId() id: number,
+  // @Body() lessonContentReqDto: LessonContentReqDto,
+  {}
 }

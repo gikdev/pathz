@@ -1,8 +1,9 @@
-import { Injectable } from "@nestjs/common"
+import { Injectable, NotFoundException } from "@nestjs/common"
 import { PrismaService } from "src/prisma/prisma.service"
 import { CreateLessonReqDto } from "./dtos/create-lesson.req.dto"
 import { UpdateLessonReqDto } from "./dtos/update-lesson.req.dto"
 import { PieceStatus } from "../pieces/enums/piece-status.enum"
+import { LessonContentReqDto } from "./dtos/lesson-content.req.dto"
 
 @Injectable()
 export class LessonsService {
@@ -11,6 +12,14 @@ export class LessonsService {
   async ok() {
     await this.prisma.lesson.count()
     return { ok: true }
+  }
+
+  async findOneById(id: number) {
+    const lesson = await this.prisma.lesson.findUnique({
+      where: { id },
+    })
+
+    return { lesson }
   }
 
   async findOneByIdWithPieces(id: number) {
@@ -69,5 +78,26 @@ export class LessonsService {
     return { content }
   }
 
-  // async updateContentOfOneById(id: number, { pieces }: LessonContentReqDto) {}
+  async updateContentOfOneById(
+    id: number,
+    lessonContentReqDto: LessonContentReqDto,
+  ) {
+    const exists = (await this.findOneById(id)) === null
+    
+    if (!exists) throw new NotFoundException("Lesson was not found")
+
+    for (const pieceModificationReqDto of lessonContentReqDto.content) {
+      const sth = await this.prisma.piece.create({
+        data: {
+          id: pieceModificationReqDto.id,
+          lessonId: id,
+          position: pieceModificationReqDto.position,
+          type: pieceModificationReqDto.type,
+          payload: pieceModificationReqDto.payload,
+        }
+      })
+
+      console.log(sth);
+    }
+  }
 }
